@@ -102,10 +102,7 @@ export function AddNewBlogDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="w-full">
-        <Button
-          className="bg700 hover:bg600 text100"
-          disabled={loading}
-        >
+        <Button className="bg700 hover:bg600 text100" disabled={loading}>
           {!loading ? (
             <>
               <ScrollText className="mr-2 h-5 w-5" />
@@ -144,25 +141,36 @@ export function AddNewBlogDialog() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="category" className="text800">
-                    Category
+                    Main Category
                   </Label>
                   <Select value={category} onValueChange={setCategory}>
                     <SelectTrigger className="bg50 border300 text900">
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="history">
-                        Historical Account
+                      <SelectItem value="fantasy">Fantasy</SelectItem>
+                      <SelectItem value="science-fiction">
+                        Science Fiction
                       </SelectItem>
-                      <SelectItem value="literature">
-                        Literary Analysis
+                      <SelectItem value="mystery">Mystery</SelectItem>
+                      <SelectItem value="romance">Romance</SelectItem>
+                      <SelectItem value="thriller">Thriller</SelectItem>
+                      <SelectItem value="horror">Horror</SelectItem>
+                      <SelectItem value="historical-fiction">
+                        Historical Fiction
                       </SelectItem>
-                      <SelectItem value="philosophy">
-                        Philosophical Musings
+                      <SelectItem value="contemporary">
+                        Contemporary Fiction
                       </SelectItem>
-                      <SelectItem value="folklore">
-                        Tales and Legends
+                      <SelectItem value="literary-fiction">
+                        Literary Fiction
                       </SelectItem>
+                      <SelectItem value="young-adult">Young Adult</SelectItem>
+                      <SelectItem value="non-fiction">Non-Fiction</SelectItem>
+                      <SelectItem value="biography">Biography</SelectItem>
+                      <SelectItem value="memoir">Memoir</SelectItem>
+                      <SelectItem value="self-help">Self-Help</SelectItem>
+                      <SelectItem value="poetry">Poetry</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

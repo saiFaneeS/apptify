@@ -72,7 +72,7 @@ const BookLibrary = () => {
               </SelectContent>
             </Select>
           </div>
-          <div className="hidden lg:block">
+          <div className="hidden l:block">
             <TabsList>
               {tabOptions.map((option) => (
                 <TabsTrigger

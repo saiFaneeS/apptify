@@ -31,7 +31,8 @@ const BooksDataTable = ({
 
   const handleViewClick = (blogId) => {
     incrementViewCount(blogId);
-    router.push(`/reviews/${blogId}`);
+
+    window.open(`/reviews/${blogId}`, "_blank");
   };
 
   return (
@@ -63,6 +64,7 @@ const BooksDataTable = ({
                 <TableHead>Status</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>Views</TableHead>
+                <TableHead>Comments</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -93,6 +95,7 @@ const BooksDataTable = ({
                       {review?.createdAt && formatTime(review?.createdAt)}
                     </TableCell>
                     <TableCell>{review?.viewCount || 0}</TableCell>
+                    <TableCell>{review?.comments?.length || 0}</TableCell>
                     <TableCell>
                       <div className="flex space-x-2">
                         <EditBlogDialog blog={review} />

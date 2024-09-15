@@ -16,13 +16,8 @@ export const UserProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (authUser) {
-      getUserProfile("o2hkhkZainSjiv1JKdBo");
-    } else {
-      setUserProfile(null);
-      setLoading(false);
-    }
-  }, [authUser]);
+    getUserProfile("o2hkhkZainSjiv1JKdBo");
+  }, []);
 
   const getUserProfile = async (userId) => {
     setLoading(true);
@@ -31,6 +26,7 @@ export const UserProvider = ({ children }) => {
       const userDoc = await getDoc(doc(db, "users", userId));
       if (userDoc.exists()) {
         setUserProfile(userDoc.data());
+        // console.log(userDoc.data());
       } else {
         setUserProfile(null);
       }

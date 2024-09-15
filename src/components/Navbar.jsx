@@ -12,6 +12,9 @@ import {
   Mail,
   Menu,
   X,
+  Library,
+  Sword,
+  Swords,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -23,7 +26,7 @@ export default function Navbar() {
 
   const navItems = [
     { href: "/reviews", label: "Book Reviews", icon: ScrollText },
-    { href: "/library", label: "Library", icon: Book },
+    { href: "/library", label: "Library", icon: Library },
     { href: "/about", label: "About the Scribe", icon: User },
     { href: "/contact", label: "Send a Missive", icon: Mail },
   ];
@@ -32,7 +35,8 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
       if (scrollTop > lastScrollTop.current) {
         // Scrolling down
         setShowNavbar(false);
@@ -57,10 +61,10 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           <Link
             href="/"
-            className="flex items-center space-x-3 text-xl font-bold"
+            className="flex items-center space-x-3 text-xl font-semibold"
           >
-            <Shield className="h-8 w-8" />
-            <span className="hidden sm:inline">Ye Olde Blog</span>
+            <Swords className="h-7 w-7" />
+            <span className="hidden sm:inline">Saif Anees</span>
           </Link>
           <div className="hidden md:flex space-x-4">
             {navItems.map((item) => (

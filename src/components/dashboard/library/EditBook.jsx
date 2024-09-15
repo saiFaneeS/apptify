@@ -21,13 +21,16 @@ import {
 } from "@/components/ui/select";
 import { Edit, ImageIcon, Loader2 } from "lucide-react";
 import { useLibrary } from "@/context/LibraryContext";
+import { Slider } from "@/components/ui/slider";
 
 const EditBook = ({ book }) => {
   const { updateBook, loading } = useLibrary();
   const [editingBook, setEditingBook] = useState({
     title: book?.title,
+    bookAuthor: book?.bookAuthor,
     coverImage: book?.coverImage,
     status: book?.status,
+    progress: book?.progress || 0,
   });
 
   const handleUpdateBook = () => {
@@ -36,14 +39,18 @@ const EditBook = ({ book }) => {
       title: book?.title,
       coverImage: book?.coverImage,
       status: book?.status,
+      bookAuthor: book?.bookAuthor,
+      progress: book?.progress,
     });
   };
 
   useEffect(() => {
     setEditingBook({
       title: book?.title,
+      bookAuthor: book?.bookAuthor,
       coverImage: book?.coverImage,
       status: book?.status,
+      progress: book?.progress || 0,
     });
   }, [book]);
 
@@ -78,6 +85,22 @@ const EditBook = ({ book }) => {
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="edit-bookAuthor" className="text-right">
+              Author
+            </Label>
+            <Input
+              id="edit-bookAuthor"
+              value={editingBook?.bookAuthor || ""}
+              onChange={(e) =>
+                setEditingBook(
+                  editingBook ? { ...editingBook, bookAuthor: e.target.value } : null
+                )
+              }
+              className="col-span-3"
+              placeholder="Optional"
+            />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="edit-status" className="text-right">
               Status
             </Label>
@@ -102,6 +125,29 @@ const EditBook = ({ book }) => {
               </SelectContent>
             </Select>
           </div>
+          {editingBook?.status === "currently reading" && (
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="edit-progress" className="text-right">
+                Progress
+              </Label>
+              <div className="col-span-3 flex items-center gap-4">
+                <Slider
+                  id="edit-progress"
+                  min={0}
+                  max={100}
+                  step={1}
+                  value={[editingBook?.progress || 0]}
+                  onValueChange={(value) =>
+                    setEditingBook(
+                      editingBook ? { ...editingBook, progress: value[0] } : null
+                    )
+                  }
+                  className="flex-grow"
+                />
+                <span className="w-12 text-right">{editingBook?.progress || 0}%</span>
+              </div>
+            </div>
+          )}
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="edit-coverImage" className="text-right">
               New Cover

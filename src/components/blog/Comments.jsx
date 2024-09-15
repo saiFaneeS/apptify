@@ -31,14 +31,16 @@ export default function Comments() {
   }, []);
 
   useEffect(() => {
-    const sorted = [...comments].sort((a, b) => {
-      if (sortOrder === "newest") {
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      } else {
-        return new Date(a.createdAt) - new Date(b.createdAt);
-      }
-    });
-    setSortedComments(sorted);
+    if (comments) {
+      const sorted = [...comments].sort((a, b) => {
+        if (sortOrder === "newest") {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        } else {
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        }
+      });
+      setSortedComments(sorted);
+    }
   }, [comments, sortOrder]);
 
   const handleSubmit = (e) => {

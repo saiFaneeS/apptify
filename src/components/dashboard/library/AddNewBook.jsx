@@ -20,13 +20,16 @@ import {
 } from "@/components/ui/select";
 import { ImageIcon, Loader2, Plus } from "lucide-react";
 import { useLibrary } from "@/context/LibraryContext";
+import { Slider } from "@/components/ui/slider"; // Add this import
 
 const AddNewBook = () => {
   const { addNewBook, loading } = useLibrary();
   const [newBook, setNewBook] = useState({
     title: "",
+    bookAuthor: "",
     coverImage: "",
     status: "tbr",
+    progress: "",
   });
 
   const addBook = () => {
@@ -37,7 +40,7 @@ const AddNewBook = () => {
     };
     addNewBook(book);
 
-    setNewBook({ coverImage: "", title: "", status: "tbr" });
+    setNewBook({ coverImage: "", title: "", status: "tbr", progress: 0 });
   };
 
   return (
@@ -76,6 +79,21 @@ const AddNewBook = () => {
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="author" className="text-right">
+              Author
+            </Label>
+            <Input
+              id="author"
+              value={newBook.author}
+              onChange={(e) =>
+                setNewBook({ ...newBook, author: e.target.value })
+              }
+              className="col-span-3"
+              placeholder="Optional"
+            />
+          </div>
+
+          <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="status" className="text-right">
               Status
             </Label>
@@ -98,6 +116,29 @@ const AddNewBook = () => {
               </SelectContent>
             </Select>
           </div>
+
+          {newBook.status === "currently reading" && (
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="progress" className="text-right">
+                Progress
+              </Label>
+              <div className="col-span-3 flex items-center gap-4">
+                <Slider
+                  id="progress"
+                  min={0}
+                  max={100}
+                  step={1}
+                  value={[newBook.progress]}
+                  onValueChange={(value) =>
+                    setNewBook({ ...newBook, progress: value[0] })
+                  }
+                  className="flex-grow"
+                />
+                <span className="w-12 text-right">{newBook.progress}%</span>
+              </div>
+            </div>
+          )}
+
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="coverImage" className="text-right">
               Cover Image

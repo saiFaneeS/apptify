@@ -107,8 +107,12 @@ export const BlogsProvider = ({ children }) => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setBlog(docSnap.data());
-        console.log("Blog data", docSnap.data());
+        const blogData = docSnap.data();
+        const coverImageUrl = await getDownloadURL(
+          ref(storage, blogData.coverImage)
+        );
+        setBlog({ ...blogData, coverImage: coverImageUrl });
+        // console.log("Blog data", { ...blogData, coverImage: coverImageUrl });
       }
 
       setComments(docSnap.data().comments);
@@ -139,7 +143,7 @@ export const BlogsProvider = ({ children }) => {
         updatedData.coverImage = uploadResult?.ref?.fullPath;
       }
 
-      await setDoc(doc(db, "blogs", blogId), updatedData);
+      await updateDoc(doc(db, "blogs", blogId), updatedData);
 
       setBlogs((prevBlogs) =>
         prevBlogs?.map((blog) =>
