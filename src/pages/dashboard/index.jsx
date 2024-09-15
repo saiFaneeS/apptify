@@ -77,6 +77,7 @@ export default function CMSDashboard() {
                 </div>
               </CardContent>
             </Card>{" "}
+            
             {/* Featured */}
             <Card className="overflow-hidden">
               <CardContent>
@@ -128,6 +129,7 @@ export default function CMSDashboard() {
                 )}
               </CardContent>
             </Card>
+
             {/* Actions */}
             <Card className="">
               <CardContent className="flex flex-col gap-4">

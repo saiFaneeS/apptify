@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,7 +12,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { ScrollText, User, LogOut, Bell, Sun, Moon, LibraryBig } from "lucide-react";
+import {
+  ScrollText,
+  User,
+  LogOut,
+  Bell,
+  Sun,
+  Moon,
+  LibraryBig,
+  LayoutDashboard,
+} from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { getAuth, signOut } from "firebase/auth";
 import { useTheme } from "next-themes";
@@ -23,10 +32,12 @@ export default function TopBar() {
   const { userProfile } = useUser();
   const { theme, setTheme } = useTheme();
   const [avatar, setAvatar] = useState(null);
+  const [showNavbar, setShowNavbar] = useState(true);
 
   const [mounted, setMounted] = useState(false);
 
   const isDark = theme === "dark";
+  const lastScrollTop = useRef(0);
 
   const handleSignOut = async () => {
     await signOut(auth);
@@ -45,34 +56,55 @@ export default function TopBar() {
         console.error("Error parsing stored avatar:", error);
       }
     }
+
+    const handleScroll = () => {
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop > lastScrollTop.current) {
+        // Scrolling down
+        setShowNavbar(false);
+      } else {
+        // Scrolling up
+        setShowNavbar(true);
+      }
+      lastScrollTop.current = scrollTop;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <div className="bg-background border-b-2 border700 fixed w-full z-50">
+    // <div className="bg-background border-b-2 border700 fixed w-full z-50">
+    <div
+      className={`bg-foreground text-background fixed top-0 left-0 w-full z-50 transition-transform duration-500 delay-75 ${
+        showNavbar ? "translate-y-0" : "-translate-y-20"
+      }`}
+    >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo and site title */}
           <Link
             href="/dashboard"
-            className="flex items-center space-x-3 text-xl font-bold font-serif"
+            className="flex items-center space-x-3 text-xl font-semibold"
           >
-            <ScrollText className="h-8 w-8" />
-            <span className="hidden sm:inline">My Realm</span>
+            <LayoutDashboard className="h-6 w-6" />
+            <span className="hidden sm:inline">CMS</span>
           </Link>
 
           {/* Right side items */}
           <div className="flex items-center space-x-4">
             {/* Notifications */}
-            <Button
+            {/* <Button
               variant="ghost"
               size="icon"
               className="text100 hover:text200"
             >
               <Bell className="h-5 w-5" />
-            </Button>
+            </Button> */}
             {mounted && (
               <span
-                className="h-9 w-9 rounded-full bg-background text-gray-500 flex justify-center items-center hover:bg-secondary cursor-pointer  border-background outline outline-1 outline-border hover:outline-primary transition-all shrink-0"
+                className="h-9 w-9 rounded-full  flex justify-center items-center cursor-pointer outline outline-1 outline-border/10 hover:outline-primary/50 hover:bg-primary/10 transition-all shrink-0"
                 onClick={() => setTheme(isDark ? "light" : "dark")}
               >
                 {isDark ? <Sun size={18} /> : <Moon size={18} />}

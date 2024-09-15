@@ -8,18 +8,12 @@ import { ScrollText, Target, Plus, Edit, Trash, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useGoals } from "@/context/GoalContext";
 import AddNewGoal from "./goals/AddNewGoal";
+import { ConfirmDeleteGoal } from "./goals/ConfirmDeleteGoal";
 
 export default function Goals() {
   const { toast } = useToast();
-  const {
-    goals,
-    fetchAllGoals,
-    createGoal,
-    updateGoal,
-    deleteGoal,
-    loading,
-    error,
-  } = useGoals();
+  const { goals, fetchAllGoals, createGoal, updateGoal, loading, error } =
+    useGoals();
 
   const [newGoal, setNewGoal] = useState({ title: "", progress: 0 });
   const [editingGoal, setEditingGoal] = useState(null);
@@ -61,22 +55,6 @@ export default function Goals() {
     }
   };
 
-  const handleDeleteGoal = async (id) => {
-    try {
-      await deleteGoal(id);
-      toast({
-        title: "Quest abandoned",
-        description: "Your quest has been removed from the scrolls.",
-      });
-    } catch (err) {
-      toast({
-        title: "Error",
-        description: "Failed to abandon quest",
-        variant: "destructive",
-      });
-    }
-  };
-
   const renderGoal = (goal, isEditing) => (
     <div className="flex flex-col gap-4">
       {isEditing ? (
@@ -112,13 +90,7 @@ export default function Goals() {
                 >
                   <Edit className="w-4 h-4" />
                 </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => handleDeleteGoal(goal.id)}
-                >
-                  <Trash className="w-4 h-4" />
-                </Button>
+                <ConfirmDeleteGoal goal={goal} />{" "}
               </>
             )}
           </div>
@@ -152,7 +124,7 @@ export default function Goals() {
   );
 
   return (
-    <Card className="border-2 p-6 flex flex-col gap-4 mb-8">
+    <Card className="flex flex-col gap-4 mb-8">
       <CardHeader>
         <CardTitle className="flex items-center w-full justify-between">
           <div className="flex gap-2 items-center">
@@ -175,16 +147,16 @@ export default function Goals() {
           </div>
         ) : (
           <>
-            <ul className="space-y-6 mt-6">
+            <ul className="space-y-4">
               {goals?.map((goal) => (
-                <li
+                <Card
                   key={goal.id}
-                  className="p-4 border-2 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                  className="hover:shadow-lg transition-shadow duration-300 p-4"
                 >
                   <div className="relative">
                     {renderGoal(goal, editingGoal?.id === goal.id)}
                   </div>
-                </li>
+                </Card>
               ))}
             </ul>
           </>

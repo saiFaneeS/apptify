@@ -8,6 +8,7 @@ import { formatTime } from "@/lib/formatTime";
 import { useBlogs } from "@/context/BlogContext";
 import { useParams } from "next/navigation";
 import { Trash2, ArrowUpDown } from "lucide-react";
+import { Card } from "../ui/card";
 
 export default function Comments() {
   const [newComment, setNewComment] = useState({ username: "", content: "" });
@@ -89,7 +90,7 @@ export default function Comments() {
   };
 
   const CommentItem = ({ comment }) => (
-    <div className="bg-white rounded-lg shadow-md p-4 mb-4">
+    <Card className="mb-4">
       <div className="flex items-center mb-2 justify-between">
         <div className="flex items-center">
           <Avatar className="h-8 w-8 mr-2">
@@ -114,7 +115,7 @@ export default function Comments() {
         )}
       </div>
       <p className="text-gray-700 mb-2">{comment.content}</p>
-    </div>
+    </Card>
   );
 
   return (
@@ -129,9 +130,10 @@ export default function Comments() {
 
       {/* Comment Form */}
       <form onSubmit={handleSubmit} className="flex flex-col gap-2 mb-8">
+        <p>Comment as:</p>
         <div className="flex space-x-2 mb-2">
           <div>
-            <Avatar className="border-2">
+            <Avatar className="border border-border bg-backgr`ound">
               <AvatarImage
                 src={`https://api.dicebear.com/6.x/micah/svg?seed=${newComment.username}`}
               />

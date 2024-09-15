@@ -10,7 +10,7 @@ const Hero = () => {
           alt="Medieval library background"
           layout="fill"
           objectFit="cover"
-          className="opacity-30"
+          className="opacity-20"
         />
       </div>
       <div className="absolute inset-0 bg-[url('/medieval-library.jpg')] bg-cover bg-center opacity-20"></div>

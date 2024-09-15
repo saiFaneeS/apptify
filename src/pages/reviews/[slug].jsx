@@ -22,6 +22,7 @@ import Comments from "@/components/blog/Comments";
 import { useUser } from "@/context/UserContext";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 export default function SinglePostPage() {
   const [relatedBlogs, setRelatedBlogs] = useState([]);
@@ -194,41 +195,48 @@ export default function SinglePostPage() {
             <section>
               <div className="grid gap-6 md:grid-cols-3">
                 {relatedBlogs?.map((review) => (
-                  <Card key={review.id} className="flex items-center">
-                    <Image
-                      src={review.coverImage}
-                      alt={review.title}
-                      width={100}
-                      height={150}
-                      className="rounded mr-4"
-                    />
-                    <div className="flex flex-col gap-1">
-                      <Badge className="mb-2 w-fit capitalize">
-                        {review.category}
-                      </Badge>
-                      <h3 className="text-lg font-bold mb-1">{review.title}</h3>
-                      <p className="flex items-center gap-1 text-sm mb-1 font-medium">
-                        <Book className="h-4 w-4" />
-                        {review.bookName}
-                      </p>
-                      <p className="flex items-center gap-2 text-sm mb-1 font-medium">
-                        <Pen className="h-4 w-4" />
-                        {review.bookAuthor}
-                      </p>
-                      <div className="flex">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`w-4 h-4 ${
-                              i < review.rating
-                                ? "text-yellow-500 fill-current"
-                                : ""
-                            }`}
-                          />
-                        ))}
+                  <Link href={`/reviews/${review.id}`}>
+                    <Card
+                      key={review.id}
+                      className="flex items-center hover:bg-foreground/5"
+                    >
+                      <Image
+                        src={review.coverImage}
+                        alt={review.title}
+                        width={100}
+                        height={150}
+                        className="rounded mr-4"
+                      />
+                      <div className="flex flex-col gap-1">
+                        <Badge className="mb-2 w-fit capitalize">
+                          {review.category}
+                        </Badge>
+                        <h3 className="text-lg font-bold mb-1">
+                          {review.title}
+                        </h3>
+                        <p className="flex items-center gap-1 text-sm mb-1 font-medium">
+                          <Book className="h-4 w-4" />
+                          {review.bookName}
+                        </p>
+                        <p className="flex items-center gap-2 text-sm mb-1 font-medium">
+                          <Pen className="h-4 w-4" />
+                          {review.bookAuthor}
+                        </p>
+                        <div className="flex">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              className={`w-4 h-4 ${
+                                i < review.rating
+                                  ? "text-yellow-500 fill-current"
+                                  : ""
+                              }`}
+                            />
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  </Card>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             </section>{" "}

@@ -15,12 +15,19 @@ import {
   Library,
   Sword,
   Swords,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  const isDark = theme === "dark";
   const lastScrollTop = useRef(0);
   const pathname = usePathname();
 
@@ -34,6 +41,8 @@ export default function Navbar() {
   const isActive = (path) => pathname === path;
 
   useEffect(() => {
+    setMounted(true);
+
     const handleScroll = () => {
       const scrollTop =
         window.pageYOffset || document.documentElement.scrollTop;
@@ -81,6 +90,14 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
+            {mounted && (
+              <span
+                className="h-9 w-9 rounded-full  flex justify-center items-center cursor-pointer outline outline-1 outline-border/10 hover:outline-primary/50 hover:bg-primary/10 transition-all shrink-0"
+                onClick={() => setTheme(isDark ? "light" : "dark")}
+              >
+                {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              </span>
+            )}
           </div>
           <Button
             variant="ghost"

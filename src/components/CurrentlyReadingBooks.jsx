@@ -38,7 +38,7 @@ export default function CurrentlyReading() {
             <div className="flex-grow">
               <h3 className="text-lg font-bold text900 mb-1">{book.title}</h3>
               <p className="text800 text-sm mb-2">By {book.bookAuthor}</p>  
-              <Progress value={book.progress} className="mb-2" />
+              <Progress value={book.progress} className="h-2 mb-2" />
               <p className="text700 text-sm">{book.progress}% complete</p>
             </div>
           </div>

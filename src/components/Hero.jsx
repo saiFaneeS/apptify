@@ -11,7 +11,7 @@ export default function Hero() {
           alt="Medieval library background"
           layout="fill"
           objectFit="cover"
-          className="opacity-30"
+          className="opacity-20"
         />
       </div>
       <div className="relative z-10 text-center text-background px-4 sm:px-6 lg:px-8">
