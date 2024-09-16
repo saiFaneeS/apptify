@@ -30,14 +30,14 @@ export default function AboutPage() {
 
   return (
     <Layout>
-      <div className="bg50 min-h-screen pb-12">
+      <div className="min-h-screen pb-12">
         <Hero blogs={blogs?.length} books={books?.length} />
-        <div className="container mx-auto px-4 py-12">
+        <div className="">
           {/* Introduction */}
-          <section className="mb-12">
+          <section className="px-8 max-sm:px-4 mb-12">
             <div className="flex flex-col md:flex-row gap-8 items-center">
               <Image
-                src="/man1.png"
+                src={userProfile?.avatarUrl}
                 alt="Portrait of the Scribe"
                 width={300}
                 height={300}
@@ -47,7 +47,7 @@ export default function AboutPage() {
                 <h4 className="font-medium mt-2">{userProfile?.name}</h4>
 
                 <section className="mb-12">
-                  <h2 className="text-3xl font-bold text900 mb-4">
+                  <h2 className="text-3xl font-semibold mb-4">
                     The Scribe&apos;s Tale
                   </h2>
                   <p className="text800 mb-4">
@@ -71,8 +71,8 @@ export default function AboutPage() {
           </section>
 
           {/* Focus on Content */}
-          <section className="mb-12">
-            <h2 className="text-3xl font-bold text900 mb-4">
+          <section className="px-8 max-sm:px-4 mb-12">
+            <h2 className="text-3xl font-semibold mb-6">
               Literary Pursuits
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
@@ -116,8 +116,8 @@ export default function AboutPage() {
           </section>
 
           {/* Philosophy */}
-          <section className="mb-12">
-            <h2 className="text-3xl font-bold text900 mb-4">
+          <section className="px-8 max-sm:px-4 mb-12">
+            <h2 className="text-3xl font-semibold mb-6">
               The Scribe&apos;s Creed
             </h2>
             <p className="text800 mb-4">
@@ -148,8 +148,8 @@ export default function AboutPage() {
           <Goals />
 
           {/* Favorite Quotes */}
-          <section>
-            <h2 className="text-3xl font-bold text900 mb-4">Words of Wisdom</h2>
+          <section className="px-8 max-sm:px-4 mb-12">
+            <h2 className="text-3xl font-semibold mb-6">Words of Wisdom</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardContent className="pt-6">

@@ -73,11 +73,58 @@ export default function SinglePostPage() {
     return score;
   };
 
+  const shareOnSocialMedia = (platform) => {
+    const url = window.location.href;
+    const text = `Check out this book review: ${blog?.title}`;
+
+    switch (platform) {
+      case "twitter":
+        window.open(
+          `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+            url
+          )}&text=${encodeURIComponent(text)}`,
+          "_blank"
+        );
+        break;
+      case "facebook":
+        window.open(
+          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+            url
+          )}`,
+          "_blank"
+        );
+        break;
+      case "linkedin":
+        window.open(
+          `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
+            url
+          )}&title=${encodeURIComponent(blog?.title)}`,
+          "_blank"
+        );
+        break;
+      default:
+        console.error("Unsupported platform");
+    }
+  };
+
+  const handleShare = () => {
+    const subject = "Check out this awesome review!";
+    const body = "I found this great review. You should take a look!";
+    shareViaEmail(subject, body);
+  };
+
+  function shareViaEmail(subject, body) {
+    const mailtoLink = `mailto:?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoLink;
+  }
+
   return (
     <Layout>
       <div className="min-h-screen pb-12">
         {/* Hero */}
-        <div className="relative h-96 overflow-hidden">
+        <div className="relative min-h-[70vh] overflow-hidden">
           <Image
             src={blog?.coverImage}
             alt={blog?.title}
@@ -93,7 +140,7 @@ export default function SinglePostPage() {
             className="absolute left-1/2 -translate-x-1/2 w-4/5 top object-cover -z-10 opacity-30 blur-md rounded-lg"
           />
 
-          <div className="absolute inset-0 flex gap-12 items-center justify-center pt-16">
+          <div className="absolute inset-0 flex gap-12 max-md:gap-8 items-center justify-center pt-20 max-md:flex-col">
             <Image
               src={blog?.coverImage}
               alt={blog?.title}
@@ -124,7 +171,7 @@ export default function SinglePostPage() {
         </div>
 
         {/* Content */}
-        <div className="container mx-auto px-4 py-8">
+        <div className="px-8 max-sm:px-4 py-8">
           <Card className="mb-8">
             <div className="prose prose-amber max-w-none">
               <div dangerouslySetInnerHTML={{ __html: blog?.content }} />
@@ -174,26 +221,44 @@ export default function SinglePostPage() {
               Share this Review
             </h2>
             <div className="flex space-x-4">
-              <Button variant="outline" size="icon">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => shareOnSocialMedia("facebook")}
+              >
                 <Facebook className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="icon">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => shareOnSocialMedia("twitter")}
+              >
                 <Twitter className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="icon">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => shareOnSocialMedia("linkedin")}
+              >
                 <Linkedin className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="icon">
+              <Button variant="outline" size="icon" onClick={handleShare}>
                 <Mail className="h-4 w-4" />
               </Button>
             </div>
           </Card>
+        </div>
 
+        <section className="grid grid-cols-3 max-md:grid-cols-1 px-8 gap-8 max-sm:px-4">
+          {/* Comments */}
+          <div className="md:col-span-2 max-md:order-2">
+            <Comments />
+          </div>
           {/* More */}
           <div>
-            <h2 className="text-2xl font-bold text900 mb-4">Related Scrolls</h2>
-            <section>
-              <div className="grid gap-6 md:grid-cols-3">
+            <h2 className="text-2xl font-bold mb-4">Related Scrolls</h2>
+            <div>
+              <div className="grid grid-cols-1 gap-4">
                 {relatedBlogs?.map((review) => (
                   <Link href={`/reviews/${review.id}`} key={review.id}>
                     <Card
@@ -239,12 +304,9 @@ export default function SinglePostPage() {
                   </Link>
                 ))}
               </div>
-            </section>{" "}
+            </div>{" "}
           </div>
-        </div>
-
-        {/* Comments */}
-        <Comments />
+        </section>
       </div>
     </Layout>
   );

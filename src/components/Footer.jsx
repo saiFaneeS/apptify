@@ -15,11 +15,11 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg900 text100">
-      <div className="container mx-auto px-4 py-12">
+    <footer>
+      <div className="px-8 max-sm:px-4 py-12 bg-background">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">Navigation</h3>
+            <h3 className="text-xl font-semibold mb-4">Navigation</h3>
             <ul className="space-y-2">
               <li>
                 <Link
@@ -62,7 +62,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="text-xl font-bold mb-4">Contact</h3>
+            <h3 className="text-xl font-semibold mb-4">Contact</h3>
             <p className="mb-2">Ye Olde Blog Castle</p>
             <p className="mb-2">Medievalshire, ME1 2VA</p>
             <p className="mb-2">United Kingdoms of Yore</p>
@@ -72,7 +72,7 @@ export default function Footer() {
             </p>
           </div>
           <div>
-            <h3 className="text-xl font-bold mb-4">Follow My Scrolls</h3>
+            <h3 className="text-xl font-semibold mb-4">Follow My Scrolls</h3>
             <div className="flex space-x-4">
               <a href="#" className="hover:text300 transition-colors">
                 <Facebook className="h-6 w-6" />
@@ -89,7 +89,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="flex justify-between items-center flex-wrap border-t py-8 mt-8">
+        <div className="flex justify-between items-center flex-wrap border-t pt-8 mt-8">
           <p>
             &copy; {new Date().getFullYear()} Ye Olde Blog. All rights reserved.
           </p>

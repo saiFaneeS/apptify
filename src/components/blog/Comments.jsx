@@ -119,8 +119,8 @@ export default function Comments() {
   );
 
   return (
-    <div className="container mx-auto p-8 px-4">
-      <div className="flex justify-between items-center mb-4">
+    <div className="">
+      <div className="flex justify-between items-center mb-4 gap-2">
         <h2 className="text-2xl font-bold">Comments</h2>
         <Button onClick={toggleSortOrder} variant="outline" size="sm">
           <ArrowUpDown className="h-4 w-4 mr-2" />

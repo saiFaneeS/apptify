@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function AboutHero({ blogs, books, goals }) {
   return (
-    <div className="relative bg950 text100 overflow-hidden h-screen">
+    <div className="relative overflow-hidden h-screen mb-12">
       <div className="absolute inset-0">
         <Image
           src="/bg1.jpg"

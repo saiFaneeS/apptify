@@ -77,7 +77,7 @@ export default function TopBar() {
   return (
     // <div className="bg-background border-b-2 border700 fixed w-full z-50">
     <div
-      className={`bg-foreground text-background fixed top-0 left-0 w-full z-50 transition-transform duration-500 delay-75 ${
+      className={`bg-background text-foreground fixed top-0 left-0 w-full z-50 transition-transform duration-500 delay-75 ${
         showNavbar ? "translate-y-0" : "-translate-y-20"
       }`}
     >

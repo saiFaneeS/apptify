@@ -3,8 +3,8 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className="relative pb-20 pt-40">
-      <div className="absolute inset-0">
+    <div className="relative pb-20 pt-40 mb-8">
+      <div className="absolute inset-0 bg-primary">
         <Image
           src="/bg1.jpg"
           alt="Medieval library background"
@@ -13,7 +13,6 @@ const Hero = () => {
           className="opacity-20"
         />
       </div>
-      {/* <div className="absolute inset-0 bg-[url('/medieval-library.jpg')] bg-cover bg-center opacity-20"></div> */}
       <div className="container mx-auto px-4 relative z-10">
         <h1 className="text-5xl md:text-7xl font-semibold mb-6 text-center">
           The Grand Library

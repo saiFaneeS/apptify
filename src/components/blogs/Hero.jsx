@@ -3,8 +3,8 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className="relative pb-20 pt-40">
-      <div className="absolute inset-0">
+    <div className="relative pb-20 pt-40 mb-8">
+      <div className="absolute inset-0 bg-primary">
         <Image
           src="/bg1.jpg"
           alt="Medieval library background"

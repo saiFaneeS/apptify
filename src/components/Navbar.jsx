@@ -62,7 +62,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`bg-foreground text-background p-4 fixed top-0 left-0 w-full z-50 transition-transform duration-500 delay-75 ${
+      className={`bg-background text-foreground p-4 fixed top-0 left-0 w-full z-50 transition-transform duration-500 delay-75 ${
         showNavbar ? "translate-y-0" : "-translate-y-20"
       }`}
     >

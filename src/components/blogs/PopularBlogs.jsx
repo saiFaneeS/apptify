@@ -18,8 +18,8 @@ const PopularBlogs = () => {
   }, [blogs]);
 
   return (
-    <section className="p-12">
-      <h2 className="text-3xl font-bold mb-6">Popular Tome Reviews</h2>
+    <section className="px-8 max-sm:px-4 mb-8">
+      <h2 className="text-3xl font-semibold mb-8">Popular Tome Reviews</h2>
       <div className="grid gap-6 md:grid-cols-3">
         {popularReviews?.map((review) => (
           <Link href={`/reviews/${review.id}`} key={review.id}>

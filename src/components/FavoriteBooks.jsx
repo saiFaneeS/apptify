@@ -3,6 +3,7 @@ import { Star, User, Scroll } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLibrary } from "@/context/LibraryContext";
 import { useEffect, useState } from "react";
+import { Card } from "./ui/card";
 
 export default function FavoriteBooks() {
   const [favorites, setFavorites] = useState([]);
@@ -20,18 +21,14 @@ export default function FavoriteBooks() {
   }, [books]);
 
   return (
-    <section className="py-12 px-12 bg50">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold  text900 mb-8">
-          Tomes of Great Esteem
-        </h2>
+    <section className="px-8 max-sm:px-4 mb-8">
+      <div>
+        <h2 className="text-3xl font-semibold mb-6">
+          My Favorites</h2>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {favorites?.map((book) => (
-            <div
-              key={book.id}
-              className="bg100  rounded-lg shadow-lg overflow-hidden transform transition duration-500"
-            >
-              <div className="p-4 flex flex-col h-full">
+            <Card key={book.id}>
+              <div className="flex flex-col h-full">
                 <div className="flex mb-4">
                   <div className="w-1/3 mr-4">
                     <Image
@@ -73,7 +70,7 @@ export default function FavoriteBooks() {
                   Read Full Review
                 </Button>
               </div>
-            </div>
+            </Card>
           ))}
         </div>
       </div>

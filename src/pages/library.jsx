@@ -76,74 +76,65 @@ export default function Library() {
 
   return (
     <Layout>
-      <div className="min-h-screen">
-        {/* Hero section */}
-        <Hero />
-        <div className="container mx-auto px-4 py-12">
-          {/* Search bar */}
-          <div className="mb-8 bg800 p-2 rounded-lg shadow-lg">
-            <div className="flex gap-2 justify-between items-center">
-              <div className="w-full">
-                <Input
-                  type="search"
-                  placeholder="Search tomes..."
-                  className="bg100 text900 placeholder700"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-wrap gap-4 justify-center">
-                <Button
-                  variant="secondary"
-                  className="bg100 text900 hover:bg200 px-12"
-                >
-                  <Filter className="mr-2 h-4 w-4" />
-                  Find
-                </Button>
-              </div>
-            </div>
+      {/* Hero section */}
+      <Hero />
+      {/* Search bar */}
+      <div className="px-8 max-sm:px-4 mb-8">
+        <div className="flex gap-2 justify-between items-center">
+          <div className="w-full">
+            <Input
+              type="search"
+              placeholder="Search tomes..."
+              className="bg100 text900 placeholder700"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
-
-          {/* Tabs */}
-          <Tabs
-            value={activeTab}
-            onValueChange={setActiveTab}
-            className="space-y-8"
-          >
-            <TabsList className="bg800 text100">
-              {["all", "currently reading", "tbr", "favorite", "read"].map(
-                (tab) => (
-                  <TabsTrigger
-                    key={tab}
-                    value={tab}
-                    className="data-[state=active]:bg700 data-[state=active]:text100"
-                  >
-                    {tab === "currently reading" && (
-                      <BookOpen className="mr-2 h-4 w-4" />
-                    )}
-                    {tab === "all" && <LibraryBig className="mr-2 h-4 w-4" />}
-                    {tab === "tbr" && <BookDashed className="mr-2 h-4 w-4" />}
-                    {tab === "favorite" && <Star className="mr-2 h-4 w-4" />}
-                    {tab === "read" && <BookCheck className="mr-2 h-4 w-4" />}
-                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                  </TabsTrigger>
-                )
-              )}
-            </TabsList>
-            {["all", "currently reading", "tbr", "favorite", "read"].map(
-              (tab) => (
-                <TabsContent key={tab} value={tab}>
-                  <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                    {filteredBooks?.map(renderBookCard)}
-                  </div>
-                </TabsContent>
-              )
-            )}
-          </Tabs>
-
-          <Goals />
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Button className="px-12">
+              <Filter className="mr-2 h-4 w-4" />
+              Find
+            </Button>
+          </div>
         </div>
       </div>
+
+      {/* Tabs */}
+      <Tabs
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className="space-y-8 px-8 max-sm:px-4"
+      >
+        <TabsList>
+          {["all", "currently reading", "tbr", "favorite", "read"].map(
+            (tab) => (
+              <TabsTrigger
+                key={tab}
+                value={tab}
+                className="data-[state=active]:bg700 data-[state=active]:text100"
+              >
+                {tab === "currently reading" && (
+                  <BookOpen className="mr-2 h-4 w-4" />
+                )}
+                {tab === "all" && <LibraryBig className="mr-2 h-4 w-4" />}
+                {tab === "tbr" && <BookDashed className="mr-2 h-4 w-4" />}
+                {tab === "favorite" && <Star className="mr-2 h-4 w-4" />}
+                {tab === "read" && <BookCheck className="mr-2 h-4 w-4" />}
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </TabsTrigger>
+            )
+          )}
+        </TabsList>
+        {["all", "currently reading", "tbr", "favorite", "read"].map((tab) => (
+          <TabsContent key={tab} value={tab}>
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {filteredBooks?.map(renderBookCard)}
+            </div>
+          </TabsContent>
+        ))}
+      </Tabs>
+
+      <Goals />
     </Layout>
   );
 }

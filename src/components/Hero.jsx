@@ -4,8 +4,8 @@ import { Scroll } from "lucide-react";
 
 export default function Hero() {
   return (
-    <div className="relative h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0">
+    <div className="relative h-screen flex items-center justify-center overflow-hidden mb-8">
+      <div className="absolute inset-0 bg-primary">
         <Image
           src="/bg1.jpg"
           alt="Medieval library background"
