@@ -48,7 +48,7 @@ export default function AboutPage() {
 
                 <section className="mb-12">
                   <h2 className="text-3xl font-bold text900 mb-4">
-                    The Scribe's Tale
+                    The Scribe&apos;s Tale
                   </h2>
                   <p className="text800 mb-4">
                     My journey into the world of letters began in the humble
@@ -118,7 +118,7 @@ export default function AboutPage() {
           {/* Philosophy */}
           <section className="mb-12">
             <h2 className="text-3xl font-bold text900 mb-4">
-              The Scribe's Creed
+              The Scribe&apos;s Creed
             </h2>
             <p className="text800 mb-4">
               In my pursuit of literary wisdom, I adhere to these sacred
@@ -135,7 +135,7 @@ export default function AboutPage() {
               </li>
               <li>
                 To share my thoughts with honesty and respect, recognizing that
-                each reader's journey is unique.
+                each reader&apos;s journey is unique.
               </li>
               <li>
                 To celebrate the diversity of literary voices, seeking out tales

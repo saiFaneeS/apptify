@@ -111,7 +111,7 @@ export default function Sidebar() {
             </h2>
             <div className="bg700 p-4 rounded-lg">
               <h3 className="font-bold mb-2">
-                The Alchemist's Secret
+                The Alchemist&apos;s Secret
               </h3>
               <p className="text-sm mb-4">
                 Uncover the mysteries of transmutation in this ancient scroll...

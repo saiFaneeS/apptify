@@ -129,7 +129,7 @@ export default function Goals() {
         <CardTitle className="flex items-center w-full justify-between">
           <div className="flex gap-2 items-center">
             <ScrollText className="w-6 h-6 mr-2" />
-            {"Scribe's Quests"}
+            Scribe&apos;s Quests
           </div>
           {mounted && (
             <AddNewGoal
