@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
-import { ScrollText, Target, Plus, Edit, Trash, Loader2 } from "lucide-react";
+import { ScrollText, Target,  Edit, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useGoals } from "@/context/GoalContext";
 import AddNewGoal from "./goals/AddNewGoal";

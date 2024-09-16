@@ -155,8 +155,8 @@ export default function AboutPage() {
                 <CardContent className="pt-6">
                   <Quote className="w-8 h-8 text700 mx-auto mb-4" />
                   <p className="text800 text-center italic mb-2">
-                    "A reader lives a thousand lives before he dies . . . The
-                    man who never reads lives only one."
+                    &quot;A reader lives a thousand lives before he dies . . .
+                    The man who never reads lives only one.&quot;
                   </p>
                   <p className="text700 text-center">- George R.R. Martin</p>
                 </CardContent>
@@ -165,8 +165,8 @@ export default function AboutPage() {
                 <CardContent className="pt-6">
                   <Quote className="w-8 h-8 text700 mx-auto mb-4" />
                   <p className="text800 text-center italic mb-2">
-                    "The person, be it gentleman or lady, who has not pleasure
-                    in a good novel, must be intolerably stupid."
+                    &quot;The person, be it gentleman or lady, who has not
+                    pleasure in a good novel, must be intolerably stupid.&quot;
                   </p>
                   <p className="text700 text-center">- Jane Austen</p>
                 </CardContent>

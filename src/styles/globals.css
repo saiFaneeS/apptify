@@ -2,11 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
+/* @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
+} */
+
 body {
   font-family: "Poppins", sans-serif;
 }

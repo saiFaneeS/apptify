@@ -89,9 +89,12 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-8 pt-8 border-t border800 text-center">
+        <div className="flex justify-between items-center flex-wrap border-t py-8 mt-8">
           <p>
             &copy; {new Date().getFullYear()} Ye Olde Blog. All rights reserved.
+          </p>
+          <p className="font-light">
+            Developed by <Link href={"https://saif-anees.vercel.app"} target="_blank" className="font-medium">Saif Anees</Link>
           </p>
         </div>
       </div>

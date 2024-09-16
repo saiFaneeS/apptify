@@ -13,9 +13,9 @@ const Hero = () => {
           className="opacity-20"
         />
       </div>
-      <div className="absolute inset-0 bg-[url('/medieval-library.jpg')] bg-cover bg-center opacity-20"></div>
+      {/* <div className="absolute inset-0 bg-[url('/medieval-library.jpg')] bg-cover bg-center opacity-20"></div> */}
       <div className="container mx-auto px-4 relative z-10">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 text-center">
+        <h1 className="text-5xl md:text-7xl font-semibold mb-6 text-center">
           Book Reviews
         </h1>
         <p className="text-xl md:text-2xl text-center max-w-3xl mx-auto">

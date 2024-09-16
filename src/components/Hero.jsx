@@ -15,8 +15,8 @@ export default function Hero() {
         />
       </div>
       <div className="relative z-10 text-center text-background px-4 sm:px-6 lg:px-8">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 text-center text-foreground">
-          Welcome to My Blog
+        <h1 className="text-5xl md:text-7xl font-semibold mb-6 text-center text-foreground">
+          Welcome to The Blog
         </h1>
         <p className="text-xl md:text-2xl text-center max-w-3xl mx-auto mb-8 text-foreground">
           Embark on a journey through time, where tales of valor, mythical

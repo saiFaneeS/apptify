@@ -195,7 +195,7 @@ export default function SinglePostPage() {
             <section>
               <div className="grid gap-6 md:grid-cols-3">
                 {relatedBlogs?.map((review) => (
-                  <Link href={`/reviews/${review.id}`}>
+                  <Link href={`/reviews/${review.id}`} key={review.id}>
                     <Card
                       key={review.id}
                       className="flex items-center hover:bg-foreground/5"

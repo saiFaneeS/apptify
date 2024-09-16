@@ -22,8 +22,11 @@ const PopularBlogs = () => {
       <h2 className="text-3xl font-bold mb-6">Popular Tome Reviews</h2>
       <div className="grid gap-6 md:grid-cols-3">
         {popularReviews?.map((review) => (
-          <Link href={`/reviews/${review.id}`}>
-            <Card key={review.id} className="flex items-center hover:bg-foreground/5">
+          <Link href={`/reviews/${review.id}`} key={review.id}>
+            <Card
+              key={review.id}
+              className="flex items-center hover:bg-foreground/5"
+            >
               <Image
                 src={review.coverImage}
                 alt={review.title}

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ScrollText, Feather, Book, Library } from "lucide-react";
+import Link from "next/link";
 
 export default function AboutHero({ blogs, books, goals }) {
   return (
@@ -15,7 +16,7 @@ export default function AboutHero({ blogs, books, goals }) {
         />
       </div>
       <div className="relative max-w-7xl mx-auto py-24 px-4 sm:pb-20 sm:pt-44 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
           About Me
         </h1>
         <p className="mt-6 max-w-3xl text-xl">
@@ -24,17 +25,18 @@ export default function AboutHero({ blogs, books, goals }) {
           of ages past.
         </p>
         <div className="mt-10 flex flex-col sm:flex-row gap-4">
-          <Button className="bg700 hover:bg600 text100">
-            <ScrollText className="mr-2 h-5 w-5" />
-            My Reviews
-          </Button>
-          <Button
-            variant="outline"
-            className="bg800 hover:bg700 text100 border100"
-          >
-            <Library className="mr-2 h-5 w-5" />
-            My Library
-          </Button>
+          <Link href={"/reviews"}>
+            <Button>
+              <ScrollText className="mr-2 h-5 w-5" />
+              My Reviews
+            </Button>
+          </Link>
+          <Link href={"/library"}>
+            <Button variant="outline">
+              <Library className="mr-2 h-5 w-5" />
+              My Library
+            </Button>
+          </Link>
         </div>
         <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3">
           <div className="flex items-center">

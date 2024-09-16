@@ -19,7 +19,6 @@ import {
 } from "lucide-react";
 import Layout from "./Layout";
 import { useLibrary } from "@/context/LibraryContext";
-import { useGoals } from "@/context/GoalContext";
 import Goals from "@/components/goals/Goals";
 import Hero from "@/components/library/Hero";
 import { Card } from "@/components/ui/card";
