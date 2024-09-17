@@ -125,13 +125,13 @@ export default function SinglePostPage() {
     <Layout>
       <div className="min-h-screen pb-12">
         {/* Hero */}
-        <div className="relative min-h-[70vh] overflow-hidden">
+        <div className="relative min-h-[80vh] overflow-hidden">
           <Image
             src={blog?.coverImage}
             alt={blog?.title}
             width={300}
             height={200}
-            className="absolute top-0 left-0 w-full h-full object-cover -z-10 opacity-30 blur-2xl"
+            className="absolute top-0 left-0 w-full h-full object-cover -z-10 opacity-30 blur-sm scale-[101%]"
           />
           <Image
             src={blog?.coverImage}
@@ -149,7 +149,7 @@ export default function SinglePostPage() {
               height={200}
               className="h-40 w-28 top object-cover shadow-xl"
             />
-            <div className="flex flex-col justify-center items-start">
+            <div className="flex flex-col justify-center items-start max-md:items-center">
               <h1 className="text-4xl md:text-6xl font-semibold mb-4">
                 {blog?.title}
               </h1>

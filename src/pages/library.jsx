@@ -115,7 +115,7 @@ export default function Library() {
 
       {/* Tabs */}
       <div className="space-y-8 px-4 sm:px-8 mb-12">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab}>
           {/* Mobile view: Select dropdown */}
           <div className="sm:hidden mb-6">
             <Select value={activeTab} onValueChange={setActiveTab}>
@@ -136,7 +136,7 @@ export default function Library() {
           </div>
 
           {/* Desktop view: TabsList */}
-          <TabsList className="hidden sm:flex sm:flex-wrap justify-start mb-8">
+          <TabsList className="hidden sm:flex w-fit mb-8">
             {tabData.map((tab) => (
               <TabsTrigger
                 key={tab.value}

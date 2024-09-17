@@ -31,8 +31,8 @@ export const BlogsProvider = ({ children }) => {
   const [updatingFeatured, setUpdatingFeatured] = useState(false);
   const [fetchingBlogs, setFetchingBlogs] = useState(false);
   const [commenting, setCommenting] = useState(false);
+  const [deletingComment, setDeletingComment] = useState(false);
   const [error, setError] = useState(null);
-
   const getAllBlogs = async () => {
     setFetchingBlogs(true);
     try {
@@ -264,20 +264,35 @@ export const BlogsProvider = ({ children }) => {
     }
   };
 
-  const deleteComment = async (blogId, commentId) => {
+  const deleteComment = async (blogId, commentToDelete) => {
+    console.log("deleting");
+    setDeletingComment(true);
     try {
       const blogRef = doc(db, "blogs", blogId);
 
+      // Get the current blog data
+      const blogDoc = await getDoc(blogRef);
+      if (!blogDoc.exists()) {
+        throw new Error("Blog not found");
+      }
+
+      const blogData = blogDoc.data();
+      const updatedComments = blogData.comments.filter(
+        comment => comment.commentId !== commentToDelete.commentId
+      );
+
+      // Update the blog document with the new comments array
       await updateDoc(blogRef, {
-        comments: arrayRemove({ id: commentId }),
+        comments: updatedComments,
       });
 
-      setComments((prevComments) =>
-        prevComments.filter((comment) => comment.id !== commentId)
-      );
+      setComments(updatedComments);
+      console.log("deleted");
     } catch (err) {
       console.error("Error deleting comment: ", err);
       setError(err.message);
+    } finally {
+      setDeletingComment(false);
     }
   };
 
@@ -298,8 +313,9 @@ export const BlogsProvider = ({ children }) => {
         incrementViewCount,
         comments,
         addComment,
-        deleteComment,
         commenting,
+        deleteComment,
+        deletingComment,
         loading,
         error,
       }}

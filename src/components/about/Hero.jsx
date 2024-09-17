@@ -19,11 +19,12 @@ export default function AboutHero({ blogs, books, goals }) {
         <h1 className="text-background dark:text-foreground text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
           Hi, Noble Readers!
         </h1>
-        <h4 className="text-background dark:text-foreground mt-6 max-w-3xl text-2xl font-semibold">This is Violet Clough, </h4>
+        <h4 className="text-background dark:text-foreground mt-6 max-w-3xl text-2xl font-semibold">
+          This is Violet Clough,{" "}
+        </h4>
         <p className="text-background dark:text-foreground mt-6 max-w-3xl text-xl">
-          Welcome to my humble scriptorium. Here I chronicle
-          the tales of yore, review tomes of great renown, and share the wisdom
-          of ages past.
+          Welcome to my humble scriptorium. Here I chronicle the tales of yore,
+          review tomes of great renown, and share the wisdom of ages past.
         </p>
         <div className="mt-10 flex flex-col sm:flex-row gap-4">
           <Link href={"/reviews"}>

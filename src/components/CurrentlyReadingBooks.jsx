@@ -25,7 +25,7 @@ export default function CurrentlyReading() {
   }, [books]);
 
   if (!currentlyReadingBooks || currentlyReadingBooks.length === 0) {
-    return null; 
+    return null;
   }
 
   return (
@@ -49,13 +49,13 @@ export default function CurrentlyReading() {
             </div>
           </Card>
         ))}
-        <div className="flex justify-center">
-          <Link href={"/library"}>
-            <Button className="mt-6" variant="outline">
-              View All
-            </Button>
-          </Link>
-        </div>
+      </div>
+      <div className="flex justify-center">
+        <Link href={"/library"}>
+          <Button className="mt-6" variant="outline">
+            View All
+          </Button>
+        </Link>
       </div>
     </section>
   );

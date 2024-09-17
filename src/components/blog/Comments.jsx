@@ -8,7 +8,6 @@ import { formatTime } from "@/lib/formatTime";
 import { useBlogs } from "@/context/BlogContext";
 import { useParams } from "next/navigation";
 import { Trash2, ArrowUpDown, Loader2 } from "lucide-react";
-import { Card } from "../ui/card";
 import { Separator } from "../ui/separator";
 
 export default function Comments() {
@@ -17,7 +16,8 @@ export default function Comments() {
   const [sortOrder, setSortOrder] = useState("newest");
   const [sortedComments, setSortedComments] = useState([]);
 
-  const { comments, addComment, commenting, deleteComment } = useBlogs();
+  const { comments, addComment, commenting, deleteComment, deletingComment } =
+    useBlogs();
   const { toast } = useToast();
   const params = useParams();
 
@@ -58,10 +58,10 @@ export default function Comments() {
       localStorage.setItem("commenter", JSON.stringify(currentCommenter));
 
       const comment = {
-        commentId: `comment-${Date.now}-${Math.random}`,
-        id: currentCommenter.id,
+        commentId: `comment-${Date.now()}-${Math.random()}`,
+        id: currentCommenter?.id,
         username: currentCommenter.username,
-        content: newComment.content,
+        content: newComment?.content,
         createdAt: new Date().toISOString(),
         avatarSeed: currentCommenter.username,
       };
@@ -77,9 +77,9 @@ export default function Comments() {
     }
   };
 
-  const handleDelete = (commentId) => {
+  const handleDelete = (comment) => {
     const blogId = params.slug;
-    deleteComment(blogId, commentId);
+    deleteComment(blogId, comment);
     toast({
       title: "Comment deleted",
       description: "Your comment has been deleted successfully.",
@@ -109,9 +109,13 @@ export default function Comments() {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => handleDelete(comment.id)}
+            onClick={() => handleDelete(comment)}
           >
-            <Trash2 className="h-4 w-4" />
+            {!deletingComment ? (
+              <Trash2 className="h-4 w-4" />
+            ) : (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            )}
           </Button>
         )}
       </div>
@@ -165,11 +169,11 @@ export default function Comments() {
 
       {/* Comments */}
       <div className="flex flex-col gap-8 pt-4">
-        {sortedComments.map((comment) => (
-          <>
-            <CommentItem key={comment.id} comment={comment} />
+        {sortedComments?.map((comment) => (
+          <React.Fragment key={comment.commentId}>
+            <CommentItem comment={comment} />
             <Separator />
-          </>
+          </React.Fragment>
         ))}
       </div>
     </div>

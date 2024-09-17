@@ -26,9 +26,9 @@ const FeaturedBlogs = () => {
               className="w-full h-full object-cover rounded-sm"
             />
           </div>
-          <div className="md:w-1/2 flex flex-col gap-4">
+          <div className="md:w-1/2 flex flex-col gap-3">
             <span className="rounded-full">
-              <Badge className="">Featured Review</Badge>
+              <Badge variant={"secondary"}>Featured Review</Badge>
             </span>
             <h3 className="text-3xl font-bold text900">
               {featuredBlog?.title}
