@@ -12,11 +12,13 @@ import BooksDataTable from "@/components/dashboard/BooksDataTable";
 import Goals from "@/components/dashboard/Goals";
 import SetFeaturedBlogModal from "@/components/dashboard/SetFeaturedBlogModal";
 import { Badge } from "@/components/ui/badge";
+import { useUser } from "@/context/UserContext";
 
 export default function CMSDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const { user } = useAuth();
+  const { userProfile } = useUser();
   const { blogs, getAllBlogs, fetchingBlogs, featuredBlog } = useBlogs();
 
   const filteredBlogs = blogs?.filter((blog) =>
@@ -32,20 +34,20 @@ export default function CMSDashboard() {
       <div className="min-h-screen pt-16">
         <div className="container mx-auto p-8 px-4">
           {/* Welcome Banner */}
-          <div className="relative overflow-hidden rounded-lg p-8 mb-8">
+          <div className="relative overflow-hidden rounded-lg p-6 mb-8">
             <Image
               src="/bg1.jpg"
               alt="Medieval castle background"
               layout="fill"
               objectFit="cover"
               priority
-              className="absolute z-0 brightness-50"
+              className="absolute z-0 brightness-50 saturate-0"
             />
             <div className="relative z-10 text-white">
-              <h2 className="text-3xl font-semibold mb-2">
-                Welcome back, Noble Scribe!
+              <h2 className="text-2xl font-semibold mb-2">
+                Welcome back, {userProfile?.name}!
               </h2>
-              <p className="text-xl">
+              <p className="text-base">
                 May your quill be sharp and your ink never run dry.
               </p>
             </div>
@@ -77,7 +79,6 @@ export default function CMSDashboard() {
                 </div>
               </CardContent>
             </Card>{" "}
-            
             {/* Featured */}
             <Card className="overflow-hidden">
               <CardContent>
@@ -129,7 +130,6 @@ export default function CMSDashboard() {
                 )}
               </CardContent>
             </Card>
-
             {/* Actions */}
             <Card className="">
               <CardContent className="flex flex-col gap-4">

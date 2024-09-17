@@ -36,7 +36,7 @@ const BooksDataTable = ({
   };
 
   return (
-    <Card className="bg100 border-2 border300 mb-8 ">
+    <Card className="mb-8">
       <CardContent>
         <Tabs>
           <div className="flex justify-between items-center mb-4">
@@ -46,9 +46,9 @@ const BooksDataTable = ({
                 placeholder="Search the archives..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="mr-2 bg50 border300"
+                className="mr-2"
               />
-              <Button className="bg800 hover:bg600">
+              <Button className="">
                 <Search className="w-4 h-4 mr-2" /> Search
               </Button>
             </div>
@@ -56,7 +56,7 @@ const BooksDataTable = ({
 
           <Table>
             <TableHeader>
-              <TableRow className="bg200">
+              <TableRow>
                 <TableHead>Cover</TableHead>
                 <TableHead>Title</TableHead>
                 <TableHead>Book</TableHead>
@@ -71,7 +71,7 @@ const BooksDataTable = ({
             {!fetchingBlogs ? (
               <TableBody>
                 {filteredBlogs?.map((review) => (
-                  <TableRow key={review?.id} className="border-b border200">
+                  <TableRow key={review?.id} className="border-b border-border">
                     <TableCell className="">
                       <div className="flex justify-center items-center h-12 w-8 border border300 bg50">
                         <Image

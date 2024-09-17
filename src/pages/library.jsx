@@ -17,6 +17,9 @@ import {
   BookCheck,
   BookDashed,
   Search,
+  BookHeart,
+  BookMarked,
+  Glasses,
 } from "lucide-react";
 import {
   Select,
@@ -72,21 +75,53 @@ export default function Library() {
           height={180}
           className="rounded-sm shadow-md mr-4"
         />
-        <div>
+        <div className="w-full">
           <h3 className="text-xl font-semibold mb-2">{book?.title}</h3>
           <p className="mb-2">By {book?.author || book?.bookAuthor}</p>
           {/* <p className="text700 mb-2">Genre: {book?.genre}</p> */}
-          {book.progress && book?.progress !== undefined && (
+          {book.status === "currently reading" &&
+            book?.progress !== undefined && (
+              <div className="mt-4">
+                <div className="p-1.5 bg-foreground/90 text-background w-fit rounded-full">
+                  <Glasses size={18} />
+                </div>
+
+                <div className="mt-4">
+                  <Progress value={book?.progress} className="h-2 mb-2" />
+                  <p className="text700 text-sm">{book?.progress}% complete</p>
+                </div>
+              </div>
+            )}
+
+          {book.status === "read" && (
             <div className="mt-4">
-              <Progress value={book?.progress} className="h-2 mb-2" />
-              <p className="text700 text-sm">{book?.progress}% complete</p>
+              <div className="p-1.5 bg-green-600 text-background w-fit rounded-full">
+                <BookCheck size={18} />
+              </div>
+              <div className="mt-4">
+                <Progress value={"100"} className="h-2 mb-2" />
+                <p className="text700 text-sm">100% complete</p>
+              </div>
+            </div>
+          )}
+
+          {book.status === "favorite" && (
+            <div className="mt-4">
+              <div className="p-1.5 bg-rose-500 text-background w-fit rounded-full">
+                <BookHeart size={18} />
+              </div>
+            </div>
+          )}
+
+          {book.status === "tbr" && (
+            <div className="mt-4">
+              <div className="p-1.5 bg-blue-500 text-background w-fit rounded-full">
+                <BookMarked size={18} />
+              </div>
             </div>
           )}
         </div>
       </div>
-      {/* {book?.synopsis && (
-        <p className="text800 mb-6 line-clamp-3">{book?.synopsis}</p>
-      )} */}
     </Card>
   );
 
