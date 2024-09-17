@@ -127,7 +127,7 @@ export default function Goals() {
       <CardHeader>
         <CardTitle className="flex items-center w-full justify-between">
           <div className="flex gap-2 items-center text-lg font-semibold pl-1">
-            <Mountain className="w-5 h-5" />
+            {/* <Mountain className="w-5 h-5" /> */}
             Scribe&apos;s Quests
           </div>
           {mounted && (

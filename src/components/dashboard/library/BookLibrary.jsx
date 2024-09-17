@@ -6,10 +6,10 @@ import BookCard from "./BookCard";
 import {
   Loader2,
   Book,
-  CheckCircle,
-  BookOpen,
   Heart,
-  Clock,
+  BookCheck,
+  BookMarked,
+  LucideGlasses,
 } from "lucide-react";
 import {
   Select,
@@ -18,11 +18,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { Grid, List } from "lucide-react";
 
 const BookLibrary = () => {
   const { books, getAllBooks, fetchingBooks } = useLibrary();
   const [activeTab, setActiveTab] = useState("all");
   const [filteredBooks, setFilteredBooks] = useState([]);
+  const [layout, setLayout] = useState("grid");
 
   useEffect(() => {
     setFilteredBooks(
@@ -38,14 +41,14 @@ const BookLibrary = () => {
 
   const tabOptions = [
     { value: "all", label: "All Books", icon: Book },
-    { value: "read", label: "Read", icon: CheckCircle },
-    { value: "currently reading", label: "Reading", icon: BookOpen },
+    { value: "read", label: "Read", icon: BookCheck },
+    { value: "currently reading", label: "Reading", icon: LucideGlasses },
     { value: "favorite", label: "Favorites", icon: Heart },
-    { value: "tbr", label: "To Be Read", icon: Clock },
+    { value: "tbr", label: "To Be Read", icon: BookMarked },
   ];
 
   return (
-    <div className="container mx-auto p-4 pt-24 min-h-screen">
+    <div className="px-8 max-sm:px-4 pt-24 pb-8 min-h-screen">
       <Tabs
         value={activeTab}
         onValueChange={(value) => setActiveTab(value)}
@@ -72,7 +75,7 @@ const BookLibrary = () => {
               </SelectContent>
             </Select>
           </div>
-          <div className="hidden l:block">
+          <div className="hidden lg:block">
             <TabsList>
               {tabOptions.map((option) => (
                 <TabsTrigger
@@ -86,7 +89,16 @@ const BookLibrary = () => {
               ))}
             </TabsList>
           </div>
-          <AddNewBook />
+          <div className="flex items-center max-sm:justify-end max-sm:w-full gap-2">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setLayout(layout === "grid" ? "list" : "grid")}
+            >
+              {layout === "grid" ? <List size={20} /> : <Grid size={20} />}
+            </Button>
+            <AddNewBook />
+          </div>
         </div>
         <TabsContent value={activeTab}>
           {fetchingBooks ? (
@@ -94,9 +106,15 @@ const BookLibrary = () => {
               <Loader2 className="animate-spin h-8 w-8" />
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div
+              className={
+                layout === "grid"
+                  ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+                  : "flex flex-col gap-2"
+              }
+            >
               {filteredBooks?.map((book) => (
-                <BookCard book={book} key={book.id} />
+                <BookCard book={book} key={book.id} layout={layout} />
               ))}
             </div>
           )}

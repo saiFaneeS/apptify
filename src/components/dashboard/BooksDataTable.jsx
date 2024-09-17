@@ -53,7 +53,7 @@ const BooksDataTable = ({
         <Tabs>
           <div className="flex justify-between items-center flex-wrap gap-4 mb-4">
             <div className="flex gap-2 items-center text-lg font-semibold pl-1">
-              <ScrollText className="w-5 h-5" />
+              {/* <ScrollText className="w-5 h-5" /> */}
               All Book Reviews
             </div>{" "}
             <div className="flex items-center">
@@ -101,8 +101,10 @@ const BooksDataTable = ({
                         />
                       </div>
                     </TableCell>
-                    <TableCell className="font-medium">
-                      {review?.title}
+                    <TableCell className="font-medium text-nowrap">
+                      {review?.title && review?.title?.length > 15
+                        ? `${review.title.slice(0, 13)}...`
+                        : review.title}
                     </TableCell>
                     <TableCell>{review?.rating}</TableCell>
                     <TableCell>
@@ -112,7 +114,7 @@ const BooksDataTable = ({
                     </TableCell>
                     <TableCell>{review?.viewCount || 0}</TableCell>
                     <TableCell>{review?.comments?.length || 0}</TableCell>
-                    <TableCell>
+                    <TableCell className="text-nowrap">
                       {review?.createdAt && formatTime(review?.createdAt)}
                     </TableCell>
                     <TableCell>
@@ -122,7 +124,7 @@ const BooksDataTable = ({
                           size="sm"
                           variant="outline"
                           className="border800 text800 hover:bg200"
-                          onClick={() => handleViewClick(review.id)}
+                          onClick={() => handleViewClick(review?.id)}
                         >
                           <Eye className="w-4 h-4" />
                         </Button>

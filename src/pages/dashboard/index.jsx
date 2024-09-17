@@ -12,6 +12,7 @@ import BooksDataTable from "@/components/dashboard/BooksDataTable";
 import Goals from "@/components/dashboard/Goals";
 import SetFeaturedBlogModal from "@/components/dashboard/SetFeaturedBlogModal";
 import { useUser } from "@/context/UserContext";
+import { useQuote } from "@/hooks/useQuote"; // Add this import
 
 export default function CMSDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,6 +20,7 @@ export default function CMSDashboard() {
   const { user } = useAuth();
   const { userProfile } = useUser();
   const { blogs, getAllBlogs, fetchingBlogs, featuredBlog } = useBlogs();
+  const { quote } = useQuote(); // Add this line
 
   const filteredBlogs = blogs?.filter((blog) =>
     blog.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -44,11 +46,8 @@ export default function CMSDashboard() {
             />
             <div className="absolute z-10 h-full w-full bg-primary opacity-40 left-0 top-0"></div>
             <div className="relative z-20 text-white">
-              <h2 className="text-2xl font-semibold mb-2">
-                Welcome back, {userProfile?.name}!
-              </h2>
-              <p className="text-base">
-                May your quill be sharp and your ink never run dry.
+              <p className="text-sm">
+                {quote || "May your quill be sharp and your ink never run dry."}
               </p>
             </div>
           </div>

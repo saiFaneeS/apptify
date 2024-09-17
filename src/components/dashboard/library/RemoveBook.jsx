@@ -22,8 +22,8 @@ const RemoveBook = ({ book }) => {
   return (
     <Dialog>
       <DialogTrigger>
-        <Button variant="destructive" size="sm" disabled={loading}>
-          <Trash2 className="mr-2 h-4 w-4" /> Delete
+        <Button variant="outline" size="sm" disabled={loading}>
+          <Trash2 className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -34,7 +34,7 @@ const RemoveBook = ({ book }) => {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button onClick={handleDeleteBook} disabled={loading}>
+          <Button onClick={handleDeleteBook} variant="destructive" disabled={loading}>
             {loading ? <Loader2 className="animate-spin" /> : "Remove"}
           </Button>
         </DialogFooter>

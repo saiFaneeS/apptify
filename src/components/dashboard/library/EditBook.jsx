@@ -57,8 +57,13 @@ const EditBook = ({ book }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm" disabled={loading}>
-          <Edit className="mr-2 h-4 w-4" /> Edit
+        <Button
+          variant="outline"
+          size="sm"
+          disabled={loading}
+          className="w-full gap-2"
+        >
+          <Edit className="h-4 w-4" /> <span className="max-sm:hidden">Edit</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="w-full">
@@ -93,7 +98,9 @@ const EditBook = ({ book }) => {
               value={editingBook?.bookAuthor || ""}
               onChange={(e) =>
                 setEditingBook(
-                  editingBook ? { ...editingBook, bookAuthor: e.target.value } : null
+                  editingBook
+                    ? { ...editingBook, bookAuthor: e.target.value }
+                    : null
                 )
               }
               className="col-span-3"
@@ -139,12 +146,16 @@ const EditBook = ({ book }) => {
                   value={[editingBook?.progress || 0]}
                   onValueChange={(value) =>
                     setEditingBook(
-                      editingBook ? { ...editingBook, progress: value[0] } : null
+                      editingBook
+                        ? { ...editingBook, progress: value[0] }
+                        : null
                     )
                   }
                   className="flex-grow"
                 />
-                <span className="w-12 text-right">{editingBook?.progress || 0}%</span>
+                <span className="w-12 text-right">
+                  {editingBook?.progress || 0}%
+                </span>
               </div>
             </div>
           )}

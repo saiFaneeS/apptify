@@ -5,6 +5,7 @@ import { useBlogs } from "@/context/BlogContext";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -29,7 +30,7 @@ const SetFeaturedBlogModal = ({ currentFeaturedBlog }) => {
       <DialogTrigger asChild>
         <Button
           className="flex gap-2 items-center leading-none"
-        variant="outline"
+          variant="outline"
         >
           {updatingFeatured ? (
             <Loader2 className="animate-spin" />
@@ -46,16 +47,19 @@ const SetFeaturedBlogModal = ({ currentFeaturedBlog }) => {
           <DialogTitle className="text-xl font-semibold">
             Select Featured Review
           </DialogTitle>
+          <DialogDescription>
+            This will be prominently displayed as your featured review.
+          </DialogDescription>
         </DialogHeader>
         <ScrollArea className="mt-4 max-h-[60vh] pr-4 py-2">
           <div className="space-y-4">
             {blogs?.map((blog) => (
               <div
                 key={blog.id}
-                className={`flex items-center space-x-4  p-2 rounded-lg cursor-pointer transition-colors duration-200 ${
+                className={`flex items-center space-x-4 p-2 rounded-lg cursor-pointer transition-colors duration-200 ${
                   selectedBlog?.id === blog?.id
-                    ? "bg-foreground/10 border-2 border-foreground/20"
-                    : "border-2 hover:bg-foreground/5 hover:border-foreground/20"
+                    ? "bg-primary/10 border border-primary"
+                    : "border border-border/50 hover:bg-foreground/5 hover:border-foreground/20"
                 }`}
                 onClick={() => setSelectedBlog(blog)}
               >
