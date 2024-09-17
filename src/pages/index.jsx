@@ -1,16 +1,6 @@
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  ScrollText,
-  Book,
-  Feather,
-  Mail,
-  MapPin,
-  Quote,
-  BookOpen,
-  Library,
-  Check,
-} from "lucide-react";
+import { Feather, Quote, BookOpen, Library, Check } from "lucide-react";
 import Layout from "./Layout";
 import Hero from "@/components/about/Hero";
 import { useLibrary } from "@/context/LibraryContext";
@@ -19,9 +9,9 @@ import { useBlogs } from "@/context/BlogContext";
 import { useGoals } from "@/context/GoalContext";
 import { useUser } from "@/context/UserContext";
 import Goals from "@/components/goals/Goals";
-import Blogs from "@/components/blogs/Blogs";
 import CurrentlyReading from "@/components/CurrentlyReadingBooks";
 import { Button } from "@/components/ui/button";
+import PopularBlogs from "@/components/blogs/PopularBlogs";
 
 export default function AboutPage() {
   const { blogs, getAllBlogs } = useBlogs();
@@ -84,56 +74,56 @@ export default function AboutPage() {
           </section>
 
           {/* Focus on Content */}
-          <section className="px-8 max-sm:px-4 mb-12  ">
+          <section className="px-8 max-sm:px-4 mb-12">
             <h2 className="text-2xl font-semibold mb-8 text-center">
               My Literary Pursuits
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
               <Card>
-                <CardContent className="p-6 text-center">
-                  <BookOpen className="w-12 h-12 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Book Reviews</h3>
-                  <p className="mb-4">
-                    Explore my analyses of classic and contemporary literature
-                  </p>
-                  <Button variant="outline">Read Reviews</Button>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-6 text-center">
+                <CardContent className="text-center p-4">
                   <Feather className="w-12 h-12 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">
-                    Creative Writing
-                  </h3>
-                  <p className="mb-4">
-                    Discover tips, techniques, and inspiration for your own
-                    literary creations
+                  <h3 className="text-xl font-semibold mb-2">Writing Tales</h3>
+                  <p className="">
+                    Writing stories, learning techniques, and being inspired for
+                    my literary creations.
                   </p>
-                  <Button variant="outline">View Works</Button>
+                  {/* <Button variant="outline">View Works</Button> */}
                 </CardContent>
               </Card>
               <Card>
-                <CardContent className="p-6 text-center">
+                <CardContent className="text-center p-4">
+                  <BookOpen className="w-12 h-12 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold mb-2">
+                    Reviewing Books
+                  </h3>
+                  <p className="">
+                    Explore my analyses of classic and contemporary literature.
+                  </p>
+                  {/* <Button variant="outline">Read Reviews</Button> */}
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="text-center p-4">
                   <Library className="w-12 h-12 mx-auto mb-4" />
                   <h3 className="text-xl font-semibold mb-2">
-                    Collecting Books
+                    Collecting Tomes
                   </h3>
-                  <p className="mb-4">
+                  <p className="">
                     Collecting thought provoking books of different themes,
-                    styles, and authors
+                    styles, and authors.
                   </p>
-                  <Button variant="outline">Visit Library</Button>
+                  {/* <Button variant="outline">Visit Library</Button> */}
                 </CardContent>
               </Card>
             </div>
           </section>
 
-          <Blogs />
+          <PopularBlogs />
 
           <CurrentlyReading />
 
           {/* Philosophy */}
-          <section className="px-8 max-sm:px-4 mb-12">
+          {/* <section className="px-8 max-sm:px-4 mb-12">
             <h2 className="text-2xl font-semibold mb-6">Creeds</h2>
             <p className="text800 mb-4">I adhere to these sacred principles:</p>
             <ul className="list-disc list-inside text800 mb-4 space-y-2">
@@ -150,10 +140,7 @@ export default function AboutPage() {
                 <Check size={20} /> Celebrate diverse literary voices.
               </li>
             </ul>
-          </section>
-
-          {/* Milestones */}
-          <Goals />
+          </section> */}
 
           {/* Favorite Quotes */}
           <section className="px-8 max-sm:px-4 mb-12">
@@ -181,6 +168,9 @@ export default function AboutPage() {
               </Card>
             </div>
           </section>
+
+          {/* Milestones */}
+          <Goals />
         </div>
       </div>
     </Layout>

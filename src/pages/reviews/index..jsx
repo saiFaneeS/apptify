@@ -12,7 +12,6 @@ export default function ReviewsPage() {
       <Blogs />
       <FeaturedBlogs />
       <CurrentlyReading />
-      <PopularBlogs />
     </Layout>
   );
 }

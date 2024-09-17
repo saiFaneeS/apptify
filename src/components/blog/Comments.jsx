@@ -7,8 +7,9 @@ import { useToast } from "@/hooks/use-toast";
 import { formatTime } from "@/lib/formatTime";
 import { useBlogs } from "@/context/BlogContext";
 import { useParams } from "next/navigation";
-import { Trash2, ArrowUpDown } from "lucide-react";
+import { Trash2, ArrowUpDown, Loader2 } from "lucide-react";
 import { Card } from "../ui/card";
+import { Separator } from "../ui/separator";
 
 export default function Comments() {
   const [newComment, setNewComment] = useState({ username: "", content: "" });
@@ -90,14 +91,14 @@ export default function Comments() {
   };
 
   const CommentItem = ({ comment }) => (
-    <Card className="mb-4">
+    <div className="">
       <div className="flex items-center mb-2 justify-between">
         <div className="flex items-center">
           <Avatar className="h-8 w-8 mr-2">
             <AvatarImage
               src={`https://api.dicebear.com/6.x/micah/svg?seed=${comment.username}`}
             />
-            <AvatarFallback>{comment.username}</AvatarFallback>
+            {/* <AvatarFallback></AvatarFallback> */}
           </Avatar>
           <span className="font-semibold mr-2">{comment.username}</span>
           <span className="text-xs text-gray-500">
@@ -114,14 +115,14 @@ export default function Comments() {
           </Button>
         )}
       </div>
-      <p className="text-gray-700 mb-2">{comment.content}</p>
-    </Card>
+      <p className="">{comment.content}</p>
+    </div>
   );
 
   return (
     <div className="">
       <div className="flex justify-between items-center mb-4 gap-2">
-        <h2 className="text-2xl font-bold">Comments</h2>
+        <h2 className="text-2xl font-semibold">Comments</h2>
         <Button onClick={toggleSortOrder} variant="outline" size="sm">
           <ArrowUpDown className="h-4 w-4 mr-2" />
           {sortOrder === "newest" ? "Newest to Oldest" : "Oldest to Newest"}
@@ -130,16 +131,16 @@ export default function Comments() {
 
       {/* Comment Form */}
       <form onSubmit={handleSubmit} className="flex flex-col gap-2 mb-8">
-        <p>Comment as:</p>
-        <div className="flex space-x-2 mb-2">
-          <div>
-            <Avatar className="border border-border bg-backgr`ound">
-              <AvatarImage
-                src={`https://api.dicebear.com/6.x/micah/svg?seed=${newComment.username}`}
-              />
-              <AvatarFallback>{newComment.username}</AvatarFallback>
-            </Avatar>
-          </div>
+        <p className="font-medium text-sm">New Comment:</p>
+        <div className="flex space-x-2">
+          <Avatar className="border border-border bg-backgr`ound">
+            <AvatarImage
+              src={`https://api.dicebear.com/6.x/micah/svg?seed=${newComment.username}`}
+            />
+            <AvatarFallback>
+              <Loader2 className="animate-spin" />
+            </AvatarFallback>
+          </Avatar>
           <Input
             placeholder="Your name"
             value={newComment.username}
@@ -163,9 +164,12 @@ export default function Comments() {
       </form>
 
       {/* Comments */}
-      <div className="space-y-4">
+      <div className="flex flex-col gap-8 pt-4">
         {sortedComments.map((comment) => (
-          <CommentItem key={comment.id} comment={comment} />
+          <>
+            <CommentItem key={comment.id} comment={comment} />
+            <Separator />
+          </>
         ))}
       </div>
     </div>

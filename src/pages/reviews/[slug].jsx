@@ -23,6 +23,7 @@ import { useUser } from "@/context/UserContext";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
 
 export default function SinglePostPage() {
   const [relatedBlogs, setRelatedBlogs] = useState([]);
@@ -140,7 +141,7 @@ export default function SinglePostPage() {
             className="absolute left-1/2 -translate-x-1/2 w-4/5 top object-cover -z-10 opacity-30 blur-md rounded-lg"
           />
 
-          <div className="absolute inset-0 flex gap-12 max-md:gap-8 items-center justify-center pt-20 max-md:flex-col">
+          <div className="absolute inset-0 flex gap-12 max-md:gap-12 items-center justify-center pt-20 max-md:flex-col">
             <Image
               src={blog?.coverImage}
               alt={blog?.title}
@@ -171,15 +172,15 @@ export default function SinglePostPage() {
         </div>
 
         {/* Content */}
-        <div className="px-8 max-sm:px-4 py-8">
-          <Card className="mb-8">
-            <div className="prose prose-amber max-w-none">
+        <div className="px-8 max-sm:px-4 mt-12">
+          <div className="mb-8">
+            <div className="prose prose-amber max-w-none mb-8">
               <div dangerouslySetInnerHTML={{ __html: blog?.content }} />
             </div>
-
+            <Separator />
             {/* Rating */}
             <div className="mt-8">
-              <h3 className="text-2xl font-bold text900 mb-2">Rating</h3>
+              <h2 className="text-xl font-semibold mb-2">Rating</h2>
               <div className="flex">
                 {[...Array(5)].map((_, i) => (
                   <Star
@@ -196,7 +197,7 @@ export default function SinglePostPage() {
 
             {/* Author */}
             <div className="mt-8">
-              <h3 className="text-2xl font-bold text900 mb-2">Scribe</h3>
+              <h2 className="text-xl font-semibold mb-2">Scribe</h2>
               <div className="flex items-center">
                 <Avatar className="h-12 w-12 mr-4">
                   <AvatarImage
@@ -213,13 +214,11 @@ export default function SinglePostPage() {
                 </div>
               </div>
             </div>
-          </Card>
+          </div>
 
           {/* Share */}
-          <Card className="mb-8">
-            <h2 className="text-2xl font-bold text900 mb-4">
-              Share this Review
-            </h2>
+          <Card className="mb-12">
+            <h2 className="text-2xl font-semibold mb-4">Share this Review</h2>
             <div className="flex space-x-4">
               <Button
                 variant="outline"
@@ -256,56 +255,52 @@ export default function SinglePostPage() {
           </div>
           {/* More */}
           <div>
-            <h2 className="text-2xl font-bold mb-4">Related Scrolls</h2>
-            <div>
-              <div className="grid grid-cols-1 gap-4">
-                {relatedBlogs?.map((review) => (
-                  <Link href={`/reviews/${review.id}`} key={review.id}>
-                    <Card
-                      key={review.id}
-                      className="flex items-center hover:bg-foreground/5"
-                    >
-                      <Image
-                        src={review.coverImage}
-                        alt={review.title}
-                        width={100}
-                        height={150}
-                        className="rounded mr-4"
-                      />
-                      <div className="flex flex-col gap-1">
-                        <Badge className="mb-2 w-fit capitalize">
-                          {review.category}
-                        </Badge>
-                        <h3 className="text-lg font-bold mb-1">
-                          {review.title}
-                        </h3>
-                        <p className="flex items-center gap-1 text-sm mb-1 font-medium">
-                          <Book className="h-4 w-4" />
-                          {review.bookName}
-                        </p>
-                        <p className="flex items-center gap-2 text-sm mb-1 font-medium">
-                          <Pen className="h-4 w-4" />
-                          {review.bookAuthor}
-                        </p>
-                        <div className="flex">
-                          {[...Array(5)].map((_, i) => (
-                            <Star
-                              key={i}
-                              className={`w-4 h-4 ${
-                                i < review.rating
-                                  ? "text-yellow-500 fill-current"
-                                  : ""
-                              }`}
-                            />
-                          ))}
-                        </div>
+            <h2 className="text-2xl font-semibold mb-8">Related Scrolls</h2>
+            <div className="grid grid-cols-1 gap-4">
+              {relatedBlogs?.map((review) => (
+                <Link href={`/reviews/${review.id}`} key={review.id}>
+                  <Card
+                    key={review.id}
+                    className="flex items-center hover:bg-foreground/5"
+                  >
+                    <Image
+                      src={review.coverImage}
+                      alt={review.title}
+                      width={100}
+                      height={150}
+                      className="rounded mr-4"
+                    />
+                    <div className="flex flex-col gap-1">
+                      <Badge className="mb-2 w-fit capitalize">
+                        {review.category}
+                      </Badge>
+                      <h3 className="text-lg font-bold mb-1">{review.title}</h3>
+                      <p className="flex items-center gap-1 text-sm mb-1 font-medium">
+                        <Book className="h-4 w-4" />
+                        {review.bookName}
+                      </p>
+                      <p className="flex items-center gap-2 text-sm mb-1 font-medium">
+                        <Pen className="h-4 w-4" />
+                        {review.bookAuthor}
+                      </p>
+                      <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-4 h-4 ${
+                              i < review.rating
+                                ? "text-yellow-500 fill-current"
+                                : ""
+                            }`}
+                          />
+                        ))}
                       </div>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-            </div>{" "}
-          </div>
+                    </div>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>{" "}
         </section>
       </div>
     </Layout>

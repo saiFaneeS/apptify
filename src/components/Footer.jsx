@@ -11,6 +11,7 @@ import {
   Twitter,
   Instagram,
   Library,
+  Home,
 } from "lucide-react";
 
 export default function Footer() {
@@ -21,6 +22,16 @@ export default function Footer() {
           <div>
             <h3 className="text-xl font-semibold mb-4">Navigation</h3>
             <ul className="space-y-2">
+              <li>
+                <Link
+                  href="/"
+                  className="flex items-center hover:text300 transition-colors"
+                >
+                  <Home className="mr-2 h-4 w-4" />
+                  Welcome Page
+                </Link>
+              </li>
+
               <li>
                 <Link
                   href="/chronicles"
@@ -40,17 +51,7 @@ export default function Footer() {
                 </Link>
               </li>
 
-              <li>
-                <Link
-                  href="/about"
-                  className="flex items-center hover:text300 transition-colors"
-                >
-                  <Info className="mr-2 h-4 w-4" />
-                  About the Scribe
-                </Link>
-              </li>
-
-              <li>
+              {/* <li>
                 <Link
                   href="/contact"
                   className="flex items-center hover:text300 transition-colors"
@@ -58,17 +59,16 @@ export default function Footer() {
                   <Mail className="mr-2 h-4 w-4" />
                   Contact
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div>
             <h3 className="text-xl font-semibold mb-4">Contact</h3>
-            <p className="mb-2">Ye Olde Blog Castle</p>
             <p className="mb-2">Medievalshire, ME1 2VA</p>
             <p className="mb-2">United Kingdoms of Yore</p>
             <p className="flex items-center">
               <Mail className="mr-2 h-4 w-4" />
-              scribe@yeoldeblog.com
+              scribesemail@gmail.com
             </p>
           </div>
           <div>
@@ -89,12 +89,19 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="flex justify-between items-center flex-wrap border-t pt-8 mt-8">
+        <div className="flex gap-4 justify-between items-center flex-wrap border-t pt-8 mt-8">
           <p>
             &copy; {new Date().getFullYear()} Ye Olde Blog. All rights reserved.
           </p>
           <p className="font-light">
-            Developed by <Link href={"https://saif-anees.vercel.app"} target="_blank" className="font-medium">Saif Anees</Link>
+            Developed by{" "}
+            <Link
+              href={"https://saif-anees.vercel.app"}
+              target="_blank"
+              className="font-medium"
+            >
+              Saif Anees
+            </Link>
           </p>
         </div>
       </div>

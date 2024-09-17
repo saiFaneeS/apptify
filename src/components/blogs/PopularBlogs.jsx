@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 import { Card } from "../ui/card";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 const PopularBlogs = () => {
   const [popularReviews, setPopularReviews] = React.useState([]);
@@ -18,8 +19,8 @@ const PopularBlogs = () => {
   }, [blogs]);
 
   return (
-    <section className="px-8 max-sm:px-4 mb-8">
-      <h2 className="text-3xl font-semibold mb-8">Popular Tome Reviews</h2>
+    <section className="px-8 max-sm:px-4 mb-12">
+      <h2 className="text-2xl font-semibold mb-8">Popular Reviews</h2>
       <div className="grid gap-6 md:grid-cols-3">
         {popularReviews?.map((review) => (
           <Link href={`/reviews/${review.id}`} key={review.id}>
@@ -28,7 +29,7 @@ const PopularBlogs = () => {
               className="flex items-center hover:bg-foreground/5"
             >
               <Image
-                src={review.coverImage}
+                src={review?.coverImage}
                 alt={review.title}
                 width={100}
                 height={150}
@@ -52,6 +53,13 @@ const PopularBlogs = () => {
             </Card>
           </Link>
         ))}
+      </div>
+      <div className="flex justify-center">
+        <Link href={"/reviews"}>
+          <Button className="mt-6" variant="outline">
+            View All
+          </Button>
+        </Link>
       </div>
     </section>
   );

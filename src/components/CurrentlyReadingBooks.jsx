@@ -4,14 +4,18 @@ import { useEffect, useState } from "react";
 import { Progress } from "./ui/progress";
 import { useLibrary } from "@/context/LibraryContext";
 import { Card } from "./ui/card";
+import Link from "next/link";
+import { Button } from "./ui/button";
 
 export default function CurrentlyReading() {
   const [currentlyReadingBooks, setCurrentlyReadingBooks] = useState([]);
   const { books, getAllBooks } = useLibrary();
 
   useEffect(() => {
-    getAllBooks();
-  }, [getAllBooks]);
+    if (!books || books.length === 0) {
+      getAllBooks();
+    }
+  }, [books, getAllBooks]);
 
   useEffect(() => {
     const currentlyReading = books?.filter(
@@ -19,6 +23,10 @@ export default function CurrentlyReading() {
     );
     setCurrentlyReadingBooks(currentlyReading);
   }, [books]);
+
+  if (!currentlyReadingBooks || currentlyReadingBooks.length === 0) {
+    return null; 
+  }
 
   return (
     <section className="px-8 max-sm:px-4 mb-12">
@@ -41,6 +49,13 @@ export default function CurrentlyReading() {
             </div>
           </Card>
         ))}
+        <div className="flex justify-center">
+          <Link href={"/library"}>
+            <Button className="mt-6" variant="outline">
+              View All
+            </Button>
+          </Link>
+        </div>
       </div>
     </section>
   );

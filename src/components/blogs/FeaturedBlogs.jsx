@@ -9,13 +9,12 @@ import { Card } from "../ui/card";
 import Link from "next/link";
 
 const FeaturedBlogs = () => {
-  const { featuredBlog } = useBlogs();
+  const { featuredBlog, blogs } = useBlogs();
 
+  if (!blogs || blogs.length === 0) return null;
   return (
     <section className="px-8 max-sm:px-4 mb-8">
-      <h2 className="text-2xl font-semibold mb-8 text-center">
-        Featured Review
-      </h2>
+      <h2 className="text-2xl font-semibold mb-8">Featured Review</h2>
       <Card>
         <div className="flex items-center gap-8 flex-wrap">
           <div className="max-sm:w-full w-52 h-80 flex justify-center gap-4 items-center shrink-0">

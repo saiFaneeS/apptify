@@ -64,11 +64,11 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`bg-background text-foreground p-4 fixed top-0 left-0 w-full z-50 transition-transform duration-200 ${
+      className={`bg-background text-foreground p-4 sm:px-8 fixed top-0 left-0 w-full z-50 transition-transform duration-200 ${
         showNavbar ? "translate-y-0" : "-translate-y-20"
       }`}
     >
-      <div className="container mx-auto">
+      <div>
         <div className="flex items-center justify-between">
           <Link
             href="/"
@@ -94,14 +94,14 @@ export default function Navbar() {
             </svg>
             <span className="">Violet Clough</span>
           </Link>
-          <div className="hidden md:flex space-x-4">
+          <div className="hidden md:flex justify-end space-x-4">
             {navItems?.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={`flex items-center px-3 py-2 rounded-md transition-colors ${
                   isActive(item.href)
-                    ? "bg-foreground/10"
+                    ? "bg-foreground/5"
                     : "hover:bg-foreground/5"
                 }`}
               >
@@ -110,27 +110,32 @@ export default function Navbar() {
               </Link>
             ))}
             {mounted && (
-              <span
-                className="h-9 w-9 rounded-full  flex justify-center items-center cursor-pointer outline outline-1 outline-border/10 hover:outline-primary/50 hover:bg-primary/10 transition-all shrink-0"
+              <Button
+                variant="ghost"
+                size="icon"
+                className="outline outline-2 outline-border/10 hover:outline-primary/50 hover:bg-primary/10 transition-all shrink-0"
                 onClick={() => setTheme(isDark ? "light" : "dark")}
               >
                 {isDark ? <Sun size={18} /> : <Moon size={18} />}
-              </span>
+              </Button>
             )}
           </div>
-          <div className="flex gap-2 items-center">
+
+          <div className="flex gap-3 items-center md:hidden">
             {mounted && (
-              <span
-                className="h-9 w-9 rounded-full  flex justify-center items-center cursor-pointer outline outline-1 outline-border/10 hover:outline-primary/50 hover:bg-primary/10 transition-all shrink-0"
+              <Button
+                variant="ghost"
+                size="icon"
+                className="outline outline-2 outline-border/10 hover:outline-primary/50 hover:bg-primary/10 transition-all shrink-0"
                 onClick={() => setTheme(isDark ? "light" : "dark")}
               >
                 {isDark ? <Sun size={18} /> : <Moon size={18} />}
-              </span>
+              </Button>
             )}
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden"
+              className="outline outline-2 outline-border/10 hover:outline-primary/50 hover:bg-primary/10 transition-all shrink-0"
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? (
@@ -150,12 +155,12 @@ export default function Navbar() {
               href={item.href}
               className={`flex items-center px-3 py-2 rounded-md transition-colors ${
                 isActive(item.href)
-                  ? "bg800 text100"
-                  : "hover:bg800 hover:text100"
+                  ? "bg-foreground/5 text-primary font-medium"
+                  : "hover:bg-foreground/5"
               }`}
               onClick={() => setIsOpen(false)}
             >
-              <item.icon className="h-5 w-5 mr-2" />
+              <item.icon className={`h-5 w-5 mr-2 ${isActive(item.href) ? "text-primary" : ""}`} />
               {item.label}
             </Link>
           ))}
