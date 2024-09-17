@@ -35,6 +35,7 @@ export default function Navbar() {
 
   const navItems = [
     { href: "/", label: "Home", icon: BookUser },
+    { href: "/works", label: "Original Works", icon: Feather },
     { href: "/reviews", label: "Book Reviews", icon: ScrollText },
     { href: "/library", label: "Library", icon: Library },
     // { href: "/contact", label: "Send a Missive", icon: Mail },
