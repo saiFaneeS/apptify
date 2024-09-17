@@ -34,8 +34,8 @@ const AddNewGoal = ({
   return (
     <Dialog>
       <DialogTrigger className="p-0">
-        <Button className="w-full bg700 hover:bg600">
-          <Plus className="w-4 h-4 mr-2" /> Add New Quest
+        <Button className="w-full" size="sm">
+          <Plus className="w-4 h-4 mr-2" /> New Quest
         </Button>
       </DialogTrigger>
       <DialogContent>

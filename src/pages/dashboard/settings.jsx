@@ -65,11 +65,11 @@ export default function SettingsPage() {
       <div className="min-h-screen pt-20 md:pt-24 p-4 md:p-8">
         <Card className="max-w-4xl mx-auto bg100 border-2 border300">
           <CardHeader>
-            <CardTitle className="text-3xl font-bold text900">
+            <CardTitle className="text-2xl font-semibold">
               Scribe Settings
             </CardTitle>
             <CardDescription className="text700">
-              Customize thy presence in the realm
+              Customize thy presence in the realm.
             </CardDescription>
           </CardHeader>
           <CardContent>

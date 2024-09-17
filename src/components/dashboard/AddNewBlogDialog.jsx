@@ -30,6 +30,7 @@ import {
   ChevronRight,
   ChevronLeft,
   Loader2,
+  Plus,
 } from "lucide-react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
@@ -102,10 +103,14 @@ export function AddNewBlogDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="w-full">
-        <Button className="bg700 hover:bg600 text100" disabled={loading}>
+        <Button
+          className="flex gap-2 items-center leading-none"
+          disabled={loading}
+          variant="outline"
+        >
           {!loading ? (
             <>
-              <ScrollText className="mr-2 h-5 w-5" />
+              <Plus size={16} />
               New Book Review
             </>
           ) : (
@@ -113,9 +118,9 @@ export function AddNewBlogDialog() {
           )}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] bg100 border-2 border300">
+      <DialogContent className="sm:max-w-[600px] border-2">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text900">
+          <DialogTitle className="text-xl font-semibold">
             Scribe a New Post
           </DialogTitle>
           <DialogDescription className="text700">

@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
-import { ScrollText, Target,  Edit, Loader2 } from "lucide-react";
+import { ScrollText, Target, Edit, Loader2, Mountain } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useGoals } from "@/context/GoalContext";
 import AddNewGoal from "./goals/AddNewGoal";
@@ -126,8 +126,8 @@ export default function Goals() {
     <Card className="flex flex-col gap-4 mb-8">
       <CardHeader>
         <CardTitle className="flex items-center w-full justify-between">
-          <div className="flex gap-2 items-center">
-            <ScrollText className="w-6 h-6 mr-2" />
+          <div className="flex gap-2 items-center text-lg font-semibold pl-1">
+            <Mountain className="w-5 h-5" />
             Scribe&apos;s Quests
           </div>
           {mounted && (

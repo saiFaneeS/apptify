@@ -27,12 +27,15 @@ const SetFeaturedBlogModal = ({ currentFeaturedBlog }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="flex items-center gap-2">
+        <Button
+          className="flex gap-2 items-center leading-none"
+        variant="outline"
+        >
           {updatingFeatured ? (
             <Loader2 className="animate-spin" />
           ) : (
             <>
-              <Plus className="w-4 h-4" />
+              <Plus size={16} />
               Feature a New Blog
             </>
           )}
@@ -40,8 +43,8 @@ const SetFeaturedBlogModal = ({ currentFeaturedBlog }) => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[450px]">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">
-            Select Featured Plog
+          <DialogTitle className="text-xl font-semibold">
+            Select Featured Review
           </DialogTitle>
         </DialogHeader>
         <ScrollArea className="mt-4 max-h-[60vh] pr-4 py-2">
