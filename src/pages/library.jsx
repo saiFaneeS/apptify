@@ -16,7 +16,15 @@ import {
   LibraryBig,
   BookCheck,
   BookDashed,
+  Search,
 } from "lucide-react";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 import Layout from "./Layout";
 import { useLibrary } from "@/context/LibraryContext";
 import Goals from "@/components/goals/Goals";
@@ -30,6 +38,14 @@ export default function Library() {
   const [filteredBooks, setFilteredBooks] = useState([]);
 
   const { books, getAllBooks } = useLibrary();
+
+  const tabData = [
+    { value: "all", icon: LibraryBig, label: "All" },
+    { value: "currently reading", icon: BookOpen, label: "Currently Reading" },
+    { value: "tbr", icon: BookDashed, label: "To Be Read" },
+    { value: "favorite", icon: Star, label: "Favorite" },
+    { value: "read", icon: BookCheck, label: "Read" },
+  ];
 
   useEffect(() => {
     setFilteredBooks(
@@ -79,7 +95,7 @@ export default function Library() {
       {/* Hero section */}
       <Hero />
       {/* Search bar */}
-      <div className="px-8 max-sm:px-4 mb-8">
+      <div className="px-8 max-sm:px-4 mb-4">
         <div className="flex gap-2 justify-between items-center">
           <div className="w-full">
             <Input
@@ -90,49 +106,59 @@ export default function Library() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Button className="px-12">
-              <Filter className="mr-2 h-4 w-4" />
-              Find
-            </Button>
-          </div>
+          <Button className="flex items-center md:px-12">
+            <Search className="mr-2 h-4 w-4" />
+            Find
+          </Button>
         </div>
       </div>
 
       {/* Tabs */}
-      <Tabs
-        value={activeTab}
-        onValueChange={setActiveTab}
-        className="space-y-8 px-8 max-sm:px-4"
-      >
-        <TabsList>
-          {["all", "currently reading", "tbr", "favorite", "read"].map(
-            (tab) => (
+      <div className="space-y-8 px-4 sm:px-8 mb-12">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          {/* Mobile view: Select dropdown */}
+          <div className="sm:hidden mb-6">
+            <Select value={activeTab} onValueChange={setActiveTab}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select a category" />
+              </SelectTrigger>
+              <SelectContent>
+                {tabData.map((tab) => (
+                  <SelectItem key={tab.value} value={tab.value}>
+                    <div className="flex items-center">
+                      <tab.icon className="mr-2 h-4 w-4" />
+                      {tab.label}
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Desktop view: TabsList */}
+          <TabsList className="hidden sm:flex sm:flex-wrap justify-start mb-8">
+            {tabData.map((tab) => (
               <TabsTrigger
-                key={tab}
-                value={tab}
-                className="data-[state=active]:bg700 data-[state=active]:text100"
+                key={tab.value}
+                value={tab.value}
+                className="data-[state=active]:bg700 data-[state=active]:text100 flex items-center whitespace-nowrap"
               >
-                {tab === "currently reading" && (
-                  <BookOpen className="mr-2 h-4 w-4" />
-                )}
-                {tab === "all" && <LibraryBig className="mr-2 h-4 w-4" />}
-                {tab === "tbr" && <BookDashed className="mr-2 h-4 w-4" />}
-                {tab === "favorite" && <Star className="mr-2 h-4 w-4" />}
-                {tab === "read" && <BookCheck className="mr-2 h-4 w-4" />}
-                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                <tab.icon className="mr-2 h-4 w-4" />
+                {tab.label}
               </TabsTrigger>
-            )
-          )}
-        </TabsList>
-        {["all", "currently reading", "tbr", "favorite", "read"].map((tab) => (
-          <TabsContent key={tab} value={tab}>
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {filteredBooks?.map(renderBookCard)}
-            </div>
-          </TabsContent>
-        ))}
-      </Tabs>
+            ))}
+          </TabsList>
+
+          {/* Tab content */}
+          {tabData.map((tab) => (
+            <TabsContent key={tab.value} value={tab.value}>
+              <div className="grid gap-4 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                {filteredBooks?.map(renderBookCard)}
+              </div>
+            </TabsContent>
+          ))}
+        </Tabs>
+      </div>
 
       <Goals />
     </Layout>

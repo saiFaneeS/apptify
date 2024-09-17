@@ -41,7 +41,7 @@ const BookCard = ({ book }) => {
           Added on: {new Date(book?.createdAt).toLocaleDateString()}
         </p>
       </CardContent>
-      <CardFooter className="flex items-center gap-2 p-0 pt-4 w-full">
+      <CardFooter className="flex items-center gap-2 mt-4 w-full">
         <EditBook book={book} />
         <RemoveBook book={book} />
       </CardFooter>

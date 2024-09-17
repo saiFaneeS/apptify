@@ -13,11 +13,12 @@ const FeaturedBlogs = () => {
 
   return (
     <section className="px-8 max-sm:px-4 mb-8">
-      <h2 className="text-3xl font-semibold mb-6">
-        Featured Review</h2>
+      <h2 className="text-2xl font-semibold mb-8 text-center">
+        Featured Review
+      </h2>
       <Card>
-        <div className="md:flex md:items-center gap-8">
-          <div className="w-52 h-80 flex justify-center items-center">
+        <div className="flex items-center gap-8 flex-wrap">
+          <div className="max-sm:w-full w-52 h-80 flex justify-center gap-4 items-center shrink-0">
             <Image
               src={featuredBlog?.coverImage}
               alt={featuredBlog?.title}

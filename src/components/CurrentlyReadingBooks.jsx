@@ -21,8 +21,8 @@ export default function CurrentlyReading() {
   }, [books]);
 
   return (
-    <section className="px-8 max-sm:px-4 mb-8">
-      <h2 className="text-3xl font-semibold mb-6">Books Currently Perusing</h2>
+    <section className="px-8 max-sm:px-4 mb-12">
+      <h2 className="text-2xl font-semibold mb-6">Books Currently Perusing</h2>
       <div className="grid gap-6 md:grid-cols-2">
         {currentlyReadingBooks?.map((book) => (
           <Card key={book.id} className="flex items-center">

@@ -15,8 +15,8 @@ export default function Main() {
   }, []);
 
   return (
-    <section className="px-8 max-sm:px-4 mb-8">
-      <h2 className="text-3xl font-semibold mb-6">Recent Reviews</h2>
+    <section className="px-8 max-sm:px-4 mb-12">
+      <h2 className="text-2xl font-semibold mb-6">Recent Reviews</h2>
       <div className="grid gap-8 md:grid-cols-1 lg:grid-cols-2">
         {blogs?.slice(0, 3).map((post) => (
           <Card
