@@ -13,14 +13,13 @@ const Hero = () => {
           className="opacity-20"
         />
       </div>
-      <div className="text-background dark:text-foreground container mx-auto px-4 relative z-10">
-        <h1 className="text-4xl md:text-7xl font-semibold mb-6 text-center">
-          The Grand Library
+      <div className="text-background dark:text-foreground container mx-auto px-6 relative z-10">
+        <h1 className="text-4xl sm:text-6xl font-semibold mb-2 text-center">
+          My Library
         </h1>
-        <p className="text-base text-center leading-relaxed max-w-2xl mx-auto px-6">
-          Behold, noble readers, the vast collection of tomes and scrolls that
-          grace our hallowed shelves. Embark on literary quests through time and
-          imagination.
+        <p className="text-base max-sm:text-sm text-center leading-loose max-w-2xl mx-auto">
+          Explore the collection of books I cherish. Each volume holds a unique
+          story and a place in my reading journey for me.
         </p>
       </div>
     </div>

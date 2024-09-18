@@ -28,16 +28,20 @@ const BookLibrary = () => {
   const [layout, setLayout] = useState("grid");
 
   useEffect(() => {
-    setFilteredBooks(
-      activeTab === "all"
-        ? books
-        : books?.filter((book) => book.status === activeTab)
-    );
-  }, [books, activeTab]);
+    if (!books || books.length === 0) {
+      getAllBooks();
+    }
+  }, [books, getAllBooks]);
 
   useEffect(() => {
-    getAllBooks();
-  }, []);
+    if (books) {
+      setFilteredBooks(
+        activeTab === "all"
+          ? books
+          : books.filter((book) => book.status === activeTab)
+      );
+    }
+  }, [books, activeTab]);
 
   const tabOptions = [
     { value: "all", label: "All Books", icon: Book },

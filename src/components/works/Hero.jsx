@@ -15,11 +15,11 @@ const Hero = () => {
       </div>
       <div className="text-background dark:text-foreground container mx-auto px-6 relative z-10">
         <h1 className="text-4xl sm:text-6xl font-semibold mb-2 text-center">
-          Book Reviews
+          My Works
         </h1>
         <p className="text-base max-sm:text-sm text-center leading-loose max-w-2xl mx-auto">
-          Discover my thoughts on various books I&nbsp;ve read. Read my reviews
-          and see what I found intriguing or thought-provoking in each one.
+          Explore the stories and writings I&nbsp;ve created. Each piece
+          reflects my love for storytelling and my journey as a writer.
         </p>
       </div>
     </div>

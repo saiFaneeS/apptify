@@ -1,10 +1,11 @@
 import React from "react";
 import Layout from "./Layout";
+import Hero from "@/components/works/Hero";
 
 const works = () => {
   return (
     <Layout>
-      <div className="flex justify-center items-center h-screen text-2xl">...</div>
+      <Hero />
     </Layout>
   );
 };

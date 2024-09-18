@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ScrollText, Feather, Book, Library } from "lucide-react";
+import { ScrollText, Library } from "lucide-react";
 import Link from "next/link";
 
 export default function AboutHero({ blogs, books, goals }) {
   return (
     <div className="relative overflow-hidden h-screen mb-12">
-      <div className="absolute inset-0 bg-primary">
+      <div className="absolute inset-0 bg-primary h-screen">
         <Image
           src="/bg1.jpg"
           alt="Medieval library background"
@@ -17,20 +17,22 @@ export default function AboutHero({ blogs, books, goals }) {
       </div>
       <div className="relative max-w-7xl mx-auto flex flex-col items-start justify-center h-full sm:pt-16 px-4 sm:px-6 lg:px-8">
         <h1 className="text-background dark:text-foreground text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-          Hi, Noble Readers!
+          Greetings, Readers!
         </h1>
-        <h4 className="text-background dark:text-foreground mt-6 max-w-3xl text-2xl font-semibold">
-          This is Violet Clough,{" "}
+        <h4 className="text-background dark:text-foreground mt-6 mb-4 max-w-3xl text-2xl font-semibold">
+          I’m Violet Clough,
         </h4>
-        <p className="text-background dark:text-foreground mt-6 max-w-3xl text-xl">
-          Welcome to my humble scriptorium. Here I chronicle the tales of yore,
-          review tomes of great renown, and share the wisdom of ages past.
+        <p className="text-base max-sm:text-sm leading-loose max-w-2xl">
+          Welcome to my corner of literary adventures. Here, I share my thoughts
+          on cherished books, explore new reads, and celebrate the stories that
+          inspire me.
         </p>
+
         <div className="mt-10 flex flex-col sm:flex-row gap-4">
-          <Link href={"/reviews"}>
+          <Link href={"/works"}>
             <Button variant="outline">
               <ScrollText className="mr-2 h-5 w-5" />
-              My Reviews
+              My Works
             </Button>
           </Link>
           <Link href={"/library"}>

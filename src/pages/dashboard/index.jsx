@@ -18,9 +18,8 @@ export default function CMSDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const { user } = useAuth();
-  const { userProfile } = useUser();
   const { blogs, getAllBlogs, fetchingBlogs, featuredBlog } = useBlogs();
-  const { quote } = useQuote(); // Add this line
+  const { quote } = useQuote();
 
   const filteredBlogs = blogs?.filter((blog) =>
     blog.title.toLowerCase().includes(searchTerm.toLowerCase())

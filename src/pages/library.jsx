@@ -21,6 +21,7 @@ import {
   BookMarked,
   Glasses,
   Heart,
+  Loader2,
 } from "lucide-react";
 import {
   Select,
@@ -35,6 +36,7 @@ import Goals from "@/components/goals/Goals";
 import Hero from "@/components/library/Hero";
 import { Card } from "@/components/ui/card";
 import { Grid, List } from "lucide-react";
+import Loading from "@/components/Loading";
 
 export default function Library() {
   const [activeTab, setActiveTab] = useState("all");
@@ -54,19 +56,23 @@ export default function Library() {
   ];
 
   useEffect(() => {
-    setFilteredBooks(
-      books?.filter(
-        (book) =>
-          (activeTab === "all" || book?.status === activeTab) &&
-          book?.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-          (genreFilter === "" || book?.genre === genreFilter)
-      )
-    );
-  }, [books, activeTab, searchTerm, genreFilter]);
+    if (!books || books.length === 0) {
+      getAllBooks();
+    }
+  }, [books, getAllBooks]);
 
   useEffect(() => {
-    getAllBooks();
-  }, []);
+    if (books) {
+      setFilteredBooks(
+        books.filter(
+          (book) =>
+            (activeTab === "all" || book?.status === activeTab) &&
+            book?.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            (genreFilter === "" || book?.genre === genreFilter)
+        )
+      );
+    }
+  }, [books, activeTab, searchTerm, genreFilter]);
 
   const renderBookCard = (book, layout) => {
     const isListView = layout === "list";
@@ -146,7 +152,9 @@ export default function Library() {
             )}
             {book.status === "favorite" && (
               <div
-                className={`${isListView ? "flex items-center gap-4" : "mt-4"}`}
+                className={`${
+                  isListView ? "flex items-center gap-4 mt-4" : "mt-4"
+                }`}
               >
                 <div className="p-1.5 aspect-square bg-rose-500/90 text-background h-fit w-fit rounded-full">
                   <Heart size={18} />
@@ -229,19 +237,23 @@ export default function Library() {
           </div>
 
           {/* Tab content */}
-          {tabData.map((tab) => (
-            <TabsContent key={tab.value} value={tab.value}>
-              <div
-                className={
-                  layout === "grid"
-                    ? "grid gap-4 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-                    : "flex flex-col gap-4"
-                }
-              >
-                {filteredBooks?.map((book) => renderBookCard(book, layout))}
-              </div>
-            </TabsContent>
-          ))}
+          {books ? (
+            tabData?.map((tab) => (
+              <TabsContent key={tab.value} value={tab.value}>
+                <div
+                  className={
+                    layout === "grid"
+                      ? "grid gap-4 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                      : "flex flex-col gap-4"
+                  }
+                >
+                  {filteredBooks?.map((book) => renderBookCard(book, layout))}
+                </div>
+              </TabsContent>
+            ))
+          ) : (
+            <Loading />
+          )}
         </Tabs>
       </div>
 

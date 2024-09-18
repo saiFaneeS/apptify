@@ -23,8 +23,7 @@ export default function FavoriteBooks() {
   return (
     <section className="px-8 max-sm:px-4 mb-8">
       <div>
-        <h2 className="text-3xl font-semibold mb-6">
-          My Favorites</h2>
+        <h2 className="text-3xl font-semibold mb-6">My Favorites</h2>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {favorites?.map((book) => (
             <Card key={book.id}>

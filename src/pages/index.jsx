@@ -14,27 +14,29 @@ import { Button } from "@/components/ui/button";
 import PopularBlogs from "@/components/blogs/PopularBlogs";
 
 export default function AboutPage() {
-  const { blogs, getAllBlogs } = useBlogs();
-  const { books, getAllBooks } = useLibrary();
-  const { goals, fetchAllGoals } = useGoals();
+  // const { blogs, getAllBlogs } = useBlogs();
+  // const { books, getAllBooks } = useLibrary();
+  // const { goals, fetchAllGoals } = useGoals();
   const { userProfile } = useUser();
 
-  useEffect(() => {
-    if (!blogs || blogs.length === 0) {
-      getAllBlogs();
-    }
-    if (!books || books.length === 0) {
-      getAllBooks();
-    }
-    if (!goals || goals.length === 0) {
-      fetchAllGoals();
-    }
-  }, [blogs, books, goals, getAllBlogs, getAllBooks, fetchAllGoals]);
+  // useEffect(() => {
+  //   if (!blogs || blogs.length === 0) {
+  //     getAllBlogs();
+  //   }
+  //   if (!books || books.length === 0) {
+  //     getAllBooks();
+  //   }
+  //   if (!goals || goals.length === 0) {
+  //     fetchAllGoals();
+  //   }
+  // }, [blogs, books, goals, getAllBlogs, getAllBooks, fetchAllGoals]);
 
   return (
     <Layout>
       <div className="min-h-screen pb-12">
-        <Hero blogs={blogs?.length} books={books?.length} />
+        <Hero
+        // blogs={blogs?.length} books={books?.length}
+        />
         <div className="">
           {/* Introduction */}
           <section className="px-8 max-sm:px-4 mb-12">
@@ -53,14 +55,14 @@ export default function AboutPage() {
                   <h2 className="text-2xl font-semibold mb-4">
                     The Scribe&apos;s Tale
                   </h2>
-                  <p className="text800 mb-4">
+                  <p className="mb-4">
                     My journey into the world of letters began in the humble
                     scriptorium of my village monastery. As a young novice, I
                     was entrusted with the task of copying ancient manuscripts,
                     a duty that kindled my lifelong passion for the written
                     word.
                   </p>
-                  <p className="text800 mb-4">
+                  <p className="mb-4">
                     As years passed, my curiosity grew beyond the monastery
                     walls. I embarked on a pilgrimage across the lands,
                     collecting stories, ballads, and wisdom from every corner of

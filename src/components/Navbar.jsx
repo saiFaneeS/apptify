@@ -50,10 +50,9 @@ export default function Navbar() {
       const scrollTop =
         window.pageYOffset || document.documentElement.scrollTop;
       if (scrollTop > lastScrollTop.current) {
-        // Scrolling down
         setShowNavbar(false);
+        setIsOpen(false)
       } else {
-        // Scrolling up
         setShowNavbar(true);
       }
       lastScrollTop.current = scrollTop;
@@ -85,7 +84,7 @@ export default function Navbar() {
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="lucide lucide-flower-lotus"
+              className="lucide lucide-flower-lotus"
             >
               <path d="M12 20c0-5.5-4.5-10-10-10 0 5.5 4.5 10 10 10" />
               <path d="M9.7 8.3c-1.8-2-3.8-3.1-3.8-3.1s-.8 2.5-.5 5.4" />
