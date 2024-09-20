@@ -24,7 +24,7 @@ const FeaturedBlogs = () => {
 
   return (
     <section className="px-8 max-sm:px-4 mb-8">
-      <h2 className="text-2xl font-semibold mb-8">Featured Review</h2>
+      <h2 className="text-2xl font-semibold mb-5">Featured Review</h2>
       <Card>
         {featuredBlog ? (
           <div className="flex items-center gap-8 flex-wrap">
@@ -39,11 +39,9 @@ const FeaturedBlogs = () => {
             </div>
             <div className="md:w-1/2 flex flex-col gap-3">
               <span className="rounded-full">
-                <Badge variant={"secondary"}>Featured Review</Badge>
+                <Badge className="font-medium">Featured Review</Badge>
               </span>
-              <h3 className="text-3xl font-bold text900">
-                {featuredBlog?.title}
-              </h3>
+              <h3 className="text-lg font-semibold">{featuredBlog?.title}</h3>
               <div className="flex items-center">
                 <Book className="w-4 h-4 mr-2" />
                 <span className="text-sm">{featuredBlog?.bookName}</span>
@@ -74,10 +72,7 @@ const FeaturedBlogs = () => {
               </div>
               <p className="">{featuredBlog?.excerpt}</p>
               <Link href={`/reviews/${featuredBlog?.id}`}>
-                <Button className="max-w-80">
-                  <ScrollText className="mr-2 h-4 w-4 shrink-0" />
-                  Read Full Review
-                </Button>
+                <Button variant={"outline"}>Read Review</Button>
               </Link>
             </div>
           </div>

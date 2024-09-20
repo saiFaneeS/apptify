@@ -78,7 +78,10 @@ export default function Library() {
     const isListView = layout === "list";
 
     return (
-      <Card key={book?.id} className={isListView ? "overflow-hidden" : ""}>
+      <Card
+        key={book?.id}
+        className={isListView ? "overflow-hidden p-2 pr-3" : ""}
+      >
         <div
           className={
             isListView ? "flex items-center" : "flex items-start gap-4"
@@ -94,19 +97,19 @@ export default function Library() {
           <div
             className={`w-full ${
               isListView
-                ? "flex-1 flex max-sm:flex-col items-center max-sm:items-start justify-between max-sm:justify-start "
+                ? "flex-1 flex max-sm:flex-col items-center max-sm:items-start justify-between max-sm:justify-start"
                 : ""
             }`}
           >
             <div>
               <h3
                 className={`font-semibold ${
-                  isListView ? "text-lg" : "text-xl mb-2"
+                  isListView ? "text-sm" : "text-base mb-2"
                 }`}
               >
                 {book?.title}
               </h3>
-              <p className={isListView ? "text-sm" : "mb-2"}>
+              <p className={isListView ? "text-xs" : "text-sm"}>
                 By {book?.author || book?.bookAuthor}
               </p>
             </div>
@@ -114,50 +117,59 @@ export default function Library() {
               book?.progress !== undefined && (
                 <div
                   className={`${
-                    isListView ? "flex items-center gap-4" : "mt-4"
+                    isListView
+                      ? "flex items-center gap-4 max-sm:w-full"
+                      : "mt-4"
                   }`}
                 >
-                  <div className="p-1.5 aspect-square bg-foreground/90 text-background h-fit w-fit rounded-full">
-                    <Glasses size={18} />
+                  <div className="p-1 aspect-square bg-foreground/90 text-background h-fit w-fit rounded-sm">
+                    <Glasses className="h-4 w-4" />
                   </div>
-                  <div className="mt-4">
-                    <Progress value={book?.progress} className="h-2 mb-2" />
-                    <p className="text-sm">{book?.progress}% complete</p>
+                  <div className="mt-4 max-sm:w-full">
+                    <Progress
+                      value={book?.progress}
+                      className="mb-1 w-full"
+                    />
+                    <p className="text-sm max-sm:text-xs">
+                      {book?.progress}% complete
+                    </p>
                   </div>
                 </div>
               )}
             {book.status === "read" && (
               <div
-                className={`${isListView ? "flex items-center gap-4" : "mt-4"}`}
+                className={`${
+                  isListView ? "flex items-center gap-4 max-sm:w-full" : "mt-4"
+                }`}
               >
-                <div className="p-1.5 aspect-square bg-emerald-500/90 text-background h-fit w-fit rounded-full">
-                  <BookCheck size={18} />
+                <div className="p-1 aspect-square bg-emerald-500/90 text-background h-fit w-fit rounded-sm">
+                  <BookCheck className="h-4 w-4" />
                 </div>
-                <div className="mt-4">
-                  <Progress value={"100"} className="h-2 mb-2" />
-                  <p className="text-sm">100% complete</p>
+                <div className="mt-4 max-sm:w-full">
+                  <Progress value={"100"} className="mb-1 w-full" />
+                  <p className="text-sm max-sm:text-xs">100% complete</p>
                 </div>
               </div>
             )}
             {book.status === "tbr" && (
               <div
                 className={`${
-                  isListView ? "flex items-center gap-4 mt-4" : "mt-4"
+                  isListView ? "flex items-center gap-4 max-sm:mt-2" : "mt-4"
                 }`}
               >
-                <div className="p-1.5 aspect-square bg-amber-500/90 text-background h-fit w-fit rounded-full">
-                  <BookMarked size={18} />
+                <div className="p-1 aspect-square bg-amber-500/90 text-background h-fit w-fit rounded-sm">
+                  <BookMarked className="h-4 w-4" />
                 </div>
               </div>
             )}
             {book.status === "favorite" && (
               <div
                 className={`${
-                  isListView ? "flex items-center gap-4 mt-4" : "mt-4"
+                  isListView ? "flex items-center gap-4 max-sm:mt-2" : "mt-4"
                 }`}
               >
-                <div className="p-1.5 aspect-square bg-rose-500/90 text-background h-fit w-fit rounded-full">
-                  <Heart size={18} />
+                <div className="p-1 aspect-square bg-rose-500/90 text-background h-fit w-fit rounded-sm">
+                  <Heart className="h-4 w-4" />
                 </div>
               </div>
             )}
@@ -253,7 +265,8 @@ export default function Library() {
             ))
           ) : (
             <Loading />
-          )}
+          )
+          }
         </Tabs>
       </div>
 

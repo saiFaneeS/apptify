@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useLibrary } from "@/context/LibraryContext";
-import { Loader2, Trash2 } from "lucide-react";
+import { BookMinus, Loader2, Trash2 } from "lucide-react";
 import React from "react";
 
 const RemoveBook = ({ book }) => {
@@ -22,8 +22,13 @@ const RemoveBook = ({ book }) => {
   return (
     <Dialog>
       <DialogTrigger>
-        <Button variant="outline" size="sm" disabled={loading}>
-          <Trash2 className="h-4 w-4" />
+        <Button
+          variant="outline"
+          size="sm"
+          disabled={loading}
+          className="h-8 p-2"
+        >
+          <BookMinus className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -34,7 +39,11 @@ const RemoveBook = ({ book }) => {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button onClick={handleDeleteBook} variant="destructive" disabled={loading}>
+          <Button
+            onClick={handleDeleteBook}
+            variant="destructive"
+            disabled={loading}
+          >
             {loading ? <Loader2 className="animate-spin" /> : "Remove"}
           </Button>
         </DialogFooter>

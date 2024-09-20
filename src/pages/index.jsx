@@ -49,26 +49,22 @@ export default function AboutPage() {
                 className="rounded-full aspect-square object-cover"
               />
               <div>
-                <h4 className="font-medium mt-2">{userProfile?.name}</h4>
-
                 <section className="mb-12">
-                  <h2 className="text-2xl font-semibold mb-4">
+                  <h4 className="font-medium mt-2">{userProfile?.name}</h4>
+                  <h2 className="text-2xl font-semibold mb-3">
                     The Scribe&apos;s Tale
                   </h2>
-                  <p className="mb-4">
-                    My journey into the world of letters began in the humble
-                    scriptorium of my village monastery. As a young novice, I
-                    was entrusted with the task of copying ancient manuscripts,
-                    a duty that kindled my lifelong passion for the written
-                    word.
+                  <p className="mb-4 text-foreground/80">
+                    I&apos;ve always been drawn to stories, reading them,
+                    writing them and living them. What began as small scribbles
+                    in notebooks grew into a passion for discovering and sharing
+                    new worlds.
                   </p>
-                  <p className="mb-4">
-                    As years passed, my curiosity grew beyond the monastery
-                    walls. I embarked on a pilgrimage across the lands,
-                    collecting stories, ballads, and wisdom from every corner of
-                    the known world. It was during these travels that the idea
-                    of Ye Olde Blog was born - a means to share these literary
-                    treasures with kindred spirits across the realm.
+                  <p className="mb-4 text-foreground/80">
+                    Over time, I&apos;ve gathered tales from far and wide, and
+                    this space was born out of a love for words. Here, I share
+                    my thoughts on the books that inspire me and the stories I
+                    write along the way.
                   </p>
                 </section>
               </div>
@@ -77,28 +73,28 @@ export default function AboutPage() {
 
           {/* Focus on Content */}
           <section className="px-8 max-sm:px-4 mb-12">
-            <h2 className="text-2xl font-semibold mb-8 text-center">
+            <h2 className="text-2xl font-semibold mb-5 text-center">
               My Literary Pursuits
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
               <Card>
                 <CardContent className="text-center p-4">
-                  <Feather className="w-12 h-12 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Writing Tales</h3>
-                  <p className="">
-                    Writing stories, learning techniques, and being inspired for
-                    my literary creations.
+                  <Feather className="w-10 h-10 mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">Writing Tales</h3>
+                  <p className="text-sm text-foreground/80">
+                    Writing stories, learning techniques, and being inspired by
+                    others.
                   </p>
                   {/* <Button variant="outline">View Works</Button> */}
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="text-center p-4">
-                  <BookOpen className="w-12 h-12 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">
+                  <BookOpen className="w-10 h-10 mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">
                     Reviewing Books
                   </h3>
-                  <p className="">
+                  <p className="text-sm text-foreground/80">
                     Explore my analyses of classic and contemporary literature.
                   </p>
                   {/* <Button variant="outline">Read Reviews</Button> */}
@@ -106,13 +102,13 @@ export default function AboutPage() {
               </Card>
               <Card>
                 <CardContent className="text-center p-4">
-                  <Library className="w-12 h-12 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">
+                  <Library className="w-10 h-10 mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">
                     Collecting Tomes
                   </h3>
-                  <p className="">
+                  <p className="text-sm text-foreground/80">
                     Collecting thought provoking books of different themes,
-                    styles, and authors.
+                    styles.
                   </p>
                   {/* <Button variant="outline">Visit Library</Button> */}
                 </CardContent>
@@ -145,8 +141,8 @@ export default function AboutPage() {
           </section> */}
 
           {/* Favorite Quotes */}
-          <section className="px-8 max-sm:px-4 mb-12">
-            <h2 className="text-2xl font-semibold mb-6">Words of Wisdom</h2>
+          <section className="px-8 max-sm:px-4 mb-12 bg-background/40 py-12">
+            <h2 className="text-2xl font-semibold mb-5">Words of Wisdom</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardContent className="py-6">

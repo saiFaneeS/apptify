@@ -26,7 +26,7 @@ export default function SettingsPage() {
     error,
   } = useUser();
   const [formData, setFormData] = useState({
-    name: "",
+    // name: "",
     // email: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -76,7 +76,7 @@ export default function SettingsPage() {
             <form onSubmit={handleProfileSubmit}>
               <div className="space-y-6">
                 <div className="flex items-center space-x-4 mt-4">
-                  <Avatar className="w-20 h-20 flex justify-center items-center">
+                  <Avatar className="w-20 h-20 flex justify-center items-center border border-border">
                     {updatingAvatar ? (
                       <Loader2 className="animate-spin" />
                     ) : (
@@ -117,7 +117,7 @@ export default function SettingsPage() {
                   </div>
                 ))}
               </div>
-              <Button
+              {/* <Button
                 type="submit"
                 className="mt-6 bg700 hover:bg600"
                 disabled={isSubmitting || loading || updatingAvatar}
@@ -127,7 +127,7 @@ export default function SettingsPage() {
                   : updatingAvatar
                   ? "Updating Avatar..."
                   : "Update Profile"}
-              </Button>
+              </Button> */}
             </form>
           </CardContent>
         </Card>

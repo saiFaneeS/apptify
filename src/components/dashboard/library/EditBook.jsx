@@ -61,7 +61,7 @@ const EditBook = ({ book }) => {
           variant="outline"
           size="sm"
           disabled={loading}
-          className="w-full gap-2"
+          className="w-full gap-2 font-normal h-8 p-2"
         >
           <Edit className="h-4 w-4" /> <span className="max-sm:hidden">Edit</span>
         </Button>

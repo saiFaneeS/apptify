@@ -51,7 +51,7 @@ export default function Footer() {
                 </Link>
               </li>
 
-              {/* <li>
+              <li>
                 <Link
                   href="/contact"
                   className="flex items-center hover:text300 transition-colors"
@@ -59,7 +59,7 @@ export default function Footer() {
                   <Mail className="mr-2 h-4 w-4" />
                   Contact
                 </Link>
-              </li> */}
+              </li>
             </ul>
           </div>
           <div>
@@ -91,7 +91,7 @@ export default function Footer() {
         </div>
         <div className="flex gap-4 justify-between items-center flex-wrap border-t pt-8 mt-8">
           <p>
-            &copy; {new Date().getFullYear()} Ye Olde Blog. All rights reserved.
+            &copy; {new Date().getFullYear()} Violet Clough. All rights reserved.
           </p>
           <p className="font-light">
             Developed by{" "}

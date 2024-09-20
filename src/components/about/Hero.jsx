@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ScrollText, Library } from "lucide-react";
+import { ScrollText, Library, Feather } from "lucide-react";
 import Link from "next/link";
 
 export default function AboutHero({ blogs, books, goals }) {
@@ -16,27 +16,27 @@ export default function AboutHero({ blogs, books, goals }) {
         />
       </div>
       <div className="relative max-w-7xl mx-auto flex flex-col items-start justify-center h-full sm:pt-16 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-background dark:text-foreground text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+        <h1 className="text-background dark:text-foreground text-xl font-medium leading-snug">
           Greetings, Readers!
         </h1>
-        <h4 className="text-background dark:text-foreground mt-6 mb-4 max-w-3xl text-2xl font-semibold">
+        <h4 className="text-background dark:text-foreground mt-2 mb-4 max-w-3xl text-4xl sm:text-5xl font-semibold">
           I’m Violet Clough,
         </h4>
-        <p className="text-base max-sm:text-sm leading-loose max-w-2xl">
+        <p className="text-background dark:text-foreground text-base max-sm:text-sm leading-loose max-w-2xl">
           Welcome to my corner of literary adventures. Here, I share my thoughts
           on cherished books, explore new reads, and celebrate the stories that
           inspire me.
         </p>
 
-        <div className="mt-10 flex flex-col sm:flex-row gap-4">
+        <div className="mt-10 flex gap-4">
           <Link href={"/works"}>
             <Button variant="outline">
-              <ScrollText className="mr-2 h-5 w-5" />
+              <Feather className="mr-2 h-5 w-5" />
               My Works
             </Button>
           </Link>
           <Link href={"/library"}>
-            <Button variant="secondary">
+            <Button variant="ghost" className="bg-foreground/10 hover:bg-foreground/5">
               <Library className="mr-2 h-5 w-5" />
               My Library
             </Button>

@@ -63,7 +63,7 @@ export default function Main() {
 
   return (
     <section className="px-8 max-sm:px-4 mb-12">
-      <h2 className="text-2xl font-semibold mb-6">All Reviews</h2>
+      {/* <h2 className="text-2xl font-semibold mb-6">All Reviews</h2> */}
       {/* Search bar */}
       <div className="mb-4">
         <form
@@ -108,7 +108,7 @@ export default function Main() {
           {filteredBlogs.slice(0, 6).map((post) => (
             <Card
               key={post.id}
-              className="relative flex items-center justify-start gap-6"
+              className="relative flex items-start justify-start gap-6"
             >
               <Image
                 src={post.coverImage}
@@ -117,37 +117,41 @@ export default function Main() {
                 height={200}
                 className="w-32 h-48 object-cover rounded-sm relative z-20"
               />
-              <div className="w-full flex flex-col gap-2 text-foreground">
-                <h3 className="text-xl font-semibold">{post.title}</h3>
-                <div className="flex items-center">
-                  <Book className="w-4 h-4 mr-2" />
-                  <span className="text-sm">{post.bookName}</span>
-                </div>
-                <div className="flex items-center">
-                  <Feather className="w-4 h-4 mr-2" />
-                  <span className="text-sm">{post.bookAuthor}</span>
-                </div>
-                <div className="flex items-center">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  <span className="text-sm">{formatTime(post.createdAt)}</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-sm">
-                    {[...Array(5)].map((_, index) => (
-                      <Star
-                        key={index}
-                        className={`w-4 h-4 inline ${
-                          index < post.rating
-                            ? "text-yellow-400 fill-current"
-                            : "text-gray-300"
-                        }`}
-                      />
-                    ))}
-                  </span>
+              <div className="w-full flex flex-col gap-2 justify-between h-full text-foreground">
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-base font-semibold">{post.title}</h3>
+                  <div className="flex items-center mt-1">
+                    <Book className="w-4 h-4 mr-2" />
+                    <span className="text-xs">{post.bookName}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Feather className="w-4 h-4 mr-2" />
+                    <span className="text-xs">{post.bookAuthor}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Calendar className="w-4 h-4 mr-2" />
+                    <span className="text-xs">
+                      {formatTime(post.createdAt)}
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-xs">
+                      {[...Array(5)].map((_, index) => (
+                        <Star
+                          key={index}
+                          className={`w-4 h-4 inline ${
+                            index < post.rating
+                              ? "text-yellow-400 fill-current"
+                              : "text-gray-300"
+                          }`}
+                        />
+                      ))}
+                    </span>
+                  </div>
                 </div>
                 {/* <p className="">{post.excerpt}</p> */}
-                <Link href={`/reviews/${post.id}`}>
-                  <Button className="w-full" size="sm" variant="outline">
+                <Link href={`/reviews/${post.id}`} className="mt-1">
+                  <Button variant="outline">
                     Read Review
                   </Button>
                 </Link>

@@ -1,11 +1,12 @@
 import { useBlogs } from "@/context/BlogContext";
-import { Loader2, Star } from "lucide-react";
+import { Book, Calendar, Feather, Loader2, Star } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { Card } from "../ui/card";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import Loading from "../Loading";
+import { formatTime } from "@/lib/formatTime";
 
 const PopularBlogs = () => {
   const [popularReviews, setPopularReviews] = React.useState([]);
@@ -26,41 +27,62 @@ const PopularBlogs = () => {
 
   return (
     <section className="px-8 max-sm:px-4 mb-12">
-      <h2 className="text-2xl font-semibold mb-8">Popular Reviews</h2>
+      <h2 className="text-2xl font-semibold mb-5">Popular Reviews</h2>
       {popularReviews ? (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {popularReviews?.map((review) => (
-            <Link href={`/reviews/${review.id}`} key={review.id}>
-              <Card
-                key={review.id}
-                className="flex items-center hover:bg-foreground/5"
-              >
-                <Image
-                  src={review?.coverImage}
-                  alt={review.title}
-                  width={100}
-                  height={150}
-                  className="rounded mr-4"
-                />
-                <div>
-                  <h3 className="text-lg font-bold mb-1">{review.title}</h3>
-                  <p className="text-sm mb-1 font-medium">{review.bookName}</p>
-                  <p className="text-sm mb-2">By {review.bookAuthor}</p>
-                  <div className="flex">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`w-4 h-4 ${
-                          i < review.rating
-                            ? "text-yellow-500 fill-current"
-                            : ""
-                        }`}
-                      />
-                    ))}
+          {popularReviews?.map((post) => (
+            <Card
+              key={post.id}
+              className="relative flex items-start justify-start gap-6"
+            >
+              <Image
+                src={post.coverImage}
+                alt={post.title}
+                width={300}
+                height={200}
+                className="w-32 h-48 object-cover rounded-sm relative z-20"
+              />
+              <div className="w-full flex flex-col gap-2 justify-between h-full text-foreground">
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-base font-semibold">{post.title}</h3>
+                  <div className="flex items-center mt-1">
+                    <Book className="w-4 h-4 mr-2" />
+                    <span className="text-xs">{post.bookName}</span>
+                  </div>
+                  {/* <div className="flex items-center">
+                  <Feather className="w-4 h-4 mr-2" />
+                  <span className="text-xs">{post.bookAuthor}</span>
+                </div> */}
+                  <div className="flex items-center">
+                    <Calendar className="w-4 h-4 mr-2" />
+                    <span className="text-xs">
+                      {formatTime(post.createdAt)}
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-xs">
+                      {[...Array(5)].map((_, index) => (
+                        <Star
+                          key={index}
+                          className={`w-4 h-4 inline ${
+                            index < post.rating
+                              ? "text-yellow-400 fill-current"
+                              : "text-gray-300"
+                          }`}
+                        />
+                      ))}
+                    </span>
                   </div>
                 </div>
-              </Card>
-            </Link>
+
+                {/* <p className="">{post.excerpt}</p> */}
+                <Link href={`/reviews/${post.id}`} className="mt-1">
+                  <Button size="sm" variant="outline">
+                    Read Review
+                  </Button>
+                </Link>
+              </div>
+            </Card>
           ))}
         </div>
       ) : (

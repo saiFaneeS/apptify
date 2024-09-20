@@ -21,6 +21,7 @@ import {
   NotebookTabs,
   Bolt,
   CircleUser,
+  User2,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { getAuth, signOut } from "firebase/auth";
@@ -28,6 +29,7 @@ import { useTheme } from "next-themes";
 import { useUser } from "@/context/UserContext";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
+import { AvatarFallback } from "@radix-ui/react-avatar";
 
 export default function TopBar() {
   const { user, auth } = useAuth();
@@ -131,14 +133,17 @@ export default function TopBar() {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="relative h-10 w-10 rounded-full"
+                  className="relative h-10 w-10 rounded-full border"
                 >
-                  <Avatar className="h-10 w-10">
+                  <Avatar className="h-10 w-10 flex justify-center items-center">
                     <AvatarImage
                       src={avatar}
                       alt="User"
                       className="object-cover"
                     />
+                    <AvatarFallback className="flex justify-center items-center">
+                      <User2 size={18}/>
+                    </AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
