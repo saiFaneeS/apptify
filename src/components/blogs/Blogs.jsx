@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import {
   Book,
   Star,
@@ -7,7 +8,8 @@ import {
   Calendar,
   Search,
   ArrowUpDown,
-  Loader2,
+  Grid,
+  List,
 } from "lucide-react";
 import { useBlogs } from "@/context/BlogContext";
 import { useEffect, useState } from "react";
@@ -22,6 +24,7 @@ export default function Main() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredBlogs, setFilteredBlogs] = useState([]);
   const [sortOption, setSortOption] = useState("date");
+  const [isListView, setIsListView] = useState(false);
 
   useEffect(() => {
     if (!blogs || blogs?.length === 0) {
@@ -63,8 +66,6 @@ export default function Main() {
 
   return (
     <section className="px-8 max-sm:px-4 mb-12">
-      {/* <h2 className="text-2xl font-semibold mb-6">All Reviews</h2> */}
-      {/* Search bar */}
       <div className="mb-4">
         <form
           onSubmit={handleSearch}
@@ -85,37 +86,57 @@ export default function Main() {
           </Button>
         </form>
       </div>
-      {/* Sort options */}
-      <div className="mb-6 flex items-center gap-2">
-        <ArrowUpDown className="w-4 h-4" />
-        <span className="text-sm font-medium">Sort by:</span>
-        <div className="flex gap-2">
-          {["date", "rating", "title"].map((option) => (
-            <Button
-              key={option}
-              size="sm"
-              variant={sortOption === option ? "default" : "outline"}
-              onClick={() => setSortOption(option)}
-            >
-              {option.charAt(0).toUpperCase() + option.slice(1)}
-            </Button>
-          ))}
+      <div className="mb-6 flex items-center justify-between flex-wrap gap-4">
+        <div className="flex items-center gap-2">
+          <ArrowUpDown className="w-4 h-4" />
+          <span className="text-sm font-medium">Sort by:</span>
+          <div className="flex gap-2">
+            {["date", "rating", "title"].map((option) => (
+              <Button
+                key={option}
+                size="sm"
+                variant={sortOption === option ? "secondary" : "outline"}
+                onClick={() => setSortOption(option)}
+                className="h-8 p-3"
+              >
+                {option.charAt(0).toUpperCase() + option.slice(1)}
+              </Button>
+            ))}
+          </div>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Grid size={20} />
+          <Switch
+            checked={isListView}
+            onCheckedChange={setIsListView}
+            aria-label="Toggle view"
+          />
+          <List size={20} />
         </div>
       </div>
-      {/* Books */}
       {blogs ? (
-        <div className="grid gap-8 md:grid-cols-1 lg:grid-cols-2">
+        <div
+          className={
+            isListView
+              ? "space-y-4"
+              : "grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          }
+        >
           {filteredBlogs.slice(0, 6).map((post) => (
             <Card
               key={post.id}
-              className="relative flex items-start justify-start gap-6"
+              className={`relative ${
+                isListView ? "flex" : "flex flex-col"
+              } items-start justify-start gap-6 p-4`}
             >
               <Image
                 src={post.coverImage}
                 alt={post.title}
                 width={300}
                 height={200}
-                className="w-32 h-48 object-cover rounded-sm relative z-20"
+                className={`${
+                  isListView ? "w-32 h-48" : "w-full aspect-[0.7]"
+                } object-cover rounded-sm relative z-20`}
               />
               <div className="w-full flex flex-col gap-2 justify-between h-full text-foreground">
                 <div className="flex flex-col gap-2">
@@ -149,11 +170,8 @@ export default function Main() {
                     </span>
                   </div>
                 </div>
-                {/* <p className="">{post.excerpt}</p> */}
                 <Link href={`/reviews/${post.id}`} className="mt-1">
-                  <Button variant="outline">
-                    Read Review
-                  </Button>
+                  <Button variant="outline">Read Review</Button>
                 </Link>
               </div>
             </Card>

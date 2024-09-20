@@ -10,6 +10,8 @@ import {
   BookCheck,
   BookMarked,
   LucideGlasses,
+  Feather,
+  LibraryBig,
 } from "lucide-react";
 import {
   Select,
@@ -53,6 +55,13 @@ const BookLibrary = () => {
 
   return (
     <div className="px-8 max-sm:px-4 pt-24 pb-8 min-h-screen">
+      <div className="flex justify-between items-center flex-wrap gap-4 mb-4">
+        <div className="flex gap-2 items-center text-xl font-medium">
+          {/* <LibraryBig className="h-5 w-5" /> */}
+          My Library
+        </div>
+        {/* <div className="flex flex-col sm:flex-row max-sm:w-full gap-2"></div> */}
+      </div>
       <Tabs
         value={activeTab}
         onValueChange={(value) => setActiveTab(value)}

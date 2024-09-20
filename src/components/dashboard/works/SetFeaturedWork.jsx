@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { useBlogs } from "@/context/BlogContext";
+import { useWorks } from "@/context/WorkContext";
 import {
   Dialog,
   DialogContent,
@@ -11,16 +11,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ArrowLeftRight, Check, Loader2, Plus, Sparkle } from "lucide-react";
+import { ArrowLeftRight, Check, Loader2, Plus } from "lucide-react";
 
-const SetFeaturedBlogModal = ({ currentFeaturedBlog }) => {
-  const { blogs, updateFeaturedBlog, updatingFeatured } = useBlogs();
+const SetFeaturedWorkModal = ({ currentFeaturedWork }) => {
+  const { works, updateFeaturedWork, updatingFeatured } = useWorks();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedBlog, setSelectedBlog] = useState(null);
+  const [selectedWork, setSelectedWork] = useState(null);
 
-  const handleUpdateFeaturedBlog = async () => {
-    if (selectedBlog && selectedBlog !== currentFeaturedBlog?.id) {
-      await updateFeaturedBlog(currentFeaturedBlog, selectedBlog);
+  const handleUpdateFeaturedWork = async () => {
+    if (selectedWork && selectedWork !== currentFeaturedWork?.id) {
+      await updateFeaturedWork(currentFeaturedWork, selectedWork);
       setIsOpen(false);
     }
   };
@@ -45,47 +45,47 @@ const SetFeaturedBlogModal = ({ currentFeaturedBlog }) => {
       <DialogContent className="sm:max-w-[450px]">
         <DialogHeader>
           <DialogTitle className="text-xl font-semibold">
-            Select Featured Review
+            Select Featured Work
           </DialogTitle>
           <DialogDescription>
-            This will be prominently displayed as your featured review.
+            This will be prominently displayed as your featured work.
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className="mt-4 max-h-[60vh] pr-4 py-2">
           <div className="space-y-4">
-            {blogs?.map((blog) => (
+            {works?.map((work) => (
               <div
-                key={blog.id}
+                key={work.id}
                 className={`flex items-center space-x-4 p-2 rounded-lg cursor-pointer transition-colors duration-200 ${
-                  selectedBlog?.id === blog?.id
+                  selectedWork?.id === work?.id
                     ? "bg-primary/10 border border-primary"
                     : "border border-border/50 hover:bg-foreground/5 hover:border-foreground/20"
                 }`}
-                onClick={() => setSelectedBlog(blog)}
+                onClick={() => setSelectedWork(work)}
               >
                 <div className="relative w-12 h-16 rounded-md overflow-hidden">
                   <Image
-                    src={blog.coverImage || "/"}
-                    alt={blog.title}
+                    src={work.coverImage || "/"}
+                    alt={work.title}
                     layout="fill"
                     objectFit="cover"
                   />
                 </div>
                 <div className="flex-grow">
                   <h3 className="text-lg leading-snug font-semibold">
-                    {blog.title}
+                    {work.title}
                   </h3>
-                  <p> {blog.bookName}</p>
+                  <p>{work.completionStatus}</p>
                 </div>
-                {selectedBlog?.id === blog?.id && <Check className="w-6 h-6" />}
+                {selectedWork?.id === work?.id && <Check className="w-6 h-6" />}
               </div>
             ))}
           </div>
         </ScrollArea>
         <div className="mt-4 flex justify-end">
           <Button
-            onClick={handleUpdateFeaturedBlog}
-            disabled={selectedBlog?.id === currentFeaturedBlog?.id}
+            onClick={handleUpdateFeaturedWork}
+            disabled={selectedWork?.id === currentFeaturedWork?.id}
             className=""
           >
             {updatingFeatured ? (
@@ -100,4 +100,4 @@ const SetFeaturedBlogModal = ({ currentFeaturedBlog }) => {
   );
 };
 
-export default SetFeaturedBlogModal;
+export default SetFeaturedWorkModal;

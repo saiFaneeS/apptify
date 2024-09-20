@@ -22,6 +22,8 @@ import {
   Bolt,
   CircleUser,
   User2,
+  Feather,
+  ScrollText,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { getAuth, signOut } from "firebase/auth";
@@ -93,27 +95,8 @@ export default function TopBar() {
             href="/dashboard"
             className="flex items-center gap-2 text-lg font-semibold pl-1"
           >
-            <>
-              {/* <Layers3 size={16} />{" "} */}
-              {router?.pathname === "/dashboard" ? (
-                <>
-                  <NotebookTabs className="h-5 w-5" />
-                  Dashboard
-                </>
-              ) : router?.pathname === "/dashboard/library" ? (
-                <>
-                  <LibraryBig className="h-5 w-5" />
-                  Library
-                </>
-              ) : router?.pathname === "/dashboard/settings" ? (
-                <>
-                  <CircleUser className="h-5 w-5" />
-                  Profile
-                </>
-              ) : (
-                ""
-              )}
-            </>
+            <NotebookTabs className="h-5 w-5" />
+            Dashboard
           </Link>
           <p className="flex gap-2 items-center text-sm text-foreground/70"></p>
           {/* Right side items */}
@@ -142,7 +125,7 @@ export default function TopBar() {
                       className="object-cover"
                     />
                     <AvatarFallback className="flex justify-center items-center">
-                      <User2 size={18}/>
+                      <User2 size={18} />
                     </AvatarFallback>
                   </Avatar>
                 </Button>
@@ -159,7 +142,7 @@ export default function TopBar() {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem
+                {/* <DropdownMenuItem
                   className="flex gap-2 items-center w-full transition-all shrink-0"
                   onClick={() => setTheme(isDark ? "light" : "dark")}
                 >
@@ -173,12 +156,24 @@ export default function TopBar() {
                   )}
                 </DropdownMenuItem>
 
-                <DropdownMenuSeparator />
+                <DropdownMenuSeparator /> */}
 
                 <Link href={"/dashboard"}>
                   <DropdownMenuItem>
                     <NotebookTabs className="mr-2 h-4 w-4" />
                     <span>Dashboard</span>
+                  </DropdownMenuItem>
+                </Link>
+                <Link href="/dashboard/works">
+                  <DropdownMenuItem>
+                    <Feather className="mr-2 h-4 w-4" />
+                    <span>Works</span>
+                  </DropdownMenuItem>
+                </Link>
+                <Link href="/dashboard/reviews">
+                  <DropdownMenuItem>
+                    <ScrollText className="mr-2 h-4 w-4" />
+                    <span>Book Reviews</span>
                   </DropdownMenuItem>
                 </Link>
                 <Link href={"/dashboard/library"}>
@@ -187,14 +182,14 @@ export default function TopBar() {
                     <span>Library</span>
                   </DropdownMenuItem>
                 </Link>
+
+                <DropdownMenuSeparator />
                 <Link href={"/dashboard/settings"}>
                   <DropdownMenuItem>
                     <CircleUser className="mr-2 h-4 w-4" />
                     <span>Profile</span>
                   </DropdownMenuItem>
                 </Link>
-
-                <DropdownMenuSeparator />
                 <div onClick={handleSignOut}>
                   <DropdownMenuItem>
                     <LogOut className="mr-2 h-4 w-4" />

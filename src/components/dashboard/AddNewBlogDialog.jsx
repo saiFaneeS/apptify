@@ -111,7 +111,7 @@ export function AddNewBlogDialog() {
           {!loading ? (
             <>
               <Plus size={16} />
-              New Book Review
+              New Review
             </>
           ) : (
             <Loader2 className="animate-spin" />

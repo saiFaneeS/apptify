@@ -37,6 +37,7 @@ import Hero from "@/components/library/Hero";
 import { Card } from "@/components/ui/card";
 import { Grid, List } from "lucide-react";
 import Loading from "@/components/Loading";
+import { Switch } from "@/components/ui/switch";
 
 export default function Library() {
   const [activeTab, setActiveTab] = useState("all");
@@ -126,10 +127,7 @@ export default function Library() {
                     <Glasses className="h-4 w-4" />
                   </div>
                   <div className="mt-4 max-sm:w-full">
-                    <Progress
-                      value={book?.progress}
-                      className="mb-1 w-full"
-                    />
+                    <Progress value={book?.progress} className="mb-1 w-full" />
                     <p className="text-sm max-sm:text-xs">
                       {book?.progress}% complete
                     </p>
@@ -238,14 +236,15 @@ export default function Library() {
                 </TabsTrigger>
               ))}
             </TabsList>
-            <Button
-              variant="outline"
-              size="icon"
-              className="shrink-0"
-              onClick={() => setLayout(layout === "grid" ? "list" : "grid")}
-            >
-              {layout === "grid" ? <List size={20} /> : <Grid size={20} />}
-            </Button>
+            <div className="flex items-center space-x-2">
+              <Grid size={20} />
+              <Switch
+                checked={layout === "list"}
+                onCheckedChange={(checked) => setLayout(checked ? "list" : "grid")}
+                aria-label="Toggle view"
+              />
+              <List size={20} />
+            </div>
           </div>
 
           {/* Tab content */}
@@ -265,8 +264,7 @@ export default function Library() {
             ))
           ) : (
             <Loading />
-          )
-          }
+          )}
         </Tabs>
       </div>
 
