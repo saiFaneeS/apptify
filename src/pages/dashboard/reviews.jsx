@@ -11,6 +11,7 @@ import {
   Sparkle,
   Star,
   User2,
+  View,
 } from "lucide-react";
 import Image from "next/image";
 import DashLayout from "../DashLayout";
@@ -20,6 +21,7 @@ import { useBlogs } from "@/context/BlogContext";
 import BooksDataTable from "@/components/dashboard/BooksDataTable";
 import SetFeaturedBlogModal from "@/components/dashboard/SetFeaturedBlogModal";
 import { useQuote } from "@/hooks/useQuote";
+import { Separator } from "@/components/ui/separator";
 
 export default function CMSDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -33,14 +35,16 @@ export default function CMSDashboard() {
   );
 
   useEffect(() => {
-    getAllBlogs();
-  }, [user]);
+    if (user && (!blogs || blogs.length === 0)) {
+      getAllBlogs();
+    }
+  }, [user, blogs, getAllBlogs]);
 
   return (
     <DashLayout>
       <div className="min-h-screen pt-16">
         <div className="px-8 max-sm:px-4 py-8">
-          <div className="flex justify-between items-center gap-4 mb-4">
+          <div className="flex justify-between items-center flex-wrap gap-2 mb-4">
             <div className="flex gap-2 items-center text-xl font-medium">
               {/* <ScrollText className="h-5 w-5" /> */}
               My Reviews
@@ -55,20 +59,20 @@ export default function CMSDashboard() {
             <Card className="">
               <CardContent className="flex flex-col gap-4">
                 <h2 className="flex gap-2 items-center text-lg font-semibold">
-                  <List className="w-5 h-5" />
                   Overview
                 </h2>
-                <div className="flex justify-between text800">
+                <Separator className="mb-1" />
+                <div className="flex justify-between">
                   <span>Total Book Reviews:</span>
                   <span className="font-bold">{blogs?.length}</span>
                 </div>
-                <div className="flex justify-between text800">
+                <div className="flex justify-between">
                   <span>Published Reviews:</span>
                   <span className="font-bold">
                     {blogs?.filter((blog) => blog.isPublished === true).length}
                   </span>
                 </div>
-                <div className="flex justify-between text800">
+                <div className="flex justify-between">
                   <span>Drafts:</span>
                   <span className="font-bold">
                     {blogs?.filter((blog) => blog.isPublished === false).length}
@@ -79,17 +83,18 @@ export default function CMSDashboard() {
 
             {/* Featured */}
             <Card className="overflow-hidden">
-              <CardContent className="flex flex-col justify-between h-full gap-4">
+              <CardContent className="flex flex-col h-full gap-4">
                 <div className="flex justify-between items-center gap-2">
                   <h2 className="flex gap-2 items-center text-lg font-semibold">
                     <Sparkle className="w-5 h-5" />
                     Featured Review
                   </h2>
                   <SetFeaturedBlogModal currentFeaturedBlog={featuredBlog} />
-                </div>
+                </div>{" "}
+                <Separator className="mb-1" />
                 {featuredBlog !== null && featuredBlog !== undefined ? (
                   <div className="flex items-start gap-4">
-                    <div className="relative h-28 w-20 rounded overflow-hidden shrink-0 bg-foreground/5">
+                    <div className="relative h-32 w-20 rounded overflow-hidden shrink-0 bg-foreground/5">
                       <Image
                         src={featuredBlog?.coverImage}
                         layout="fill"
@@ -102,17 +107,20 @@ export default function CMSDashboard() {
                         {featuredBlog?.title}
                       </h3>
                       <p className="flex gap-2 items-center text-sm text-muted-foreground">
-                        <Book size={16} /> {featuredBlog?.bookName}
+                        <Book size={18} /> {featuredBlog?.bookName}
                       </p>
+                      {/* <p className="flex gap-2 items-center text-sm text-muted-foreground">
+                        <User2 size={18} /> {featuredBlog?.bookAuthor}
+                      </p> */}
                       <p className="flex gap-2 items-center text-sm text-muted-foreground">
-                        <User2 size={16} /> {featuredBlog?.bookAuthor}
+                        <View size={18} /> {featuredBlog?.viewCount || 0}
                       </p>
                       <div className="flex items-center">
                         <div className="flex items-center">
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
-                              className={`w-3 h-3 ${
+                              className={`w-4 h-4 ${
                                 i < featuredBlog?.rating
                                   ? "text-yellow-400 fill-current"
                                   : "text-gray-300"

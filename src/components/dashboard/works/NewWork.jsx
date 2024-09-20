@@ -106,13 +106,15 @@ export function NewWork() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
+          className="flex gap-2 items-center w-full"
+          disabled={loading}
           variant="outline"
         >
           {loading ? (
             <Loader2 className="animate-spin" />
           ) : (
             <>
-              <Plus size={16} className="mr-2" /> New Work
+              <Plus size={16} /> New Work
             </>
           )}
         </Button>

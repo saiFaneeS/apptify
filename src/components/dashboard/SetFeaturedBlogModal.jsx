@@ -28,11 +28,7 @@ const SetFeaturedBlogModal = ({ currentFeaturedBlog }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button
-          className="flex gap-2 items-center leading-none"
-          variant=""
-          size="sm"
-        >
+        <Button className="p-2 h-8" size="sm">
           {updatingFeatured ? (
             <Loader2 className="animate-spin" />
           ) : (

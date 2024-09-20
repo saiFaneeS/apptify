@@ -104,7 +104,7 @@ export function AddNewBlogDialog() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="w-full">
         <Button
-          className="flex gap-2 items-center leading-none"
+          className="flex gap-2 items-center w-full"
           disabled={loading}
           variant="outline"
         >

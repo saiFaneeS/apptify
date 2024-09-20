@@ -13,22 +13,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs } from "@/components/ui/tabs";
 import {
   Search,
-  Edit,
-  Trash2,
   Eye,
   Loader2,
-  Mountain,
-  ScrollText,
-  MessageSquareText,
   View,
-  Star,
 } from "lucide-react";
-// import { EditWorkDialog } from "./EditWorkDialog";
 import { formatTime } from "@/lib/formatTime";
-// import { ConfirmDeleteWorkDialog } from "./ConfirmDeleteWorkDialog";
 import Image from "next/image";
 import { useWorks } from "@/context/WorkContext";
-import { useRouter } from "next/router";
 import { Badge } from "@/components/ui/badge";
 import { DeleteWork } from "./DeleteWork";
 import { EditWorkDialog } from "./EditWork";
