@@ -176,7 +176,7 @@ const BookLibrary = () => {
             <AddNewBook />
           </div>
         </div>
-        <TabsContent value={activeTab}>
+        <TabsContent value={activeTab} className="animate-in fade-in-100 slide-in-from-bottom-10 duration-300">
           {fetchingBooks ? (
             <div className="flex justify-center items-center h-[60vh]">
               <Loader2 className="animate-spin h-8 w-8" />

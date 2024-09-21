@@ -48,7 +48,7 @@ const BooksDataTable = ({
   };
 
   return (
-    <Card>
+    <Card className="animate-in fade-in-100 slide-in-from-bottom-10 duration-300">
       <CardContent>
         <Tabs>
           <div className="flex justify-between items-center flex-wrap gap-4 mb-4">

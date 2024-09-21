@@ -6,13 +6,15 @@ import Link from "next/link";
 export default function AboutHero({ blogs, books, goals }) {
   return (
     <div className="relative overflow-hidden h-screen">
-      <div className="absolute inset-0 bg-primary h-full">
+      <div className="absolute inset-0 bg-primary animate-in  fade-in-10 duration-1000">
         <Image
           src="/bg1.jpg"
-          alt="Medieval library background"
-          layout="fill"
-          objectFit="cover"
-          className="opacity-20"
+          alt=""
+          fill
+          sizes="100vw"
+          quality={75}
+          priority
+          className="object-cover opacity-20"
         />
       </div>
       <div className="relative max-w-7xl mx-auto flex flex-col items-start justify-center h-full sm:pt-16 px-4 sm:px-6 lg:px-8">

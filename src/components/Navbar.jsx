@@ -51,7 +51,7 @@ export default function Navbar() {
         window.pageYOffset || document.documentElement.scrollTop;
       if (scrollTop > lastScrollTop.current) {
         setShowNavbar(false);
-        setIsOpen(false)
+        setIsOpen(false);
       } else {
         setShowNavbar(true);
       }
@@ -64,7 +64,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`bg-background text-foreground outline outline-1 outline-secondary p-4 sm:px-8 fixed top-0 left-0 w-full z-50 transition-transform duration-200 ${
+      className={`bg-background text-foreground outline outline-1 outline-secondary p-4 sm:px-8 fixed top-0 left-0 w-full z-50 transition-all  duration-200 ${
         showNavbar ? "translate-y-0" : "-translate-y-20"
       }`}
     >
@@ -148,7 +148,7 @@ export default function Navbar() {
         </div>
       </div>
       {isOpen && (
-        <div className="md:hidden mt-4 space-y-2">
+        <div className="lg:hidden mt-4 space-y-2 animate-in slide-in-from-top-1 bg-background">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -160,7 +160,11 @@ export default function Navbar() {
               }`}
               onClick={() => setIsOpen(false)}
             >
-              <item.icon className={`h-5 w-5 mr-2 ${isActive(item.href) ? "text-primary" : ""}`} />
+              <item.icon
+                className={`h-5 w-5 mr-2 ${
+                  isActive(item.href) ? "text-primary" : ""
+                }`}
+              />
               {item.label}
             </Link>
           ))}

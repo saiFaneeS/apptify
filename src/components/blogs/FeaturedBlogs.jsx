@@ -23,7 +23,7 @@ const FeaturedBlogs = () => {
   }, [blogs, getAllBlogs, setFeaturedBlog]);
 
   return (
-    <section className="px-8 max-sm:px-4 pb-12">
+    <section className="px-8 max-sm:px-4 pb-12 ">
       <h2 className="text-2xl font-semibold mb-5">Featured Review</h2>
       <Card>
         {featuredBlog ? (
@@ -39,7 +39,9 @@ const FeaturedBlogs = () => {
             </div>
             <div className="md:w-1/2 flex flex-col gap-3">
               <span className="rounded-full">
-                <Badge className="font-medium">Featured Review</Badge>
+                <Badge className="font-medium bg-amber-600 hover:bg-amber-700">
+                  Featured Review
+                </Badge>
               </span>
               <h3 className="text-lg font-semibold">{featuredBlog?.title}</h3>
               <div className="flex items-center">

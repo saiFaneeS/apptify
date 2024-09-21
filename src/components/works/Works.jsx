@@ -44,8 +44,9 @@ export default function Works() {
     if (works) {
       const filtered = works.filter(
         (work) =>
-          work.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          work.synopsis.toLowerCase().includes(searchTerm.toLowerCase())
+          work.completionStatus === "completed" &&
+          (work.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            work.synopsis.toLowerCase().includes(searchTerm.toLowerCase()))
       );
       setFilteredWorks(sortWorks(filtered));
     }
@@ -102,7 +103,7 @@ export default function Works() {
           <ArrowUpDown className="w-4 h-4" />
           <span className="text-sm font-medium text-nowrap">Sort by:</span>
           <div className="hidden md:flex gap-2">
-            {["date", "title", "status", "popularity"].map((option) => (
+            {["date", "title", "popularity"].map((option) => (
               <Button
                 key={option}
                 size="sm"
@@ -120,7 +121,7 @@ export default function Works() {
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
-                {["date", "title", "status", "popularity"].map((option) => (
+                {["date", "title", "popularity"].map((option) => (
                   <SelectItem key={option} value={option}>
                     {option.charAt(0).toUpperCase() + option.slice(1)}
                   </SelectItem>
@@ -141,11 +142,11 @@ export default function Works() {
       </div>
       {works ? (
         <div
-          className={
+          className={`${
             isListView
               ? "space-y-4"
               : "grid gap-8 max-md:gap-4 max-sm:gap-3 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5"
-          }
+          } animate-in fade-in-100 slide-in-from-bottom-10 duration-300`}
         >
           {filteredWorks.map((work) => (
             <Card
@@ -165,7 +166,9 @@ export default function Works() {
               />
               <div className="w-full flex flex-col gap-2 justify-between h-full text-foreground">
                 <div className="flex flex-col gap-2">
-                  <h3 className="text-base font-semibold line-clamp-1">{work.title}</h3>
+                  <h3 className="text-base font-semibold line-clamp-1">
+                    {work.title}
+                  </h3>
                   <div className="flex items-center">
                     <Calendar className="w-4 h-4 mr-2" />
                     <span className="text-xs">{work.datePublished}</span>

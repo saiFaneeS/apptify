@@ -119,6 +119,7 @@ export default function AboutPage() {
 
         {/* Milestones */}
         <Goals />
+
         {/* Favorite Quotes */}
         <section className="px-8 max-sm:px-4 bg-emerald-950 bg-opacity-20 py-16 border-t border-border">
           {/* <h2 className="text-2xl font-semibold mb-5">Words of Wisdom</h2> */}

@@ -123,7 +123,7 @@ export default function Goals() {
   );
 
   return (
-    <Card className="flex flex-col gap-4 mb-8">
+    <Card className="flex flex-col gap-4 mb-8 animate-in fade-in-100 slide-in-from-bottom-10 duration-300">
       <CardHeader>
         <CardTitle className="flex items-center w-full justify-between">
           <div className="flex gap-2 items-center text-lg font-semibold pl-1">

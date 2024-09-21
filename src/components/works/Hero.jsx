@@ -7,10 +7,12 @@ const Hero = () => {
       <div className="absolute inset-0 bg-primary">
         <Image
           src="/bg1.jpg"
-          alt="Medieval library background"
-          layout="fill"
-          objectFit="cover"
-          className="opacity-20"
+          alt=""
+          fill
+          sizes="100vw"
+          quality={75}
+          priority
+          className="object-cover opacity-20"
         />
       </div>
       <div className="text-background dark:text-foreground container mx-auto px-6 relative z-10">

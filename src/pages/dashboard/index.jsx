@@ -81,7 +81,7 @@ export default function CMSDashboard() {
             </div>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-3 mb-8">
+          <div className="grid gap-4 lg:grid-cols-3 mb-8 animate-in fade-in-100 slide-in-from-bottom-10 duration-300">
             {/* Overview */}
             <Card className="col-span-full md:col-span-2 lg:col-span-1">
               <CardContent>

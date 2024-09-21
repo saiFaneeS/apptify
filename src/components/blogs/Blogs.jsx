@@ -137,11 +137,11 @@ export default function Main() {
       </div>
       {blogs ? (
         <div
-          className={
+          className={`${
             isListView
               ? "space-y-4"
               : "grid gap-8 max-md:gap-4 max-sm:gap-3 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5"
-          }
+          } animate-in fade-in-100 slide-in-from-bottom-10 duration-300`}
         >
           {filteredBlogs.slice(0, 6).map((post) => (
             <Card

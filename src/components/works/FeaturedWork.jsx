@@ -23,7 +23,7 @@ const FeaturedWork = () => {
   }, [works, getAllWorks, setFeaturedWork]);
 
   return (
-    <section className="px-8 max-sm:px-4 pb-12">
+    <section className="px-8 max-sm:px-4 pb-12 ">
       <h2 className="text-2xl font-semibold mb-5">Featured Composition</h2>
       <Card>
         {featuredWork ? (
@@ -39,15 +39,11 @@ const FeaturedWork = () => {
             </div>
             <div className="flex flex-col gap-3">
               <span className="rounded-full">
-                <Badge className="font-medium">Featured Work</Badge>
+                <Badge className="font-medium bg-amber-600 hover:bg-amber-700">
+                  Featured Composition
+                </Badge>
               </span>
               <h3 className="text-lg font-semibold">{featuredWork?.title}</h3>
-              <div className="flex items-center">
-                <Book className="w-4 h-4 mr-2" />
-                <span className="text-sm">
-                  {featuredWork?.completionStatus}
-                </span>
-              </div>
               <div className="flex items-center">
                 <Calendar className="w-4 h-4 mr-2" />
                 <span className="text-sm">
@@ -60,13 +56,13 @@ const FeaturedWork = () => {
                   {featuredWork?.viewCount || 0} views
                 </span>
               </div>
-              <p className="text-sm line-clamp-3">
-                <span className="text-sm font-medium">Synopsis: </span>
-                <br />
-                <span className="text-sm text-foreground/70">
+              <div className="text-sm">
+                <p className="text-sm mb-1 font-medium">Synopsis: </p>
+
+                <p className="text-sm line-clamp-3 text-foreground/70">
                   {featuredWork?.synopsis}
-                </span>
-              </p>{" "}
+                </p>
+              </div>{" "}
               <Link href={`/works/${featuredWork?.id}`}>
                 <Button variant={"outline"}>Read More</Button>
               </Link>
