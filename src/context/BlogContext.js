@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
 import {
   getVisitorId,
   shouldIncrementView,
@@ -131,6 +131,16 @@ export const BlogsProvider = ({ children }) => {
     try {
       let updatedData = { ...blogData };
       if (blogData?.coverImage && typeof blogData?.coverImage !== "string") {
+        // Delete old cover image if it exists
+        const oldBlog = blogs.find(b => b.id === blogId);
+        if (oldBlog && oldBlog.coverImage) {
+          const oldCoverRef = ref(storage, oldBlog.coverImage);
+          await deleteObject(oldCoverRef).catch((error) => {
+            console.log("Error deleting old cover image:", error);
+          });
+        }
+
+        // Upload new cover image
         const newCoverRef = ref(
           storage,
           `blogCovers/${Date.now()}-${blogData.coverImage.name}`
@@ -193,12 +203,24 @@ export const BlogsProvider = ({ children }) => {
 
   const deleteBlog = async (blogId) => {
     try {
+      // Get the blog data
+      const blogToDelete = blogs.find(blog => blog.id === blogId);
+
+      if (blogToDelete && blogToDelete.coverImage) {
+        // Delete the cover image from storage
+        const coverImageRef = ref(storage, blogToDelete.coverImage);
+        await deleteObject(coverImageRef).catch((error) => {
+          console.log("Error deleting cover image:", error);
+        });
+      }
+
+      // Delete the blog document from Firestore
       await deleteDoc(doc(db, "blogs", blogId));
 
+      // Update local state
       setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.id !== blogId));
     } catch (err) {
       console.log(err);
-
       const errCode = err.code;
       const errMessage = err.message;
       setError(errMessage);

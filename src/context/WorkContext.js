@@ -12,7 +12,12 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { createContext, useContext, useState } from "react";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  deleteObject,
+} from "firebase/storage";
 import {
   getVisitorId,
   shouldIncrementView,
@@ -121,6 +126,16 @@ export const WorksProvider = ({ children }) => {
     try {
       let updatedData = { ...workData };
       if (workData?.coverImage && typeof workData?.coverImage !== "string") {
+        // Delete old cover image if it exists
+        const oldWork = works.find((w) => w.id === workId);
+        if (oldWork && oldWork.coverImage) {
+          const oldCoverRef = ref(storage, oldWork.coverImage);
+          await deleteObject(oldCoverRef).catch((error) => {
+            console.log("Error deleting old cover image:", error);
+          });
+        }
+
+        // Upload new cover image
         const newCoverRef = ref(
           storage,
           `workCovers/${Date.now()}-${workData.coverImage.name}`
@@ -178,7 +193,21 @@ export const WorksProvider = ({ children }) => {
 
   const deleteWork = async (workId) => {
     try {
+      // Get the work data
+      const workToDelete = works.find((work) => work.id === workId);
+
+      if (workToDelete && workToDelete.coverImage) {
+        // Delete the cover image from storage
+        const coverImageRef = ref(storage, workToDelete.coverImage);
+        await deleteObject(coverImageRef).catch((error) => {
+          console.log("Error deleting cover image:", error);
+        });
+      }
+
+      // Delete the work document from Firestore
       await deleteDoc(doc(db, "works", workId));
+
+      // Update local state
       setWorks((prevWorks) => prevWorks.filter((work) => work.id !== workId));
     } catch (err) {
       console.log(err);
@@ -249,7 +278,7 @@ export const WorksProvider = ({ children }) => {
 
       const workData = workDoc.data();
       const updatedComments = workData.comments.filter(
-        comment => comment.commentId !== commentToDelete.commentId
+        (comment) => comment.commentId !== commentToDelete.commentId
       );
 
       await updateDoc(workRef, {

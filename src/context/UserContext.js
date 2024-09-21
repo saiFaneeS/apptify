@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { db, storage } from "@/lib/firebase";
 import { useAuth } from "./AuthContext";
 
@@ -56,12 +56,25 @@ export const UserProvider = ({ children }) => {
     setUpdatingAvatar(true);
     setError(null);
     try {
-      const storageRef = ref(storage, `avatars/${"o2hkhkZainSjiv1JKdBo"}`);
+      const userId = "o2hkhkZainSjiv1JKdBo";
+      const storageRef = ref(storage, `avatars/${userId}`);
+
+      if (userProfile.avatarUrl) {
+        const oldAvatarRef = ref(storage, userProfile.avatarUrl);
+        await deleteObject(oldAvatarRef).catch((error) => {
+          console.log("Error deleting old avatar:", error);
+        });
+      }
+
+      // Upload new avatar
       await uploadBytes(storageRef, file);
       const downloadURL = await getDownloadURL(storageRef);
-      await updateDoc(doc(db, "users", "o2hkhkZainSjiv1JKdBo"), {
+
+      // Update user profile
+      await updateDoc(doc(db, "users", userId), {
         avatarUrl: downloadURL,
       });
+
       setUserProfile({ ...userProfile, avatarUrl: downloadURL });
       localStorage.setItem("userAvatar", JSON.stringify(downloadURL));
     } catch (err) {

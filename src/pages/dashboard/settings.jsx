@@ -38,6 +38,7 @@ export default function SettingsPage() {
         email: userProfile.email || "",
       });
     }
+    console.log(userProfile);
   }, [userProfile]);
 
   // Handle input changes

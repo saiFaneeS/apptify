@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { db, storage } from "@/lib/firebase";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
 import {
   collection,
   deleteDoc,
@@ -88,6 +88,16 @@ export const LibraryProvider = ({ children }) => {
       let updatedData = { ...data };
 
       if (data?.coverImage && typeof data?.coverImage !== "string") {
+        // Delete old cover image if it exists
+        const oldBook = books.find(b => b.id === bookId);
+        if (oldBook && oldBook.coverImage) {
+          const oldCoverRef = ref(storage, oldBook.coverImage);
+          await deleteObject(oldCoverRef).catch((error) => {
+            console.log("Error deleting old cover image:", error);
+          });
+        }
+
+        // Upload new cover image
         const coverRef = ref(
           storage,
           `bookCovers/${Date.now()}-${data?.coverImage?.name}`
@@ -125,8 +135,21 @@ export const LibraryProvider = ({ children }) => {
   const deleteBook = async (bookId) => {
     setLoading(true);
     try {
+      // Get the book data
+      const bookToDelete = books.find(book => book.id === bookId);
+
+      if (bookToDelete && bookToDelete.coverImage) {
+        // Delete the cover image from storage
+        const coverImageRef = ref(storage, bookToDelete.coverImage);
+        await deleteObject(coverImageRef).catch((error) => {
+          console.log("Error deleting cover image:", error);
+        });
+      }
+
+      // Delete the book document from Firestore
       await deleteDoc(doc(db, "library", bookId));
 
+      // Update local state
       setBooks((prevBooks) => prevBooks?.filter((book) => book.id !== bookId));
     } catch (error) {
       console.log(error.message);
