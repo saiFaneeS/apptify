@@ -85,29 +85,29 @@ const BookLibrary = () => {
         <CardContent className="py-2 text-center">
           <div className="grid grid-cols-3 md:grid-cols-5 gap-4 gap-y-6">
             <div className="flex flex-col items-center">
-              <Book className="h-8 w-8 mb-2 text-primary" />
-              <span className="text-2xl font-bold">{stats.total}</span>
-              <span className="text-sm text-muted-foreground">Total Books</span>
+              <Book className="h-8 w-8 max-sm:h-6 max-sm:w-6 mb-2 text-primary" />
+              <span className="text-xl font-semibold">{stats.total}</span>
+              <span className="text-xs text-muted-foreground">Total Books</span>
             </div>
             <div className="flex flex-col items-center">
-              <BookCheck className="h-8 w-8 mb-2 text-green-500" />
-              <span className="text-2xl font-bold">{stats.read}</span>
-              <span className="text-sm text-muted-foreground">Read</span>
+              <BookCheck className="h-8 w-8 max-sm:h-6 max-sm:w-6 mb-2 text-green-500" />
+              <span className="text-xl font-semibold">{stats.read}</span>
+              <span className="text-xs text-muted-foreground">Read</span>
             </div>
             <div className="flex flex-col items-center">
-              <LucideGlasses className="h-8 w-8 mb-2 text-blue-500" />
-              <span className="text-2xl font-bold">{stats.reading}</span>
-              <span className="text-sm text-muted-foreground">Reading</span>
+              <LucideGlasses className="h-8 w-8 max-sm:h-6 max-sm:w-6 mb-2 text-blue-500" />
+              <span className="text-xl font-semibold">{stats.reading}</span>
+              <span className="text-xs text-muted-foreground">Reading</span>
             </div>
             <div className="flex flex-col items-center">
-              <Heart className="h-8 w-8 mb-2 text-red-500" />
-              <span className="text-2xl font-bold">{stats.favorites}</span>
-              <span className="text-sm text-muted-foreground">Favorites</span>
+              <Heart className="h-8 w-8 max-sm:h-6 max-sm:w-6 mb-2 text-red-500" />
+              <span className="text-xl font-semibold">{stats.favorites}</span>
+              <span className="text-xs text-muted-foreground">Favorites</span>
             </div>
             <div className="flex flex-col items-center">
-              <BookMarked className="h-8 w-8 mb-2 text-yellow-500" />
-              <span className="text-2xl font-bold">{stats.tbr}</span>
-              <span className="text-sm text-muted-foreground">To Be Read</span>
+              <BookMarked className="h-8 w-8 max-sm:h-6 max-sm:w-6 mb-2 text-yellow-500" />
+              <span className="text-xl font-semibold">{stats.tbr}</span>
+              <span className="text-xs text-muted-foreground">To Be Read</span>
             </div>
           </div>
           <div className="mt-6">
