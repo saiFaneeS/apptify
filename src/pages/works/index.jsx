@@ -12,7 +12,7 @@ export default function WorksPage() {
       <Hero />
       <Works />
       <FeaturedWork />
-      <Separator className="bg-border/80" />
+      <Separator className="bg-border/30" />
       <CurrentlyReading />
     </Layout>
   );

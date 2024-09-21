@@ -117,16 +117,21 @@ export default function AboutPage() {
 
         <CurrentlyReading />
 
+        {/* Milestones */}
+        <Goals />
         {/* Favorite Quotes */}
-        <section className="px-8 max-sm:px-4 bg-background/60 py-16">
+        <section className="px-8 max-sm:px-4 bg-emerald-950 bg-opacity-20 py-16 border-t border-border">
           {/* <h2 className="text-2xl font-semibold mb-5">Words of Wisdom</h2> */}
           <div className="grid md:grid-cols-2 gap-6">
-            <Card className="py-8">
+            <Card className="py-16 max-sm:py-12 border border-emerald-900 bg-background/50">
               <CardContent>
-                <div className="bg-primary/20 aspect-square w-14 flex justify-center items-center rounded-full mb-4 mx-auto">
-                  <Quote className="w-7 h-7 text-primary" strokeWidth={1.6} />
+                <div className="bg-emerald-500 bg-opacity-20 aspect-square w-14 flex justify-center items-center rounded-full mb-6 mx-auto">
+                  <Quote
+                    className="w-7 h-7 text-emerald-500"
+                    strokeWidth={1.6}
+                  />
                 </div>
-                <p className="text-center italic mb-2">
+                <p className="text-center italic mb-4 text-sm">
                   &quot;A reader lives a thousand lives before he dies . . . The
                   man who never reads lives only one.&quot;
                 </p>
@@ -135,12 +140,15 @@ export default function AboutPage() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="py-8">
+            <Card className="py-16 max-sm:py-12 border border-emerald-900 bg-background/50">
               <CardContent>
-                <div className="bg-primary/20 aspect-square w-14 flex justify-center items-center rounded-full mb-4 mx-auto">
-                  <Quote className="w-7 h-7 text-primary" strokeWidth={1.6} />
+                <div className="bg-emerald-500 bg-opacity-20 aspect-square w-14 flex justify-center items-center rounded-full mb-6 mx-auto">
+                  <Quote
+                    className="w-7 h-7 text-emerald-500"
+                    strokeWidth={1.6}
+                  />
                 </div>
-                <p className="text-center italic mb-2">
+                <p className="text-center italic mb-4 text-sm">
                   &quot;The person, be it gentleman or lady, who has not
                   pleasure in a good novel, must be intolerably stupid.&quot;
                 </p>
@@ -169,9 +177,6 @@ export default function AboutPage() {
               </li>
             </ul>
           </section> */}
-
-        {/* Milestones */}
-        <Goals />
       </div>
     </Layout>
   );

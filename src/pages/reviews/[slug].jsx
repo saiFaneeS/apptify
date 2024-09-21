@@ -200,17 +200,11 @@ export default function SinglePostPage() {
               <h2 className="text-xl font-semibold mb-2">Scribe</h2>
               <div className="flex items-center">
                 <Avatar className="h-12 w-12 mr-4">
-                  <AvatarImage
-                    src={userProfile?.avatarUrl}
-                    alt={userProfile?.name}
-                  />
-                  <AvatarFallback>{userProfile?.name}</AvatarFallback>
+                  <AvatarImage src={userProfile?.avatarUrl} alt={"VC"} />
+                  <AvatarFallback>VC</AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="font-bold">
-                    {blog?.type === "review" ? blog?.author : blog?.reviewer}
-                  </p>
-                  <p className="text-sm text700">{userProfile?.name}</p>
+                  <p className="text-sm">Violet Clough</p>
                 </div>
               </div>
             </div>

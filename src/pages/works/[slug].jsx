@@ -164,9 +164,19 @@ export default function SingleWorkPage() {
               <div dangerouslySetInnerHTML={{ __html: work?.content }} />
             </div>
             <Separator />
-            <h2 className="text-lg font-normal mt-8">
-              Written by <span className="font-semibold">Violet Clough</span>
-            </h2>
+            {/* Author */}
+            <div className="mt-8">
+              <h2 className="text-xl font-semibold mb-2">Scribe</h2>
+              <div className="flex items-center">
+                <Avatar className="h-12 w-12 mr-4">
+                  <AvatarImage src={userProfile?.avatarUrl} alt={"VC"} />
+                  <AvatarFallback>VC</AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="text-sm">Violet Clough</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Share */}

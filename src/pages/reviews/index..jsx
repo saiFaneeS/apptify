@@ -12,7 +12,7 @@ export default function ReviewsPage() {
       <Hero />
       <Blogs />
       <FeaturedBlogs />
-      <Separator className="bg-border/80" />
+      <Separator className="bg-border/30" />
       <CurrentlyReading />
     </Layout>
   );
