@@ -143,8 +143,12 @@ export default function SingleWorkPage() {
                 </div>
               </div>
               <div className="flex flex-wrap gap-2">
-                {work?.tags?.map((tag) => {
-                  return <Badge variant="secondary">{tag}</Badge>;
+                {work?.tags?.map((tag, index) => {
+                  return (
+                    <Badge key={index} variant="secondary">
+                      {tag}
+                    </Badge>
+                  );
                 })}
               </div>
               {/* <Badge variant="outline" className="mb-4">
