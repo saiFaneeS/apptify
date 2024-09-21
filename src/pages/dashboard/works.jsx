@@ -101,7 +101,7 @@ export default function CMSDashboard() {
                 <div className="flex justify-between items-center gap-2">
                   <h2 className="flex gap-2 items-center text-lg font-semibold">
                     <Sparkle className="w-5 h-5" />
-                    Featured Work
+                    Featured Composition
                   </h2>
                   <SetFeaturedWorkModal currentFeaturedWork={featuredWork} />
                 </div>{" "}

@@ -65,9 +65,9 @@ export default function Goals() {
           className=""
         />
       ) : (
-        <div className="flex  justify-between items-center">
+        <div className="flex justify-between items-center">
           <span className="flex items-center gap-2 font-medium">
-            <Target />
+            <Target className="w-5 h-5" />
             {goal.title}
           </span>
           <div className="flex justify-end gap-2">

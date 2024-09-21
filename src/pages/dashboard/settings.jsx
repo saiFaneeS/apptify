@@ -66,7 +66,7 @@ export default function SettingsPage() {
         <Card className="max-w-4xl mx-auto bg100 border-2 border300">
           <CardHeader>
             <CardTitle className="text-2xl font-semibold">
-              Scribe Settings
+              Scribe Profile
             </CardTitle>
             <CardDescription className="text700">
               Customize thy presence in the realm.
@@ -110,9 +110,8 @@ export default function SettingsPage() {
                       id={field}
                       type={field === "email" ? "email" : "text"}
                       value={formData[field]}
-                      disabled={field === "email"}
+                      disabled
                       onChange={handleChange}
-                      className="bg50 border300"
                     />
                   </div>
                 ))}

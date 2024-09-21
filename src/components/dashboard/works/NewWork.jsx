@@ -108,13 +108,13 @@ export function NewWork() {
         <Button
           className="flex gap-2 items-center"
           disabled={loading}
-          variant="outline"
+          variant=""
         >
           {loading ? (
             <Loader2 className="animate-spin" />
           ) : (
             <>
-              <Plus size={16} /> New Work
+              <Feather size={16} /> Compose
             </>
           )}
         </Button>

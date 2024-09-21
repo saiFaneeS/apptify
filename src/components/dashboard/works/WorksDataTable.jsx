@@ -41,7 +41,7 @@ const WorksDataTable = ({
           <div className="flex justify-between items-center flex-wrap gap-4 mb-4">
             <div className="flex gap-2 items-center text-lg font-semibold pl-1">
               {/* <ScrollText className="w-5 h-5" /> */}
-              All Works
+             <span className="h-2 w-2 rounded-full bg-primary"></span> All Compositions
             </div>{" "}
             <div className="flex items-center">
               <Input
@@ -50,8 +50,8 @@ const WorksDataTable = ({
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="mr-2"
               />
-              <Button className="flex items-center" size="sm">
-                <Search className="w-4 h-4 mr-2" /> Search
+              <Button className="flex items-center" size="" variant="outline">
+                <Search className="w-4 h-4" />
               </Button>
             </div>
           </div>

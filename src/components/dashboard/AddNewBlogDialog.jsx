@@ -104,14 +104,14 @@ export function AddNewBlogDialog() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          className="flex gap-2 items-center"
+          className="flex gap-2 items-center bg-emerald-700 hover:bg-emerald-800"
           disabled={loading}
-          variant="outline"
+          variant=""
         >
           {!loading ? (
             <>
-              <Plus size={16} />
-              New Review
+              <Star size={16} />
+              Review a Book
             </>
           ) : (
             <Loader2 className="animate-spin" />
@@ -276,11 +276,7 @@ export function AddNewBlogDialog() {
           </div>
           <DialogFooter className="flex justify-between">
             {step > 1 && (
-              <Button
-                type="button"
-                onClick={prevStep}
-                className="bg700 hover:bg600 text100"
-              >
+              <Button type="button" onClick={prevStep} variant="secondary">
                 <ChevronLeft className="mr-2 h-4 w-4" />
                 Previous
               </Button>
@@ -289,7 +285,7 @@ export function AddNewBlogDialog() {
               <Button
                 type="button"
                 onClick={(e) => nextStep(e)}
-                className="bg700 hover:bg600 text100"
+                className="bg-emerald-600 hover:bg-emerald-700"
                 disabled={!title}
               >
                 Next
@@ -298,7 +294,7 @@ export function AddNewBlogDialog() {
             ) : (
               <Button
                 type="submit"
-                className="bg700 hover:bg600 text100"
+                className="bg-emerald-600 hover:bg-emerald-700"
                 onClick={(e) => handleSubmit(e)}
                 disabled={!title}
               >

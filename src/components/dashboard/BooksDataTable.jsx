@@ -54,7 +54,8 @@ const BooksDataTable = ({
           <div className="flex justify-between items-center flex-wrap gap-4 mb-4">
             <div className="flex gap-2 items-center text-lg font-semibold pl-1">
               {/* <ScrollText className="w-5 h-5" /> */}
-              All Book Reviews
+              <span className="h-2 w-2 rounded-full bg-emerald-500"></span> All
+              Book Reviews
             </div>{" "}
             <div className="flex items-center">
               <Input
@@ -63,8 +64,8 @@ const BooksDataTable = ({
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="mr-2"
               />
-              <Button className="flex items-center" size="sm">
-                <Search className="w-4 h-4 mr-2" /> Search
+              <Button className="flex items-center" size="" variant="outline">
+                <Search className="w-4 h-4" />
               </Button>
             </div>
           </div>
@@ -108,7 +109,9 @@ const BooksDataTable = ({
                     </TableCell>
                     <TableCell>{review?.rating}</TableCell>
                     <TableCell>
-                      <Badge variant={review?.isPublished ? "success" : "secondary"}>
+                      <Badge
+                        variant={review?.isPublished ? "success" : "secondary"}
+                      >
                         {review?.isPublished ? "Published" : "Draft"}
                       </Badge>
                     </TableCell>

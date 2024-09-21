@@ -28,7 +28,7 @@ const SetFeaturedBlogModal = ({ currentFeaturedBlog }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="p-2 h-8" size="sm">
+        <Button className="p-2 h-8 bg-emerald-600 hover:bg-emerald-700" size="sm">
           {updatingFeatured ? (
             <Loader2 className="animate-spin" />
           ) : (
@@ -82,7 +82,7 @@ const SetFeaturedBlogModal = ({ currentFeaturedBlog }) => {
           <Button
             onClick={handleUpdateFeaturedBlog}
             disabled={selectedBlog?.id === currentFeaturedBlog?.id}
-            className=""
+            className="bg-emerald-600 hover:bg-emerald-700"
           >
             {updatingFeatured ? (
               <Loader2 className="animate-spin" />

@@ -157,7 +157,7 @@ export default function TopBar() {
                 <DropdownMenuItem asChild>
                   <Link href="/dashboard/works" className="flex items-center">
                     <Feather className="mr-2 h-4 w-4" />
-                    <span>Works</span>
+                    <span>Compositions</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>

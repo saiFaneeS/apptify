@@ -99,11 +99,7 @@ export function EditBlogDialog({ blog, onClose }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          size="sm"
-          variant="outline"
-          className="border800 text800 hover:bg200"
-        >
+        <Button size="sm" variant="outline">
           <Feather className="w-4 h-4" />
         </Button>
       </DialogTrigger>
@@ -266,11 +262,7 @@ export function EditBlogDialog({ blog, onClose }) {
           </div>
           <DialogFooter className="flex justify-between">
             {step > 1 && (
-              <Button
-                type="button"
-                onClick={prevStep}
-                className="bg700 hover:bg600 text100"
-              >
+              <Button type="button" onClick={prevStep} variant="secondary">
                 <ChevronLeft className="mr-2 h-4 w-4" />
                 Previous
               </Button>
@@ -279,7 +271,7 @@ export function EditBlogDialog({ blog, onClose }) {
               <Button
                 type="button"
                 onClick={nextStep}
-                className="bg700 hover:bg600 text100"
+                className="bg-emerald-600 hover:bg-emerald-700"
               >
                 Next
                 <ChevronRight className="ml-2 h-4 w-4" />
@@ -287,7 +279,7 @@ export function EditBlogDialog({ blog, onClose }) {
             ) : (
               <Button
                 onClick={(e) => handleSubmit(e)}
-                className="bg700 hover:bg600 text100"
+                className="bg-emerald-600 hover:bg-emerald-700"
               >
                 <Feather className="mr-2 h-5 w-5" />
                 Update Chronicle

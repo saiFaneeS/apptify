@@ -85,11 +85,11 @@ export default function CMSDashboard() {
             {/* Overview */}
             <Card className="col-span-full md:col-span-2 lg:col-span-1">
               <CardContent>
-                <div className="grid grid-cols-2 gap-2 mb-3">
+                <div className="grid grid-cols-2 gap-3 mb-3">
                   <div>
-                    <div className="bg-primary/10 p-3 rounded-lg cursor-help">
+                    <div className="bg-primary/20 p-3 rounded-lg cursor-help">
                       <h3 className="text-sm font-medium text-muted-foreground mb-2">
-                        Total Works
+                        My Works
                       </h3>
                       <div className="flex items-center gap-2">
                         <Feather className="w-5 h-5 text-primary" />
@@ -100,12 +100,12 @@ export default function CMSDashboard() {
                     </div>
                   </div>
                   <div>
-                    <div className="bg-secondary/10 p-3 rounded-lg cursor-help">
+                    <div className="bg-emerald-500 bg-opacity-20 p-3 rounded-lg cursor-help">
                       <h3 className="text-sm font-medium text-muted-foreground mb-2">
                         Book Reviews
                       </h3>
                       <div className="flex items-center gap-2">
-                        <BookOpen className="w-5 h-5 text-muted-foreground" />
+                        <BookOpen className="w-5 h-5 text-emerald-400" />
                         <span className="text-xl font-semibold">
                           {blogs?.length || 0}
                         </span>
@@ -114,7 +114,7 @@ export default function CMSDashboard() {
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <div className="bg-muted/50 p-3 rounded-lg">
+                  <div className="bg-muted/40 p-3 rounded-lg">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm">Published Works:</span>
                       <span className="font-bold">
@@ -133,10 +133,10 @@ export default function CMSDashboard() {
                           (works?.length || 1)) *
                         100
                       }
-                      className="h-2"
+                      className="h-1.5 bg-primary/20"
                     />
                   </div>
-                  <div className="bg-muted/50 p-3 rounded-lg">
+                  <div className="bg-muted/40 p-3 rounded-lg">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm">Published Reviews:</span>
                       <span className="font-bold">
@@ -153,7 +153,7 @@ export default function CMSDashboard() {
                           (blogs?.length || 1)) *
                         100
                       }
-                      className="h-2"
+                      className="h-1.5 bg-primary/20"
                     />
                   </div>
                 </div>
@@ -166,7 +166,7 @@ export default function CMSDashboard() {
                 <div className="flex justify-between items-center gap-2">
                   <h2 className="flex gap-2 items-center text-lg font-semibold">
                     <Sparkle className="w-5 h-5" />
-                    Featured Work
+                    Featured Composition
                   </h2>
                   <SetFeaturedWorkModal currentFeaturedWork={featuredWork} />
                 </div>{" "}
@@ -277,8 +277,8 @@ export default function CMSDashboard() {
           <div className="flex justify-between items-center mb-4 gap-4 flex-wrap">
             <h2 className="text-xl font-semibold">My Content</h2>
             <div className="flex gap-2">
-              <NewWork />
               <AddNewBlogDialog />
+              <NewWork />
             </div>
           </div>
 
