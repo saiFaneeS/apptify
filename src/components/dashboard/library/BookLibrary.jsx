@@ -10,8 +10,11 @@ import {
   BookCheck,
   BookMarked,
   LucideGlasses,
-  Feather,
+  Grid,
+  List,
   LibraryBig,
+  BookOpen,
+  Star,
 } from "lucide-react";
 import {
   Select,
@@ -21,7 +24,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Grid, List } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 
 const BookLibrary = () => {
   const { books, getAllBooks, fetchingBooks } = useLibrary();
@@ -53,15 +57,74 @@ const BookLibrary = () => {
     { value: "tbr", label: "To Be Read", icon: BookMarked },
   ];
 
+  const getStatistics = () => {
+    const total = books?.length || 0;
+    const read = books?.filter((book) => book.status === "read").length || 0;
+    const reading =
+      books?.filter((book) => book.status === "currently reading").length || 0;
+    const favorites =
+      books?.filter((book) => book.status === "favorite").length || 0;
+    const tbr = books?.filter((book) => book.status === "tbr").length || 0;
+
+    return { total, read, reading, favorites, tbr };
+  };
+
+  const stats = getStatistics();
+
   return (
     <div className="px-8 max-sm:px-4 pt-24 pb-8 min-h-screen">
-      <div className="flex justify-between items-center flex-wrap gap-4 mb-4">
-        <div className="flex gap-2 items-center text-xl font-medium">
-          {/* <LibraryBig className="h-5 w-5" /> */}
+      <div className="flex justify-between items-center flex-wrap gap-4 mb-6">
+        <div className="flex gap-2 items-center text-lg font-medium">
+          <LibraryBig className="h-6 w-6" strokeWidth={1.6}/>
           My Library
         </div>
-        {/* <div className="flex flex-col sm:flex-row max-sm:w-full gap-2"></div> */}
       </div>
+
+      {/* Statistics Bar */}
+      <Card className="mb-6">
+        <CardContent className="py-2 text-center">
+          <div className="grid grid-cols-3 md:grid-cols-5 gap-4 gap-y-6">
+            <div className="flex flex-col items-center">
+              <Book className="h-8 w-8 mb-2 text-primary" />
+              <span className="text-2xl font-bold">{stats.total}</span>
+              <span className="text-sm text-muted-foreground">Total Books</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <BookCheck className="h-8 w-8 mb-2 text-green-500" />
+              <span className="text-2xl font-bold">{stats.read}</span>
+              <span className="text-sm text-muted-foreground">Read</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <LucideGlasses className="h-8 w-8 mb-2 text-blue-500" />
+              <span className="text-2xl font-bold">{stats.reading}</span>
+              <span className="text-sm text-muted-foreground">Reading</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <Heart className="h-8 w-8 mb-2 text-red-500" />
+              <span className="text-2xl font-bold">{stats.favorites}</span>
+              <span className="text-sm text-muted-foreground">Favorites</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <BookMarked className="h-8 w-8 mb-2 text-yellow-500" />
+              <span className="text-2xl font-bold">{stats.tbr}</span>
+              <span className="text-sm text-muted-foreground">To Be Read</span>
+            </div>
+          </div>
+          <div className="mt-6">
+            <div className="flex justify-between mb-2">
+              <span className="text-sm font-medium">Reading Progress</span>
+              <span className="text-sm font-medium">
+                {Math.round((stats.read / stats.total) * 100)}%
+              </span>
+            </div>
+            <Progress
+              value={(stats.read / stats.total) * 100}
+              className="h-2"
+            />
+          </div>
+        </CardContent>
+      </Card>
+
       <Tabs
         value={activeTab}
         onValueChange={(value) => setActiveTab(value)}

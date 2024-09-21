@@ -188,7 +188,6 @@ export default function Library() {
             <Input
               type="search"
               placeholder="Search tomes..."
-              className="bg100 text900 placeholder700"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -240,7 +239,9 @@ export default function Library() {
               <Grid size={20} />
               <Switch
                 checked={layout === "list"}
-                onCheckedChange={(checked) => setLayout(checked ? "list" : "grid")}
+                onCheckedChange={(checked) =>
+                  setLayout(checked ? "list" : "grid")
+                }
                 aria-label="Toggle view"
               />
               <List size={20} />
