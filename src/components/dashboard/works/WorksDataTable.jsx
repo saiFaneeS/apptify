@@ -94,7 +94,16 @@ const WorksDataTable = ({
                         : work.title}
                     </TableCell>
                     <TableCell>
-                      <Badge variant={"secondary"} className={"capitalize"}>
+                      <Badge
+                        variant={
+                          work?.completionStatus === "completed"
+                            ? "success"
+                            : work?.completionStatus === "in-progress"
+                            ? "outline"
+                            : "secondary"
+                        }
+                        className="capitalize"
+                      >
                         {work?.completionStatus}
                       </Badge>
                     </TableCell>

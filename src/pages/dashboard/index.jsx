@@ -64,7 +64,7 @@ export default function CMSDashboard() {
       <div className="min-h-screen pt-16">
         <div className="px-8 max-sm:px-4 py-8">
           {/* Welcome Banner */}
-          <div className="relative overflow-hidden rounded-lg p-6 mb-4">
+          <div className="relative overflow-hidden rounded-lg p-6 mb-8">
             <Image
               src="/bg1.jpg"
               alt="Medieval castle background"
@@ -81,7 +81,7 @@ export default function CMSDashboard() {
             </div>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-3 mb-4">
+          <div className="grid gap-4 lg:grid-cols-3 mb-8">
             {/* Overview */}
             <Card className="col-span-full md:col-span-2 lg:col-span-1">
               <CardContent>
@@ -105,7 +105,7 @@ export default function CMSDashboard() {
                         Book Reviews
                       </h3>
                       <div className="flex items-center gap-2">
-                        <BookOpen className="w-5 h-5 text-secondary" />
+                        <BookOpen className="w-5 h-5 text-muted-foreground" />
                         <span className="text-xl font-semibold">
                           {blogs?.length || 0}
                         </span>
@@ -274,7 +274,7 @@ export default function CMSDashboard() {
 
           <Goals />
 
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex justify-between items-center mb-8">
             <h2 className="text-xl font-semibold">My Content</h2>
             <div className="flex gap-2">
               <NewWork />
@@ -283,7 +283,7 @@ export default function CMSDashboard() {
           </div>
 
           <Tabs defaultValue="works" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-2 bg-primary/50 dark:bg-foreground/5">
               <TabsTrigger value="works">My Works</TabsTrigger>
               <TabsTrigger value="reviews">Book Reviews</TabsTrigger>
             </TabsList>

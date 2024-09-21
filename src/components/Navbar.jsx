@@ -94,7 +94,7 @@ export default function Navbar() {
             </svg>
             <span className="">Violet Clough</span>
           </Link>
-          <div className="hidden md:flex justify-end space-x-4">
+          <div className="hidden lg:flex justify-end space-x-4">
             {navItems?.map((item) => (
               <Link
                 key={item.href}
@@ -121,7 +121,7 @@ export default function Navbar() {
             )}
           </div>
 
-          <div className="flex gap-3 items-center md:hidden">
+          <div className="flex gap-3 items-center lg:hidden">
             {mounted && (
               <Button
                 variant="ghost"

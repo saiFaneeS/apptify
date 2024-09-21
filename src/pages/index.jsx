@@ -40,7 +40,7 @@ export default function AboutPage() {
         />
         <div>
           {/* Introduction */}
-          <section className="px-8 max-sm:px-4 bg-primary/5 py-12">
+          <section className="px-8 max-sm:px-4 bg-primary/10 dark:bg-primary/5 py-12">
             <div className="flex flex-col md:flex-row gap-8 items-center">
               <Image
                 src={userProfile?.avatarUrl}
@@ -73,7 +73,7 @@ export default function AboutPage() {
           </section>
 
           {/* Focus on Content */}
-          <section className="px-8 max-sm:px-4 py-12 bg-primary/5">
+          <section className="px-8 max-sm:px-4 py-12 bg-primary/10 dark:bg-primary/5">
             <h2 className="text-2xl font-semibold mb-5 text-center">
               My Literary Pursuits
             </h2>
@@ -119,7 +119,43 @@ export default function AboutPage() {
 
           {/* <PopularBlogs /> */}
           <PopularWorks />
+
           <CurrentlyReading />
+
+          {/* Favorite Quotes */}
+          <section className="px-8 max-sm:px-4 bg-background/60 py-16">
+            {/* <h2 className="text-2xl font-semibold mb-5">Words of Wisdom</h2> */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="py-8">
+                <CardContent>
+                  <div className="bg-primary/20 aspect-square w-14 flex justify-center items-center rounded-full mb-4 mx-auto">
+                    <Quote className="w-7 h-7 text-primary" strokeWidth={1.6}/>
+                  </div>
+                  <p className="text-center italic mb-2">
+                    &quot;A reader lives a thousand lives before he dies . . .
+                    The man who never reads lives only one.&quot;
+                  </p>
+                  <p className="text-center text-sm font-normal">
+                    - George R.R. Martin
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="py-8">
+                <CardContent>
+                  <div className="bg-primary/20 aspect-square w-14 flex justify-center items-center rounded-full mb-4 mx-auto">
+                    <Quote className="w-7 h-7 text-primary" strokeWidth={1.6}/>
+                  </div>
+                  <p className="text-center italic mb-2">
+                    &quot;The person, be it gentleman or lady, who has not
+                    pleasure in a good novel, must be intolerably stupid.&quot;
+                  </p>
+                  <p className="text-center text-sm font-normal">
+                    - Jane Austen
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
 
           {/* Philosophy */}
           {/* <section className="px-8 max-sm:px-4 mb-12">
@@ -140,33 +176,6 @@ export default function AboutPage() {
               </li>
             </ul>
           </section> */}
-
-          {/* Favorite Quotes */}
-          <section className="px-8 max-sm:px-4 mb-12 bg-background/40 py-12">
-            <h2 className="text-2xl font-semibold mb-5">Words of Wisdom</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card>
-                <CardContent className="py-6">
-                  <Quote className="w-8 h-8 text700 mx-auto mb-4" />
-                  <p className="text800 text-center italic mb-2">
-                    &quot;A reader lives a thousand lives before he dies . . .
-                    The man who never reads lives only one.&quot;
-                  </p>
-                  <p className="text700 text-center">- George R.R. Martin</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="py-6">
-                  <Quote className="w-8 h-8 text700 mx-auto mb-4" />
-                  <p className="text800 text-center italic mb-2">
-                    &quot;The person, be it gentleman or lady, who has not
-                    pleasure in a good novel, must be intolerably stupid.&quot;
-                  </p>
-                  <p className="text700 text-center">- Jane Austen</p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
 
           {/* Milestones */}
           <Goals />

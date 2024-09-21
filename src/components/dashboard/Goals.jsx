@@ -123,7 +123,7 @@ export default function Goals() {
   );
 
   return (
-    <Card className="flex flex-col gap-4 mb-4">
+    <Card className="flex flex-col gap-4 mb-8">
       <CardHeader>
         <CardTitle className="flex items-center w-full justify-between">
           <div className="flex gap-2 items-center text-lg font-semibold pl-1">
@@ -150,7 +150,7 @@ export default function Goals() {
               {goals?.map((goal) => (
                 <Card
                   key={goal.id}
-                  className="hover:shadow-lg transition-shadow duration-300 p-4"
+                  className="shadow-none p-4 border border-border/50 bg-secondary/20 rounded-sm"
                 >
                   <div className="relative">
                     {renderGoal(goal, editingGoal?.id === goal.id)}

@@ -108,7 +108,7 @@ const BooksDataTable = ({
                     </TableCell>
                     <TableCell>{review?.rating}</TableCell>
                     <TableCell>
-                      <Badge variant={"secondary"}>
+                      <Badge variant={review?.isPublished ? "success" : "secondary"}>
                         {review?.isPublished ? "Published" : "Draft"}
                       </Badge>
                     </TableCell>

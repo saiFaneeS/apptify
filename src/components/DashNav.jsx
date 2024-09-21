@@ -24,6 +24,7 @@ import {
   User2,
   Feather,
   ScrollText,
+  ChevronDown,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { getAuth, signOut } from "firebase/auth";
@@ -111,29 +112,34 @@ export default function TopBar() {
                 {isDark ? <Sun size={18} /> : <Moon size={18} />}
               </Button>
             )}
-            {/* User menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="relative h-10 w-10 rounded-full border"
+                  className="relative h-10 w-auto rounded-full px-1 hover:bg-accent hover:text-accent-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
-                  <Avatar className="h-10 w-10 flex justify-center items-center">
-                    <AvatarImage
-                      src={avatar}
-                      alt="User"
-                      className="object-cover"
-                    />
-                    <AvatarFallback className="flex justify-center items-center">
-                      <User2 size={18} />
-                    </AvatarFallback>
-                  </Avatar>
+                  <div className="flex items-center gap-2">
+                    <Avatar className="h-8 w-8 flex justify-center items-center">
+                      <AvatarImage
+                        src={avatar}
+                        alt="User"
+                        className="object-cover"
+                      />
+                      <AvatarFallback className="flex justify-center items-center">
+                        <User2 size={16} />
+                      </AvatarFallback>
+                    </Avatar>
+                    <span className="hidden sm:inline-block text-sm font-medium">
+                      {userProfile?.name || "Menu"}
+                    </span>
+                    <ChevronDown size={16} className="text-muted-foreground" />
+                  </div>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
-                    <p className="text-sm leading-snug text-foreground">
+                    <p className="text-sm font-medium leading-none">
                       {userProfile?.name}
                     </p>
                     <p className="text-xs leading-none text-muted-foreground">
@@ -142,60 +148,47 @@ export default function TopBar() {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                {/* <DropdownMenuItem
-                  className="flex gap-2 items-center w-full transition-all shrink-0"
-                  onClick={() => setTheme(isDark ? "light" : "dark")}
-                >
-                  {mounted && (
-                    <>
-                      <span>
-                        {isDark ? <Sun size={18} /> : <Moon size={18} />}
-                      </span>
-                      <span>Theme</span>
-                    </>
-                  )}
-                </DropdownMenuItem>
-
-                <DropdownMenuSeparator /> */}
-
-                <Link href={"/dashboard"}>
-                  <DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard" className="flex items-center">
                     <NotebookTabs className="mr-2 h-4 w-4" />
                     <span>Dashboard</span>
-                  </DropdownMenuItem>
-                </Link>
-                <Link href="/dashboard/works">
-                  <DropdownMenuItem>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard/works" className="flex items-center">
                     <Feather className="mr-2 h-4 w-4" />
                     <span>Works</span>
-                  </DropdownMenuItem>
-                </Link>
-                <Link href="/dashboard/reviews">
-                  <DropdownMenuItem>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard/reviews" className="flex items-center">
                     <ScrollText className="mr-2 h-4 w-4" />
                     <span>Book Reviews</span>
-                  </DropdownMenuItem>
-                </Link>
-                <Link href={"/dashboard/library"}>
-                  <DropdownMenuItem>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard/library" className="flex items-center">
                     <LibraryBig className="mr-2 h-4 w-4" />
                     <span>Library</span>
-                  </DropdownMenuItem>
-                </Link>
-
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <Link href={"/dashboard/settings"}>
-                  <DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link
+                    href="/dashboard/settings"
+                    className="flex items-center"
+                  >
                     <CircleUser className="mr-2 h-4 w-4" />
                     <span>Profile</span>
-                  </DropdownMenuItem>
-                </Link>
-                <div onClick={handleSignOut}>
-                  <DropdownMenuItem>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Log out</span>
-                  </DropdownMenuItem>
-                </div>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={handleSignOut}
+                  className="flex items-center"
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Log out</span>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
