@@ -64,7 +64,7 @@ export default function CMSDashboard() {
       <div className="min-h-screen pt-16">
         <div className="px-8 max-sm:px-4 py-8">
           {/* Welcome Banner */}
-          <div className="relative overflow-hidden rounded-lg p-6 mb-8">
+          <div className="relative overflow-hidden rounded-lg p-6 mb-4">
             <Image
               src="/bg1.jpg"
               alt="Medieval castle background"
@@ -81,7 +81,7 @@ export default function CMSDashboard() {
             </div>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-3 mb-8">
+          <div className="grid gap-4 lg:grid-cols-3 mb-4">
             {/* Overview */}
             <Card className="col-span-full md:col-span-2 lg:col-span-1">
               <CardContent>
@@ -173,7 +173,7 @@ export default function CMSDashboard() {
                 <Separator className="mb-1" />
                 {featuredWork ? (
                   <div className="flex items-start gap-4">
-                    <div className="relative h-32 w-20 rounded overflow-hidden shrink-0 bg-foreground/5">
+                    <div className="relative h-full aspect-[0.7] rounded overflow-hidden shrink-0 bg-foreground/5">
                       <Image
                         src={featuredWork.coverImage}
                         layout="fill"
@@ -197,7 +197,7 @@ export default function CMSDashboard() {
                           <span className="font-medium text-sm text-foreground/80">
                             Synopsis:
                           </span>
-                          <p className="text-sm text-muted-foreground line-clamp-2">
+                          <p className="text-sm text-muted-foreground line-clamp-2 max-sm:line-clamp-1">
                             {featuredWork.synopsis.length > 100
                               ? `${featuredWork.synopsis.slice(0, 100)}...`
                               : featuredWork.synopsis}
@@ -213,7 +213,7 @@ export default function CMSDashboard() {
                 )}
               </CardContent>
             </Card>
-            {/* Featured */}
+            {/* Featured Review*/}
             <Card className="overflow-hidden">
               <CardContent className="flex flex-col h-full gap-4">
                 <div className="flex justify-between items-center gap-2">
@@ -225,8 +225,8 @@ export default function CMSDashboard() {
                 </div>{" "}
                 <Separator className="mb-1" />
                 {featuredBlog !== null && featuredBlog !== undefined ? (
-                  <div className="flex items-start gap-4">
-                    <div className="relative h-32 w-20 rounded overflow-hidden shrink-0 bg-foreground/5">
+                  <div className="flex items-start gap-4 h-full">
+                    <div className="relative h-full aspect-[0.7] rounded overflow-hidden shrink-0 bg-foreground/5">
                       <Image
                         src={featuredBlog?.coverImage}
                         layout="fill"
@@ -234,7 +234,7 @@ export default function CMSDashboard() {
                         alt={featuredBlog?.title}
                       />
                     </div>
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 ">
                       <h3 className="text-base font-medium line-clamp-2">
                         {featuredBlog?.title}
                       </h3>

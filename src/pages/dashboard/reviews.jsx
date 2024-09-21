@@ -57,31 +57,46 @@ export default function CMSDashboard() {
           <div className="grid gap-4 lg:grid-cols-2 mb-8">
             {/* Overview */}
             <Card className="">
-              <CardContent className="flex flex-col gap-4">
-                <h2 className="flex gap-2 items-center text-lg font-semibold">
+              <CardContent className="flex flex-col gap-5">
+                <h2 className="flex gap-2 items-center text-lg font-semibold ">
                   Overview
                 </h2>
-                <Separator className="mb-1" />
-                <div className="flex justify-between">
-                  <span>Total Book Reviews:</span>
-                  <span className="font-bold">{blogs?.length}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Published Reviews:</span>
-                  <span className="font-bold">
-                    {blogs?.filter((blog) => blog.isPublished === true).length}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Drafts:</span>
-                  <span className="font-bold">
-                    {blogs?.filter((blog) => blog.isPublished === false).length}
-                  </span>
+                <Separator />
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center justify-between p-2 px-4 bg-muted/50 rounded-lg shadow-sm">
+                    <span className="text-sm text-muted-foreground">
+                      Total Reviews
+                    </span>
+                    <span className="text-xl font-semibold text-primary">
+                      {blogs?.length}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 px-4 bg-muted/50 rounded-lg shadow-sm">
+                    <span className="text-sm text-muted-foreground">
+                      Published
+                    </span>
+                    <span className="text-xl font-semibold text-green-500">
+                      {
+                        blogs?.filter((blog) => blog.isPublished === true)
+                          .length
+                      }
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 px-4 bg-muted/50 rounded-lg shadow-sm">
+                    <span className="text-sm text-muted-foreground">
+                      Drafts
+                    </span>
+                    <span className="text-xl font-semibold text-yellow-500">
+                      {
+                        blogs?.filter((blog) => blog.isPublished === false)
+                          .length
+                      }
+                    </span>
+                  </div>
                 </div>
               </CardContent>
             </Card>
-
-            {/* Featured */}
+            {/* Featured Review*/}
             <Card className="overflow-hidden">
               <CardContent className="flex flex-col h-full gap-4">
                 <div className="flex justify-between items-center gap-2">
@@ -93,8 +108,8 @@ export default function CMSDashboard() {
                 </div>{" "}
                 <Separator className="mb-1" />
                 {featuredBlog !== null && featuredBlog !== undefined ? (
-                  <div className="flex items-start gap-4">
-                    <div className="relative h-32 w-20 rounded overflow-hidden shrink-0 bg-foreground/5">
+                  <div className="flex items-start gap-4 h-full">
+                    <div className="relative h-full aspect-[0.7] rounded overflow-hidden shrink-0 bg-foreground/5">
                       <Image
                         src={featuredBlog?.coverImage}
                         layout="fill"
@@ -102,16 +117,16 @@ export default function CMSDashboard() {
                         alt={featuredBlog?.title}
                       />
                     </div>
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 ">
                       <h3 className="text-base font-medium line-clamp-2">
                         {featuredBlog?.title}
                       </h3>
                       <p className="flex gap-2 items-center text-sm text-muted-foreground">
                         <Book size={18} /> {featuredBlog?.bookName}
                       </p>
-                      {/* <p className="flex gap-2 items-center text-sm text-muted-foreground">
+                      <p className="flex gap-2 items-center text-sm text-muted-foreground">
                         <User2 size={18} /> {featuredBlog?.bookAuthor}
-                      </p> */}
+                      </p>
                       <p className="flex gap-2 items-center text-sm text-muted-foreground">
                         <View size={18} /> {featuredBlog?.viewCount || 0}
                       </p>

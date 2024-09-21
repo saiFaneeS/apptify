@@ -8,7 +8,15 @@ import { NewWork } from "@/components/dashboard/works/NewWork";
 import WorksDataTable from "@/components/dashboard/works/WorksDataTable";
 import SetFeaturedWorkModal from "@/components/dashboard/works/SetFeaturedWork";
 import { Card, CardContent } from "@/components/ui/card";
-import { Sparkle, Book, User2, List, ArrowLeftRight, BookOpenCheck, View } from "lucide-react";
+import {
+  Sparkle,
+  Book,
+  User2,
+  List,
+  ArrowLeftRight,
+  BookOpenCheck,
+  View,
+} from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -44,36 +52,43 @@ export default function CMSDashboard() {
 
           <div className="grid gap-4 lg:grid-cols-2 mb-8">
             {/* Overview */}
-            <Card>
-              <CardContent className="flex flex-col gap-4">
-                <h2 className="flex gap-2 items-center text-lg font-semibold">
+            <Card className="">
+              <CardContent className="flex flex-col gap-5">
+                <h2 className="flex gap-2 items-center text-lg font-semibold ">
                   Overview
                 </h2>
-                <Separator className="mb-1" />
-
-                <div className="flex justify-between text800">
-                  <span>Total Works:</span>
-                  <span className="font-bold">{works?.length}</span>
-                </div>
-
-                <div className="flex justify-between text800">
-                  <span>Published Works:</span>
-                  <span className="font-bold">
-                    {
-                      works?.filter(
-                        (blog) => blog.completionStatus === "completed"
-                      ).length
-                    }
-                  </span>
-                </div>
-                <div className="flex justify-between text800">
-                  <span>Drafts:</span>
-                  <span className="font-bold">
-                    {
-                      works?.filter((blog) => blog.completionStatus === "draft")
-                        .length
-                    }
-                  </span>
+                <Separator />
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center justify-between p-2 px-4 bg-muted/50 rounded-lg shadow-sm">
+                    <span className="text-sm text-muted-foreground">
+                      Total Works
+                    </span>
+                    <span className="text-xl font-semibold text-primary">
+                      {works?.length}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 px-4 bg-muted/50 rounded-lg shadow-sm">
+                    <span className="text-sm text-muted-foreground">
+                      Published
+                    </span>
+                    <span className="text-xl font-semibold text-green-500">
+                      {
+                        works?.filter((work) => work.completionStatus === "completed")
+                          .length
+                      }
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between p-2 px-4 bg-muted/50 rounded-lg shadow-sm">
+                    <span className="text-sm text-muted-foreground">
+                      Drafts
+                    </span>
+                    <span className="text-xl font-semibold text-yellow-500">
+                      {
+                        works?.filter((work) => work.completionStatus === "draft")
+                          .length
+                      }
+                    </span>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -90,8 +105,8 @@ export default function CMSDashboard() {
                 </div>{" "}
                 <Separator className="mb-1" />
                 {featuredWork ? (
-                  <div className="flex items-start gap-4">
-                    <div className="relative h-32 w-20 rounded overflow-hidden shrink-0 bg-foreground/5">
+                  <div className="flex items-start gap-4 h-full">
+                    <div className="relative h-full aspect-[0.7] rounded overflow-hidden shrink-0 bg-foreground/5">
                       <Image
                         src={featuredWork.coverImage}
                         layout="fill"
@@ -115,7 +130,7 @@ export default function CMSDashboard() {
                           <span className="font-medium text-sm text-foreground/80">
                             Synopsis:
                           </span>
-                          <p className="text-sm text-muted-foreground line-clamp-2">
+                          <p className="text-sm text-muted-foreground line-clamp-1">
                             {featuredWork.synopsis.length > 100
                               ? `${featuredWork.synopsis.slice(0, 100)}...`
                               : featuredWork.synopsis}

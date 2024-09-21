@@ -3,15 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import {
   Book,
-  Star,
-  Feather,
   Calendar,
   Search,
   ArrowUpDown,
   Grid,
   List,
+  FileText,
+  Eye,
+  Clock,
 } from "lucide-react";
-import { useBlogs } from "@/context/BlogContext";
+import { useWorks } from "@/context/WorkContext";
 import { useEffect, useState } from "react";
 import { formatTime } from "@/lib/formatTime";
 import Link from "next/link";
@@ -26,43 +27,46 @@ import {
   SelectValue,
 } from "../ui/select";
 
-export default function Main() {
-  const { blogs, getAllBlogs } = useBlogs();
+export default function Works() {
+  const { works, getAllWorks } = useWorks();
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredBlogs, setFilteredBlogs] = useState([]);
+  const [filteredWorks, setFilteredWorks] = useState([]);
   const [sortOption, setSortOption] = useState("date");
   const [isListView, setIsListView] = useState(true);
 
   useEffect(() => {
-    if (!blogs || blogs?.length === 0) {
-      getAllBlogs();
+    if (!works || works?.length === 0) {
+      getAllWorks();
     }
-  }, [blogs, getAllBlogs]);
+  }, [works, getAllWorks]);
 
   useEffect(() => {
-    if (blogs) {
-      const filtered = blogs.filter(
-        (blog) =>
-          blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          blog.bookName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          blog.bookAuthor.toLowerCase().includes(searchTerm.toLowerCase())
+    if (works) {
+      const filtered = works.filter(
+        (work) =>
+          work.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          work.synopsis.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      setFilteredBlogs(sortBlogs(filtered));
+      setFilteredWorks(sortWorks(filtered));
     }
-  }, [blogs, searchTerm, sortOption]);
+  }, [works, searchTerm, sortOption]);
 
-  const sortBlogs = (blogs) => {
+  const sortWorks = (works) => {
     switch (sortOption) {
       case "date":
-        return [...blogs].sort(
+        return [...works].sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-      case "rating":
-        return [...blogs].sort((a, b) => b.rating - a.rating);
       case "title":
-        return [...blogs].sort((a, b) => a.title.localeCompare(b.title));
+        return [...works].sort((a, b) => a.title.localeCompare(b.title));
+      case "status":
+        return [...works].sort((a, b) =>
+          a.completionStatus.localeCompare(b.completionStatus)
+        );
+      case "views":
+        return [...works].sort((a, b) => b.viewCount - a.viewCount);
       default:
-        return blogs;
+        return works;
     }
   };
 
@@ -81,7 +85,7 @@ export default function Main() {
           <div className="w-full">
             <Input
               type="search"
-              placeholder="Search reviews..."
+              placeholder="Search works..."
               className="bg100 text900 placeholder700"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -98,7 +102,7 @@ export default function Main() {
           <ArrowUpDown className="w-4 h-4" />
           <span className="text-sm font-medium text-nowrap">Sort by:</span>
           <div className="hidden md:flex gap-2">
-            {["date", "rating", "title"].map((option) => (
+            {["date", "title", "status", "popularity"].map((option) => (
               <Button
                 key={option}
                 size="sm"
@@ -116,7 +120,7 @@ export default function Main() {
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
-                {["date", "rating", "title"].map((option) => (
+                {["date", "title", "status", "popularity"].map((option) => (
                   <SelectItem key={option} value={option}>
                     {option.charAt(0).toUpperCase() + option.slice(1)}
                   </SelectItem>
@@ -135,7 +139,7 @@ export default function Main() {
           <List size={20} />
         </div>
       </div>
-      {blogs ? (
+      {works ? (
         <div
           className={
             isListView
@@ -143,56 +147,45 @@ export default function Main() {
               : "grid gap-8 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5"
           }
         >
-          {filteredBlogs.slice(0, 6).map((post) => (
+          {filteredWorks.map((work) => (
             <Card
-              key={post.id}
+              key={work.id}
               className={`relative ${
                 isListView ? "flex p-3" : "flex flex-col"
               } items-start justify-start gap-4`}
             >
               <Image
-                src={post.coverImage}
-                alt={post.title}
+                src={work.coverImage}
+                alt={work.title}
                 width={300}
                 height={200}
                 className={`${
-                  isListView ? "w-32 h-48" : "w-full aspect-[0.7]"
+                  isListView ? "w-28 h-44" : "w-full aspect-[0.7]"
                 } object-cover rounded-sm relative z-20`}
               />
               <div className="w-full flex flex-col gap-2 justify-between h-full text-foreground">
                 <div className="flex flex-col gap-2">
-                  <h3 className="text-base font-semibold">{post.title}</h3>
-                  <div className="flex items-center mt-1">
-                    <Book className="w-4 h-4 mr-2" />
-                    <span className="text-xs">{post.bookName}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Feather className="w-4 h-4 mr-2" />
-                    <span className="text-xs">{post.bookAuthor}</span>
-                  </div>
+                  <h3 className="text-base font-semibold">{work.title}</h3>
                   <div className="flex items-center">
                     <Calendar className="w-4 h-4 mr-2" />
-                    <span className="text-xs">
-                      {formatTime(post.createdAt)}
-                    </span>
+                    <span className="text-xs">{work.datePublished}</span>
                   </div>
                   <div className="flex items-center">
-                    <span className="text-xs">
-                      {[...Array(5)].map((_, index) => (
-                        <Star
-                          key={index}
-                          className={`w-4 h-4 inline ${
-                            index < post.rating
-                              ? "text-yellow-400 fill-current"
-                              : "text-gray-300"
-                          }`}
-                        />
-                      ))}
-                    </span>
+                    <FileText className="w-4 h-4 mr-2" />
+                    <span className="text-xs">{work.wordCount} words</span>
                   </div>
+                  <p className="text-sm line-clamp-2">
+                    <span className="text-sm font-medium">Synopsis: </span>
+                    <br />
+                    <span className="text-sm text-foreground/70">
+                      {work.synopsis}
+                    </span>
+                  </p>
                 </div>
-                <Link href={`/reviews/${post.id}`} className="mt-1">
-                  <Button variant="outline">Read Review</Button>
+                <Link href={`/works/${work.id}`} className="mt-1 w-fit">
+                  <Button variant="outline" size="sm">
+                    Read More
+                  </Button>
                 </Link>
               </div>
             </Card>
