@@ -148,7 +148,7 @@ export default function Navbar() {
         </div>
       </div>
       {isOpen && (
-        <div className="lg:hidden mt-4 space-y-2 animate-in fade-in-50 slide-in-from-top-3 duration-150">
+        <div className="lg:hidden mt-4 space-y-2 animate-in fade-in-100 slide-in-from-top-3 duration-300">
           {navItems.map((item) => (
             <Link
               key={item.href}
