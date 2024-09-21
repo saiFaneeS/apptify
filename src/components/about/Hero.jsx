@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function AboutHero({ blogs, books, goals }) {
   return (
     <div className="relative overflow-hidden h-screen">
-      <div className="absolute inset-0 bg-primary h-screen">
+      <div className="absolute inset-0 bg-primary h-full">
         <Image
           src="/bg1.jpg"
           alt="Medieval library background"
