@@ -18,17 +18,17 @@ const PopularWorks = () => {
     } else {
       const topWorks = works
         .sort((a, b) => b.viewCount - a.viewCount)
-        .slice(0, 3);
+        .slice(0, 2);
 
       setPopularWorks(topWorks);
     }
   }, [works, getAllWorks]);
 
   return (
-    <section className="px-8 max-sm:px-4 mb-12">
+    <section className="px-8 max-sm:px-4 py-12">
       <h2 className="text-2xl font-semibold mb-5">Popular Works</h2>
       {popularWorks.length > 0 ? (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2">
           {popularWorks.map((work) => (
             <Card
               key={work.id}

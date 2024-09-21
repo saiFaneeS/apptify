@@ -11,12 +11,7 @@ import {
 } from "@/components/ui/table";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs } from "@/components/ui/tabs";
-import {
-  Search,
-  Eye,
-  Loader2,
-  View,
-} from "lucide-react";
+import { Search, Eye, Loader2, View, MessageSquareText } from "lucide-react";
 import { formatTime } from "@/lib/formatTime";
 import Image from "next/image";
 import { useWorks } from "@/context/WorkContext";
@@ -71,6 +66,9 @@ const WorksDataTable = ({
                 <TableHead>
                   <View size={20} />
                 </TableHead>
+                <TableHead>
+                  <MessageSquareText size={20} />
+                </TableHead>{" "}
                 <TableHead>Date</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
@@ -102,6 +100,8 @@ const WorksDataTable = ({
                     </TableCell>
                     <TableCell>{work?.wordCount || 0}</TableCell>
                     <TableCell>{work?.viewCount || 0}</TableCell>
+                    <TableCell>{work?.comments?.length || 0}</TableCell>
+
                     <TableCell className="text-nowrap">
                       {work?.createdAt && formatTime(work?.createdAt)}
                     </TableCell>

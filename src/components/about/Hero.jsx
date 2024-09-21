@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function AboutHero({ blogs, books, goals }) {
   return (
-    <div className="relative overflow-hidden h-screen mb-12">
+    <div className="relative overflow-hidden h-screen">
       <div className="absolute inset-0 bg-primary h-screen">
         <Image
           src="/bg1.jpg"
@@ -36,7 +36,7 @@ export default function AboutHero({ blogs, books, goals }) {
             </Button>
           </Link>
           <Link href={"/library"}>
-            <Button variant="ghost" className="bg-foreground/10 hover:bg-foreground/5">
+            <Button variant="secondary">
               <Library className="mr-2 h-5 w-5" />
               My Library
             </Button>

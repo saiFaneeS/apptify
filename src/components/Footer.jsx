@@ -17,7 +17,7 @@ import {
 export default function Footer() {
   return (
     <footer>
-      <div className="px-8 max-sm:px-4 py-12 bg-background">
+      <div className="px-8 max-sm:px-4 py-12 bg-background border-t border-border">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div>
             <h3 className="text-xl font-semibold mb-4">Navigation</h3>
@@ -89,7 +89,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="flex gap-4 justify-between items-center flex-wrap border-t pt-8 mt-8">
+        <div className="flex gap-4 justify-between items-center flex-wrap border-t border-border pt-8 mt-8">
           <p>
             &copy; {new Date().getFullYear()} Violet Clough. All rights reserved.
           </p>

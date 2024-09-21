@@ -38,9 +38,9 @@ export default function AboutPage() {
         <Hero
         // blogs={blogs?.length} books={books?.length}
         />
-        <div className="">
+        <div>
           {/* Introduction */}
-          <section className="px-8 max-sm:px-4 mb-12">
+          <section className="px-8 max-sm:px-4 bg-primary/5 py-12">
             <div className="flex flex-col md:flex-row gap-8 items-center">
               <Image
                 src={userProfile?.avatarUrl}
@@ -50,7 +50,7 @@ export default function AboutPage() {
                 className="rounded-full aspect-square object-cover"
               />
               <div>
-                <section className="mb-12">
+                <section className="">
                   <h4 className="font-medium mt-2">{userProfile?.name}</h4>
                   <h2 className="text-2xl font-semibold mb-3">
                     The Scribe&apos;s Tale
@@ -73,41 +73,41 @@ export default function AboutPage() {
           </section>
 
           {/* Focus on Content */}
-          <section className="px-8 max-sm:px-4 mb-12">
+          <section className="px-8 max-sm:px-4 py-12 bg-primary/5">
             <h2 className="text-2xl font-semibold mb-5 text-center">
               My Literary Pursuits
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
-              <Card>
-                <CardContent className="text-center p-4">
+              <Card className="bg-primary/10 border-primary/30">
+                <CardContent className="text-center p-6">
                   <Feather className="w-10 h-10 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">Writing Tales</h3>
-                  <p className="text-sm text-foreground/80">
+                  <h3 className="text-xl font-semibold mb-3">Writing Tales</h3>
+                  <p className="leading-relaxed text-sm text-foreground/80">
                     Writing stories, learning techniques, and being inspired by
                     others.
                   </p>
                   {/* <Button variant="outline">View Works</Button> */}
                 </CardContent>
               </Card>
-              <Card>
-                <CardContent className="text-center p-4">
+              <Card className="bg-primary/10 border-primary/30">
+                <CardContent className="text-center p-6">
                   <BookOpen className="w-10 h-10 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">
+                  <h3 className="text-xl font-semibold mb-3">
                     Reviewing Books
                   </h3>
-                  <p className="text-sm text-foreground/80">
+                  <p className="leading-relaxed text-sm text-foreground/80">
                     Explore my analyses of classic and contemporary literature.
                   </p>
                   {/* <Button variant="outline">Read Reviews</Button> */}
                 </CardContent>
               </Card>
-              <Card>
-                <CardContent className="text-center p-4">
+              <Card className="bg-primary/10 border-primary/30">
+                <CardContent className="text-center p-6">
                   <Library className="w-10 h-10 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">
+                  <h3 className="text-xl font-semibold mb-3">
                     Collecting Tomes
                   </h3>
-                  <p className="text-sm text-foreground/80">
+                  <p className="leading-relaxed text-sm text-foreground/80">
                     Collecting thought provoking books of different themes,
                     styles.
                   </p>

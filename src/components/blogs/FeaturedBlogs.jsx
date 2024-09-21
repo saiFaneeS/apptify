@@ -23,11 +23,11 @@ const FeaturedBlogs = () => {
   }, [blogs, getAllBlogs, setFeaturedBlog]);
 
   return (
-    <section className="px-8 max-sm:px-4 mb-8">
+    <section className="px-8 max-sm:px-4 pb-12">
       <h2 className="text-2xl font-semibold mb-5">Featured Review</h2>
       <Card>
         {featuredBlog ? (
-          <div className="flex items-center gap-8 flex-wrap">
+          <div className="flex items-center gap-6 flex-wrap">
             <div className="max-sm:w-full w-52 h-80 flex justify-center gap-4 items-center shrink-0">
               <Image
                 src={featuredBlog?.coverImage}

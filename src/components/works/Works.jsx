@@ -97,7 +97,7 @@ export default function Works() {
           </Button>
         </form>
       </div>
-      <div className="mb-6 flex items-center justify-between gap-4">
+      <div className="mb-6 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <ArrowUpDown className="w-4 h-4" />
           <span className="text-sm font-medium text-nowrap">Sort by:</span>
@@ -116,7 +116,7 @@ export default function Works() {
           </div>
           <div className="md:hidden">
             <Select value={sortOption} onValueChange={setSortOption}>
-              <SelectTrigger className="w-[140px]">
+              <SelectTrigger className="w-[120px] h-9">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
@@ -144,14 +144,14 @@ export default function Works() {
           className={
             isListView
               ? "space-y-4"
-              : "grid gap-8 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5"
+              : "grid gap-8 max-md:gap-4 max-sm:gap-3 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5"
           }
         >
           {filteredWorks.map((work) => (
             <Card
               key={work.id}
               className={`relative ${
-                isListView ? "flex p-3" : "flex flex-col"
+                isListView ? "flex p-3" : "flex flex-col max-md:p-3"
               } items-start justify-start gap-4`}
             >
               <Image
@@ -165,7 +165,7 @@ export default function Works() {
               />
               <div className="w-full flex flex-col gap-2 justify-between h-full text-foreground">
                 <div className="flex flex-col gap-2">
-                  <h3 className="text-base font-semibold">{work.title}</h3>
+                  <h3 className="text-base font-semibold line-clamp-1">{work.title}</h3>
                   <div className="flex items-center">
                     <Calendar className="w-4 h-4 mr-2" />
                     <span className="text-xs">{work.datePublished}</span>

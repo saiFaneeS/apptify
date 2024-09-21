@@ -1,5 +1,7 @@
 import { db, storage } from "@/lib/firebase";
 import {
+  arrayRemove,
+  arrayUnion,
   collection,
   deleteDoc,
   doc,
@@ -23,14 +25,14 @@ export const WorksProvider = ({ children }) => {
   const [work, setWork] = useState(null);
   const [works, setWorks] = useState(null);
   const [featuredWork, setFeaturedWork] = useState("");
+  const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [updatingFeatured, setUpdatingFeatured] = useState(false);
   const [fetchingWorks, setFetchingWorks] = useState(false);
+  const [commenting, setCommenting] = useState(false);
+  const [deletingComment, setDeletingComment] = useState(false);
   const [error, setError] = useState(null);
-  //   const [comments, setComments] = useState([]);
-  //   const [commenting, setCommenting] = useState(false);
-  //   const [deletingComment, setDeletingComment] = useState(false);
-  
+
   const getAllWorks = async () => {
     setFetchingWorks(true);
     try {
@@ -60,10 +62,7 @@ export const WorksProvider = ({ children }) => {
       setFeaturedWork(filteredFeaturedWork);
     } catch (err) {
       console.log(err);
-
-      const errCode = err.code;
-      const errMessage = err.message;
-      setError(errMessage);
+      setError(err.message);
     } finally {
       setFetchingWorks(false);
     }
@@ -91,10 +90,7 @@ export const WorksProvider = ({ children }) => {
       ]);
     } catch (err) {
       console.log(err);
-
-      const errCode = err.code;
-      const errMessage = err.message;
-      setError(errMessage);
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -111,16 +107,12 @@ export const WorksProvider = ({ children }) => {
           ref(storage, workData.coverImage)
         );
         setWork({ ...workData, coverImage: coverImageUrl });
-        // console.log("Work data", { ...workData, coverImage: coverImageUrl });
       }
 
-    //   setComments(docSnap.data().comments);
+      setComments(docSnap.data().comments || []);
     } catch (err) {
       console.log(err);
-
-      const errCode = err.code;
-      const errMessage = err.message;
-      setError(errMessage);
+      setError(err.message);
     }
   };
 
@@ -160,9 +152,7 @@ export const WorksProvider = ({ children }) => {
       );
     } catch (err) {
       console.log(err);
-      const errCode = err.code;
-      const errMessage = err.message;
-      setError(errMessage);
+      setError(err.message);
     } finally {
       setFetchingWorks(false);
     }
@@ -180,10 +170,7 @@ export const WorksProvider = ({ children }) => {
       setFeaturedWork(newFeatured);
     } catch (err) {
       console.log(err);
-
-      const errCode = err.code;
-      const errMessage = err.message;
-      setError(errMessage);
+      setError(err.message);
     } finally {
       setUpdatingFeatured(false);
     }
@@ -192,14 +179,10 @@ export const WorksProvider = ({ children }) => {
   const deleteWork = async (workId) => {
     try {
       await deleteDoc(doc(db, "works", workId));
-
       setWorks((prevWorks) => prevWorks.filter((work) => work.id !== workId));
     } catch (err) {
       console.log(err);
-
-      const errCode = err.code;
-      const errMessage = err.message;
-      setError(errMessage);
+      setError(err.message);
     }
   };
 
@@ -209,15 +192,12 @@ export const WorksProvider = ({ children }) => {
       if (shouldIncrementView(workId, visitorId)) {
         const workRef = doc(db, "works", workId);
 
-        // Increment the view count in Firestore
         await updateDoc(workRef, {
           viewCount: increment(1),
         });
 
-        // Update the last view time
         setLastViewTime(workId, visitorId, Date.now());
 
-        // Optionally, update the local state if you're keeping view counts in your works state
         setWorks((prevWorks) =>
           prevWorks?.map((work) =>
             work.id === workId
@@ -228,71 +208,63 @@ export const WorksProvider = ({ children }) => {
       }
     } catch (err) {
       console.log(err);
-
-      const errCode = err.code;
-      const errMessage = err.message;
-      setError(errMessage);
+      setError(err.message);
     }
   };
 
-  // comments
-//   const addComment = async (workId, comment) => {
-//     setCommenting(true);
+  // Comments functionality
+  const addComment = async (workId, comment) => {
+    setCommenting(true);
 
-//     try {
-//       const workRef = doc(db, "works", workId);
-//       await updateDoc(workRef, {
-//         comments: arrayUnion(comment),
-//       });
+    try {
+      const workRef = doc(db, "works", workId);
+      await updateDoc(workRef, {
+        comments: arrayUnion(comment),
+      });
 
-//       setComments((prevComments) => {
-//         if (!prevComments || prevComments.length === 0) {
-//           return [comment];
-//         }
-//         return [comment, ...prevComments];
-//       });
-//     } catch (err) {
-//       console.log(err);
+      setComments((prevComments) => {
+        if (!prevComments || prevComments.length === 0) {
+          return [comment];
+        }
+        return [comment, ...prevComments];
+      });
+    } catch (err) {
+      console.log(err);
+      setError(err.message);
+    } finally {
+      setCommenting(false);
+    }
+  };
 
-//       const errCode = err.code;
-//       const errMessage = err.message;
-//       setError(errMessage);
-//     } finally {
-//       setCommenting(false);
-//     }
-//   };
+  const deleteComment = async (workId, commentToDelete) => {
+    console.log("deleting");
+    setDeletingComment(true);
+    try {
+      const workRef = doc(db, "works", workId);
 
-//   const deleteComment = async (workId, commentToDelete) => {
-//     console.log("deleting");
-//     setDeletingComment(true);
-//     try {
-//       const workRef = doc(db, "works", workId);
+      const workDoc = await getDoc(workRef);
+      if (!workDoc.exists()) {
+        throw new Error("Work not found");
+      }
 
-//       // Get the current work data
-//       const workDoc = await getDoc(workRef);
-//       if (!workDoc.exists()) {
-//         throw new Error("Work not found");
-//       }
+      const workData = workDoc.data();
+      const updatedComments = workData.comments.filter(
+        comment => comment.commentId !== commentToDelete.commentId
+      );
 
-//       const workData = workDoc.data();
-//       const updatedComments = workData.comments.filter(
-//         (comment) => comment.commentId !== commentToDelete.commentId
-//       );
+      await updateDoc(workRef, {
+        comments: updatedComments,
+      });
 
-//       // Update the work document with the new comments array
-//       await updateDoc(workRef, {
-//         comments: updatedComments,
-//       });
-
-//       setComments(updatedComments);
-//       console.log("deleted");
-//     } catch (err) {
-//       console.error("Error deleting comment: ", err);
-//       setError(err.message);
-//     } finally {
-//       setDeletingComment(false);
-//     }
-//   };
+      setComments(updatedComments);
+      console.log("deleted");
+    } catch (err) {
+      console.error("Error deleting comment: ", err);
+      setError(err.message);
+    } finally {
+      setDeletingComment(false);
+    }
+  };
 
   return (
     <WorksContext.Provider
@@ -309,11 +281,11 @@ export const WorksProvider = ({ children }) => {
         updateWork,
         deleteWork,
         incrementViewCount,
-        // comments,
-        // addComment,
-        // commenting,
-        // deleteComment,
-        // deletingComment,
+        comments,
+        addComment,
+        commenting,
+        deleteComment,
+        deletingComment,
         loading,
         error,
       }}

@@ -4,6 +4,7 @@ import Works from "@/components/works/Works";
 import Layout from "../Layout";
 import FeaturedWork from "@/components/works/FeaturedWork";
 import CurrentlyReading from "@/components/CurrentlyReadingBooks";
+import { Separator } from "@/components/ui/separator";
 
 export default function WorksPage() {
   return (
@@ -11,6 +12,7 @@ export default function WorksPage() {
       <Hero />
       <Works />
       <FeaturedWork />
+      <Separator className="bg-border/80" />
       <CurrentlyReading />
     </Layout>
   );

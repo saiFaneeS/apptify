@@ -23,11 +23,11 @@ const FeaturedWork = () => {
   }, [works, getAllWorks, setFeaturedWork]);
 
   return (
-    <section className="px-8 max-sm:px-4 mb-8">
+    <section className="px-8 max-sm:px-4 pb-12 border-b border-border">
       <h2 className="text-2xl font-semibold mb-5">Featured Work</h2>
       <Card>
         {featuredWork ? (
-          <div className="flex items-center gap-8 max-sm:flex-wrap">
+          <div className="flex items-center gap-6 max-sm:flex-wrap">
             <div className="max-sm:w-full w-52 h-80 flex justify-center gap-4 items-center shrink-0">
               <Image
                 src={featuredWork?.coverImage}

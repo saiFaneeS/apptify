@@ -22,12 +22,12 @@ export default function CurrentlyReading() {
     const currentlyReading = books?.filter(
       (book) => book.status === "currently reading"
     );
-    setCurrentlyReadingBooks(currentlyReading);
+    setCurrentlyReadingBooks(currentlyReading?.slice(0, 2));
   }, [books]);
 
   return (
-    <section className="px-8 max-sm:px-4 mb-12">
-      <h2 className="text-2xl font-semibold mb-5">Books Currently Perusing</h2>
+    <section className="px-8 max-sm:px-4 py-12">
+      <h2 className="text-2xl font-semibold mb-5">Currently Reading</h2>
       {currentlyReadingBooks ? (
         <div className="grid gap-6 md:grid-cols-2">
           {currentlyReadingBooks?.map((book) => (
@@ -54,7 +54,7 @@ export default function CurrentlyReading() {
       <div className="flex justify-center">
         <Link href={"/library"}>
           <Button className="mt-6" variant="outline">
-            View All
+            Visit Library
           </Button>
         </Link>
       </div>
