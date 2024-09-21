@@ -41,11 +41,11 @@ export default function CMSDashboard() {
     <DashLayout>
       <div className="min-h-screen pt-16">
         <div className="px-8 max-sm:px-4 py-8">
-          <div className="flex justify-between items-center flex-wrap gap-2 mb-4">
+          <div className="flex justify-between items-center gap-2 mb-4">
             <div className="flex gap-2 items-center text-xl font-medium">
               My Works
             </div>
-            <div className="flex flex-col sm:flex-row max-sm:w-full gap-2">
+            <div className="w-fit">
               <NewWork />
             </div>
           </div>
@@ -59,7 +59,7 @@ export default function CMSDashboard() {
                 </h2>
                 <Separator />
                 <div className="flex flex-col gap-3">
-                  <div className="flex items-center justify-between p-2 px-4 bg-muted/50 rounded-lg shadow-sm">
+                  <div className="flex items-center justify-between p-2 px-4 bg-muted/50 rounded-sm shadow-sm">
                     <span className="text-sm text-muted-foreground">
                       Total Works
                     </span>
@@ -67,25 +67,27 @@ export default function CMSDashboard() {
                       {works?.length}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between p-2 px-4 bg-muted/50 rounded-lg shadow-sm">
+                  <div className="flex items-center justify-between p-2 px-4 bg-muted/50 rounded-sm shadow-sm">
                     <span className="text-sm text-muted-foreground">
                       Published
                     </span>
                     <span className="text-xl font-semibold text-green-500">
                       {
-                        works?.filter((work) => work.completionStatus === "completed")
-                          .length
+                        works?.filter(
+                          (work) => work.completionStatus === "completed"
+                        ).length
                       }
                     </span>
                   </div>
-                  <div className="flex items-center justify-between p-2 px-4 bg-muted/50 rounded-lg shadow-sm">
+                  <div className="flex items-center justify-between p-2 px-4 bg-muted/50 rounded-sm shadow-sm">
                     <span className="text-sm text-muted-foreground">
                       Drafts
                     </span>
                     <span className="text-xl font-semibold text-yellow-500">
                       {
-                        works?.filter((work) => work.completionStatus === "draft")
-                          .length
+                        works?.filter(
+                          (work) => work.completionStatus === "draft"
+                        ).length
                       }
                     </span>
                   </div>

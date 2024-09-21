@@ -106,7 +106,7 @@ export function NewWork() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          className="flex gap-2 items-center w-full"
+          className="flex gap-2 items-center"
           disabled={loading}
           variant="outline"
         >
