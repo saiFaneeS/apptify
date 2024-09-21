@@ -274,7 +274,7 @@ export default function CMSDashboard() {
 
           <Goals />
 
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex justify-between items-center mb-4 gap-4 flex-wrap">
             <h2 className="text-xl font-semibold">My Content</h2>
             <div className="flex gap-2">
               <NewWork />
