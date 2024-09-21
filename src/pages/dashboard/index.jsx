@@ -90,7 +90,7 @@ export default function CMSDashboard() {
               <CardContent>
                 <div className="grid grid-cols-2 gap-3 mb-3">
                   <div>
-                    <div className="bg-primary/5 p-3 rounded-lg cursor-help">
+                    <div className="bg-primary/10 p-3 rounded-lg cursor-help">
                       <h3 className="text-sm font-medium text-muted-foreground mb-2">
                         My Works
                       </h3>
@@ -103,7 +103,7 @@ export default function CMSDashboard() {
                     </div>
                   </div>
                   <div>
-                    <div className="bg-emerald-500 bg-opacity-5 p-3 rounded-lg cursor-help">
+                    <div className="bg-emerald-500 bg-opacity-10 p-3 rounded-lg cursor-help">
                       <h3 className="text-sm font-medium text-muted-foreground mb-2">
                         Book Reviews
                       </h3>
@@ -162,7 +162,6 @@ export default function CMSDashboard() {
                 </div>
               </CardContent>
             </Card>
-
             {/* Featured Work */}
             <Card className="overflow-hidden">
               <CardContent className="flex flex-col h-full gap-4">
@@ -174,8 +173,9 @@ export default function CMSDashboard() {
                   <SetFeaturedWorkModal currentFeaturedWork={featuredWork} />
                 </div>{" "}
                 <Separator className="mb-1" />
-                {featuredWork ? (
-                  <div className="flex items-start gap-4">
+                {featuredWork &&
+                featuredWork.completionStatus === "completed" ? (
+                  <div className="flex items-start gap-4 h-full">
                     <div className="relative h-full aspect-[0.7] rounded overflow-hidden shrink-0 bg-foreground/5">
                       <Image
                         src={featuredWork.coverImage}
@@ -227,7 +227,7 @@ export default function CMSDashboard() {
                   <SetFeaturedBlogModal currentFeaturedBlog={featuredBlog} />
                 </div>{" "}
                 <Separator className="mb-1" />
-                {featuredBlog !== null && featuredBlog !== undefined ? (
+                {featuredBlog && featuredBlog.isPublished ? (
                   <div className="flex items-start gap-4 h-full">
                     <div className="relative h-full aspect-[0.7] rounded overflow-hidden shrink-0 bg-foreground/5">
                       <Image

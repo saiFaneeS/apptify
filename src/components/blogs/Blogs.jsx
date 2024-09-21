@@ -43,9 +43,10 @@ export default function Main() {
     if (blogs) {
       const filtered = blogs.filter(
         (blog) =>
-          blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          blog.bookName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          blog.bookAuthor.toLowerCase().includes(searchTerm.toLowerCase())
+          blog.isPublished &&
+          (blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            blog.bookName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            blog.bookAuthor.toLowerCase().includes(searchTerm.toLowerCase()))
       );
       setFilteredBlogs(sortBlogs(filtered));
     }

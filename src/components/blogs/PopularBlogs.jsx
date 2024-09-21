@@ -18,6 +18,7 @@ const PopularBlogs = () => {
       getAllBlogs();
     } else {
       const topBlogs = blogs
+        .filter((blog) => blog.isPublished)
         .sort((a, b) => b.viewCount - a.viewCount)
         .slice(0, 3);
 

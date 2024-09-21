@@ -10,13 +10,12 @@ import Loading from "../Loading";
 const PopularWorks = () => {
   const [popularWorks, setPopularWorks] = React.useState([]);
   const { works, getAllWorks } = useWorks();
-
   useEffect(() => {
     if (!works || works.length === 0) {
-      console.log("Fetching works");
       getAllWorks();
     } else {
-      const topWorks = works
+      const completedWorks = works.filter(work => work.completionStatus === "completed");
+      const topWorks = completedWorks
         .sort((a, b) => b.viewCount - a.viewCount)
         .slice(0, 2);
 

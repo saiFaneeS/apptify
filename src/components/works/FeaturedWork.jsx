@@ -26,7 +26,7 @@ const FeaturedWork = () => {
     <section className="px-8 max-sm:px-4 pb-12 ">
       <h2 className="text-2xl font-semibold mb-5">Featured Composition</h2>
       <Card>
-        {featuredWork ? (
+        {featuredWork && featuredWork.completionStatus === "completed" ? (
           <div className="flex items-center gap-6 max-sm:flex-wrap">
             <div className="max-sm:w-full w-52 h-80 flex justify-center gap-4 items-center shrink-0">
               <Image
