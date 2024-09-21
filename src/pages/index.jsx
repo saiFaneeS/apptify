@@ -12,6 +12,7 @@ import Goals from "@/components/goals/Goals";
 import CurrentlyReading from "@/components/CurrentlyReadingBooks";
 import { Button } from "@/components/ui/button";
 import PopularBlogs from "@/components/blogs/PopularBlogs";
+import PopularWorks from "@/components/works/PopularWorks";
 
 export default function AboutPage() {
   // const { blogs, getAllBlogs } = useBlogs();
@@ -116,8 +117,8 @@ export default function AboutPage() {
             </div>
           </section>
 
-          <PopularBlogs />
-
+          {/* <PopularBlogs /> */}
+          <PopularWorks />
           <CurrentlyReading />
 
           {/* Philosophy */}
