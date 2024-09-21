@@ -35,11 +35,9 @@ export default function RecentBlogs() {
     ]);
   }, []);
   return (
-    <section className="py-12 px-12 bg100">
+    <section className="py-12 px-12">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text900 mb-8">
-          Recent Chronicles
-        </h2>
+        <h2 className="text-3xl font-bold mb-8">Recent Chronicles</h2>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {recentPosts?.map((post) => (
             <article
@@ -47,21 +45,21 @@ export default function RecentBlogs() {
               className="bg50 border-2 border900 rounded-lg shadow-md overflow-hidden transform transition duration-500 hover:scale-105"
             >
               <div className="p-6">
-                <h3 className="text-xl font-bold text900 mb-2">
+                <h3 className="text-xl font-bold mb-2">
                   {post?.title}
                 </h3>
                 <p className="text800 mb-4">{post?.excerpt}</p>
-                <div className="flex items-center text700 text-sm mb-4">
+                <div className="flex items-center text-sm mb-4">
                   <Calendar className="w-4 h-4 mr-2" />
                   <span>{post?.date}</span>
                 </div>
-                <div className="flex items-center text700 text-sm mb-4">
+                <div className="flex items-center text-sm mb-4">
                   <PenTool className="w-4 h-4 mr-2" />
                   <span>{post?.author}</span>
                 </div>
                 <Link
                   href={`/chronicles/${post?.id}`}
-                  className="inline-flex items-center px-4 py-2 border border900 text-sm font-medium rounded-md text900 bg200 hover:bg300 transition-colors duration-300"
+                  className="inline-flex items-center px-4 py-2 border border900 text-sm font-medium rounded-md transition-colors duration-300"
                 >
                   <Scroll className="mr-2 h-4 w-4" />
                   Read More
@@ -72,7 +70,7 @@ export default function RecentBlogs() {
         </div>
       </div>
       <div className="text-center mt-8">
-        <Button className="bg700 hover:bg600 text100">
+        <Button className="">
           View All Chronicles
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>

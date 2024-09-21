@@ -52,7 +52,7 @@ const BooksDataTable = ({
       <CardContent>
         <Tabs>
           <div className="flex justify-between items-center flex-wrap gap-4 mb-4">
-            <div className="flex gap-2 items-center text-lg font-semibold pl-1">
+            <div className="flex gap-2 items-center text-lg font-semibold pl-1 max-sm:pt-1">
               {/* <ScrollText className="w-5 h-5" /> */}
               <span className="h-2 w-2 rounded-full bg-emerald-500"></span> All
               Book Reviews

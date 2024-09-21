@@ -39,9 +39,10 @@ const WorksDataTable = ({
       <CardContent>
         <Tabs>
           <div className="flex justify-between items-center flex-wrap gap-4 mb-4">
-            <div className="flex gap-2 items-center text-lg font-semibold pl-1">
+            <div className="flex gap-2 items-center text-lg font-semibold pl-1 max-sm:pt-1">
               {/* <ScrollText className="w-5 h-5" /> */}
-             <span className="h-2 w-2 rounded-full bg-primary"></span> All Compositions
+              <span className="h-2 w-2 rounded-full bg-primary"></span> All
+              Compositions
             </div>{" "}
             <div className="flex items-center">
               <Input
@@ -107,7 +108,17 @@ const WorksDataTable = ({
                         {work?.completionStatus}
                       </Badge>
                     </TableCell>
-                    <TableCell>{work?.wordCount || 0}</TableCell>
+                    <TableCell>
+                      {work?.content
+                        ? work.content
+                            .replace(/<p>/g, " ")
+                            .replace(/<\/p>/g, " ")
+                            .replace(/<[^>]+>/g, "")
+                            .trim()
+                            .split(/\s+/)
+                            .filter((word) => word.length > 0).length
+                        : 0}
+                    </TableCell>
                     <TableCell>{work?.viewCount || 0}</TableCell>
                     <TableCell>{work?.comments?.length || 0}</TableCell>
 

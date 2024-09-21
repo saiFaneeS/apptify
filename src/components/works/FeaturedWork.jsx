@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Button } from "../ui/button";
-import { Book, Calendar, Feather, View } from "lucide-react";
+import { Book, Calendar, Feather, FileText, View } from "lucide-react";
 import Image from "next/image";
 import { useWorks } from "@/context/WorkContext";
 import { Badge } from "../ui/badge";
@@ -46,8 +46,21 @@ const FeaturedWork = () => {
               <h3 className="text-lg font-semibold">{featuredWork?.title}</h3>
               <div className="flex items-center">
                 <Calendar className="w-4 h-4 mr-2" />
-                <span className="text-sm">
-                  {formatTime(featuredWork?.createdAt)}
+                <span className="text-sm">{featuredWork?.datePublished}</span>
+              </div>
+              <div className="flex items-center">
+                <FileText className="w-4 h-4 mr-2" />
+                <span className="text-xs">
+                  {featuredWork?.content
+                    ? featuredWork.content
+                        .replace(/<p>/g, " ")
+                        .replace(/<\/p>/g, " ")
+                        .replace(/<[^>]+>/g, "")
+                        .trim()
+                        .split(/\s+/)
+                        .filter((word) => word.length > 0).length
+                    : 0}{" "}
+                  words
                 </span>
               </div>
               <div className="flex items-center">

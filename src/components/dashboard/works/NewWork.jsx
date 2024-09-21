@@ -63,7 +63,6 @@ export function NewWork() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const wordCount = content.trim().split(/\s+/).length;
     createWork({
       id: `${title}-${Date.now()}`,
       title,
@@ -71,7 +70,6 @@ export function NewWork() {
       content,
       completionStatus,
       datePublished,
-      wordCount,
       coverImage,
       tags,
       createdAt: Date.now(),

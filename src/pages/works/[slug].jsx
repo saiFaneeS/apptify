@@ -9,6 +9,8 @@ import {
   FileText,
   Eye,
   BookOpen,
+  Heart,
+  Share2,
 } from "lucide-react";
 import Layout from "../Layout";
 import { useWorks } from "@/context/WorkContext";
@@ -106,54 +108,75 @@ export default function SingleWorkPage() {
 
   return (
     <Layout>
-      <div className="min-h-screen pb-12">
-        {/* Hero */}
-        <div className="relative min-h-[80vh] overflow-hidden">
+      <div className="pb-12">
+        <div className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
           <Image
             src={work?.coverImage}
             alt={work?.title}
             layout="fill"
             objectFit="cover"
-            className="absolute top-0 left-0 w-full h-full -z-10 opacity-30 blur-sm scale-[101%]"
+            className="absolute top-0 left-0 w-full h-full opacity-20 dark:opacity-10 blur-sm scale-105 dark:saturate-50"
           />
-          <div className="absolute inset-0 flex gap-12 max-md:gap-12 items-center justify-center pt-20 max-md:flex-col">
-            <Image
-              src={work?.coverImage}
-              alt={work?.title}
-              width={600}
-              height={500}
-              className="h-96 w-64 rounded-sm object-cover shadow-xl"
-            />
-            <div className="flex flex-col justify-center items-start max-md:items-center">
-              <h1 className="text-3xl md:text-4xl font-semibold mb-2">
-                {work?.title}
-              </h1>
-              <div className="flex items-center space-x-4 mb-4">
-                <div className="flex items-center">
-                  <Calendar className="w-5 h-5 mr-2" />
-                  <span>{formatTime(work?.createdAt)}</span>
-                </div>
-                <div className="flex items-center">
-                  <FileText className="w-5 h-5 mr-2" />
-                  <span>{work?.wordCount} words</span>
-                </div>
-                <div className="flex items-center">
-                  <Eye className="w-5 h-5 mr-2" />
-                  <span>{work?.viewCount || 0} views</span>
-                </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background/50"></div>
+          <div className="container mx-auto px-4 py-12 pt-28 relative z-10">
+            <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12">
+              <div className="relative h-96 lg:h-120 aspect-[0.7] shrink-0">
+                <Image
+                  src={work?.coverImage}
+                  alt={work?.title}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-lg shadow-2xl"
+                />
               </div>
-              <div className="flex flex-wrap gap-2">
-                {work?.tags?.map((tag, index) => {
-                  return (
+              <div className="flex flex-col items-center lg:items-start text-center lg:text-left max-w-2xl">
+                <h1 className="text-3xl lg:text-4xl font-semibold mb-4 leading-tight">
+                  {work?.title}
+                </h1>
+                <p className="text-lg font-medium text-primary mb-6">
+                  by Violet Clough
+                </p>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                  {work?.synopsis}
+                </p>
+                <div className="flex flex-wrap justify-center lg:justify-start items-center gap-8 mb-8 w-full">
+                  <div className="flex flex-col items-center sm:items-start">
+                    <div className="flex items-center">
+                      <Calendar className="w-4 h-4 mr-2 text-primary" />
+                      <span className="font-medium">
+                        {formatTime(work?.createdAt)}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-center sm:items-start">
+                    <div className="flex items-center">
+                      <FileText className="w-4 h-4 mr-2 text-primary" />
+                      <span className="font-medium">{work?.wordCount}</span>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-center sm:items-start">
+                    <div className="flex items-center">
+                      <Eye className="w-4 h-4 mr-2 text-primary" />
+                      <span className="font-medium">
+                        {work?.viewCount || 0}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2 mb-8">
+                  {work?.tags?.map((tag, index) => (
                     <Badge key={index} variant="secondary">
                       {tag}
                     </Badge>
-                  );
-                })}
+                  ))}
+                </div>
+                <div className="flex flex-wrap gap-4">
+                  <Button size="lg" variant="outline" className="gap-2">
+                    <Share2 className="w-5 h-5" />
+                    Share
+                  </Button>
+                </div>
               </div>
-              {/* <Badge variant="outline" className="mb-4">
-              {work?.completionStatus}
-              </Badge> */}
             </div>
           </div>
         </div>

@@ -21,14 +21,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Feather,
-  ImageIcon,
-  X,
-  BookOpen,
-  Tags,
-  Calendar,
-} from "lucide-react";
+import { Feather, ImageIcon, X, BookOpen, Tags, Calendar } from "lucide-react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { useWorks } from "@/context/WorkContext";
@@ -51,7 +44,9 @@ export function EditWorkDialog({ work }) {
   const [title, setTitle] = useState(work?.title || "");
   const [synopsis, setSynopsis] = useState(work?.synopsis || "");
   const [content, setContent] = useState(work?.content || "");
-  const [completionStatus, setCompletionStatus] = useState(work?.completionStatus || "draft");
+  const [completionStatus, setCompletionStatus] = useState(
+    work?.completionStatus || "draft"
+  );
   const [datePublished, setDatePublished] = useState(work?.datePublished || "");
   const [coverImage, setCoverImage] = useState(work?.coverImage || "");
   const [tags, setTags] = useState(work?.tags || []);
@@ -73,14 +68,12 @@ export function EditWorkDialog({ work }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const wordCount = content.trim().split(/\s+/).length;
     updateWork(work?.id, {
       title,
       synopsis,
       content,
       completionStatus,
       datePublished,
-      wordCount,
       coverImage,
       tags,
     });
@@ -113,7 +106,9 @@ export function EditWorkDialog({ work }) {
       <DialogContent className="sm:max-w-[600px] h-[86vh] flex flex-col">
         <DialogHeader>
           <DialogTitle className="text-2xl">Edit Your Work</DialogTitle>
-          <DialogDescription>Refine your literary masterpiece</DialogDescription>
+          <DialogDescription>
+            Refine your literary masterpiece
+          </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="flex-grow flex flex-col">
           <Tabs defaultValue="details" className="flex-grow flex flex-col">

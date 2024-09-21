@@ -65,14 +65,17 @@ export default function CMSDashboard() {
         <div className="px-8 max-sm:px-4 py-8">
           {/* Welcome Banner */}
           <div className="relative overflow-hidden rounded-lg p-6 mb-8">
-            <Image
-              src="/bg1.jpg"
-              alt="Medieval castle background"
-              layout="fill"
-              objectFit="cover"
-              priority
-              className="absolute z-0 brightness-50 saturate-0"
-            />
+            <div className="absolute inset-0 bg-primary/40">
+              <Image
+                src="/bg1.jpg"
+                alt=""
+                fill
+                sizes="100vw"
+                quality={75}
+                priority
+                className="object-cover opacity-30"
+              />
+            </div>
             <div className="absolute z-10 h-full w-full bg-primary opacity-40 left-0 top-0"></div>
             <div className="relative z-20 text-white">
               <p className="text-sm">
@@ -87,7 +90,7 @@ export default function CMSDashboard() {
               <CardContent>
                 <div className="grid grid-cols-2 gap-3 mb-3">
                   <div>
-                    <div className="bg-primary/20 p-3 rounded-lg cursor-help">
+                    <div className="bg-primary/5 p-3 rounded-lg cursor-help">
                       <h3 className="text-sm font-medium text-muted-foreground mb-2">
                         My Works
                       </h3>
@@ -100,7 +103,7 @@ export default function CMSDashboard() {
                     </div>
                   </div>
                   <div>
-                    <div className="bg-emerald-500 bg-opacity-20 p-3 rounded-lg cursor-help">
+                    <div className="bg-emerald-500 bg-opacity-5 p-3 rounded-lg cursor-help">
                       <h3 className="text-sm font-medium text-muted-foreground mb-2">
                         Book Reviews
                       </h3>

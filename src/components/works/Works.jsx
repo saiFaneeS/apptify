@@ -175,7 +175,18 @@ export default function Works() {
                   </div>
                   <div className="flex items-center">
                     <FileText className="w-4 h-4 mr-2" />
-                    <span className="text-xs">{work.wordCount} words</span>
+                    <span className="text-xs">
+                      {work?.content
+                        ? work.content
+                            .replace(/<p>/g, " ")
+                            .replace(/<\/p>/g, " ")
+                            .replace(/<[^>]+>/g, "")
+                            .trim()
+                            .split(/\s+/)
+                            .filter((word) => word.length > 0).length
+                        : 0}{" "} 
+                      words
+                    </span>
                   </div>
                   <p className="text-sm line-clamp-2">
                     <span className="text-sm font-medium">Synopsis: </span>
