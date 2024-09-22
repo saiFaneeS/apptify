@@ -121,10 +121,10 @@ export default function AboutPage() {
         <Goals />
 
         {/* Favorite Quotes */}
-        <section className="px-8 max-sm:px-4 bg-emerald-950 bg-opacity-20 py-16 border-t border-border">
+        <section className="px-8 max-sm:px-4 bg-emerald-200 dark:bg-emerald-950 bg-opacity-20 py-16 border-t border-border/50">
           {/* <h2 className="text-2xl font-semibold mb-5">Words of Wisdom</h2> */}
           <div className="grid md:grid-cols-2 gap-6">
-            <Card className="py-16 max-sm:py-12 border border-emerald-900 bg-background/50">
+            <Card className="py-16 max-sm:py-12 border dark:border-emerald-900 dark:bg-background/50">
               <CardContent>
                 <div className="bg-emerald-500 bg-opacity-20 aspect-square w-14 flex justify-center items-center rounded-full mb-6 mx-auto">
                   <Quote
@@ -141,7 +141,7 @@ export default function AboutPage() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="py-16 max-sm:py-12 border border-emerald-900 bg-background/50">
+            <Card className="py-16 max-sm:py-12 border dark:border-emerald-900 dark:bg-background/50">
               <CardContent>
                 <div className="bg-emerald-500 bg-opacity-20 aspect-square w-14 flex justify-center items-center rounded-full mb-6 mx-auto">
                   <Quote

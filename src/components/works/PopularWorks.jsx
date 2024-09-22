@@ -14,7 +14,9 @@ const PopularWorks = () => {
     if (!works || works.length === 0) {
       getAllWorks();
     } else {
-      const completedWorks = works.filter(work => work.completionStatus === "completed");
+      const completedWorks = works.filter(
+        (work) => work.completionStatus === "completed"
+      );
       const topWorks = completedWorks
         .sort((a, b) => b.viewCount - a.viewCount)
         .slice(0, 2);
@@ -43,10 +45,12 @@ const PopularWorks = () => {
               <div className="w-full flex flex-col gap-2 justify-between h-full text-foreground">
                 <div className="flex flex-col gap-2">
                   <h3 className="text-base font-semibold">{work.title}</h3>
-                  <div className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    <span className="text-xs">{work.datePublished}</span>
-                  </div>
+                  {work?.datePublished && (
+                    <div className="flex items-center">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      <span className="text-xs">{work.datePublished}</span>
+                    </div>
+                  )}
                   <div className="flex items-center">
                     <FileText className="w-4 h-4 mr-2" />
                     <span className="text-xs">

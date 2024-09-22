@@ -169,10 +169,12 @@ export default function Main() {
                     <Book className="w-4 h-4 mr-2" />
                     <span className="text-xs">{post.bookName}</span>
                   </div>
-                  <div className="flex items-center">
-                    <Feather className="w-4 h-4 mr-2" />
-                    <span className="text-xs">{post.bookAuthor}</span>
-                  </div>
+                  {post?.bookAuthor && (
+                    <div className="flex items-center">
+                      <Feather className="w-4 h-4 mr-2" />
+                      <span className="text-xs">{post.bookAuthor}</span>
+                    </div>
+                  )}
                   <div className="flex items-center">
                     <Calendar className="w-4 h-4 mr-2" />
                     <span className="text-xs">

@@ -44,10 +44,12 @@ const FeaturedWork = () => {
                 </Badge>
               </span>
               <h3 className="text-lg font-semibold">{featuredWork?.title}</h3>
-              <div className="flex items-center">
-                <Calendar className="w-4 h-4 mr-2" />
-                <span className="text-sm">{featuredWork?.datePublished}</span>
-              </div>
+              {featuredWork?.datePublished && (
+                <div className="flex items-center">
+                  <Calendar className="w-4 h-4 mr-2" />
+                  <span className="text-sm">{featuredWork?.datePublished}</span>
+                </div>
+              )}
               <div className="flex items-center">
                 <FileText className="w-4 h-4 mr-2" />
                 <span className="text-xs">

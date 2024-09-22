@@ -48,10 +48,12 @@ const FeaturedBlogs = () => {
                 <Book className="w-4 h-4 mr-2" />
                 <span className="text-sm">{featuredBlog?.bookName}</span>
               </div>
-              <div className="flex items-center">
-                <Feather className="w-4 h-4 mr-2" />
-                <span className="text-sm">{featuredBlog?.bookAuthor}</span>
-              </div>
+              {featuredBlog?.bookAuthor && (
+                <div className="flex items-center">
+                  <Feather className="w-4 h-4 mr-2" />
+                  <span className="text-sm">{featuredBlog?.bookAuthor}</span>
+                </div>
+              )}
               <div className="flex items-center">
                 <Calendar className="w-4 h-4 mr-2" />
                 <span className="text-sm">
