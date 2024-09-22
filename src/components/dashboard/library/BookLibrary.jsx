@@ -102,7 +102,7 @@ const BookLibrary = () => {
   const stats = getStatistics();
 
   return (
-    <div className="pt-16">
+    <div className="pt-14">
       <div className="min-h-screen px-8 max-sm:px-4 py-8">
         <div className="flex justify-between items-center gap-2 mb-4">
           <div className="flex gap-2 items-center text-xl font-medium">
@@ -242,11 +242,11 @@ const BookLibrary = () => {
           </div>
         ) : (
           <div
-            className={
+            className={`animate-in fade-in-100 slide-in-from-bottom-10 duration-300 delay-200 ${
               layout === "grid"
                 ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
                 : "flex flex-col gap-4"
-            }
+            }`}
           >
             {filteredBooks?.map((book) => (
               <BookCard book={book} key={book.id} layout={layout} />
