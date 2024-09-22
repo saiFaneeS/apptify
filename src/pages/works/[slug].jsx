@@ -157,7 +157,7 @@ export default function SingleWorkPage() {
                     {work.title}
                   </h1>
                 ) : (
-                  <div className="h-9 w-3/4 bg-gray-400 dark:bg-neutral-800 rounded mb-4 animate-pulse"></div>
+                  <div className="h-9 w-full bg-gray-400 dark:bg-neutral-800 rounded mb-4 animate-pulse"></div>
                 )}
                 <p className="text-lg font-medium text-primary mb-6">
                   by Violet Clough
@@ -226,10 +226,19 @@ export default function SingleWorkPage() {
 
                 <Dialog open={showShareModal} onOpenChange={setShowShareModal}>
                   <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Share this work</DialogTitle>
+                    <DialogHeader className="flex flex-col items-center text-center">
+                      <Image
+                        src={work?.coverImage}
+                        alt={work?.title}
+                        width={100}
+                        height={100}
+                        className="rounded-lg mb-4"
+                      />
+                      <DialogTitle className="text-xl font-semibold mb-2">
+                        Share with your friends!
+                      </DialogTitle>
                       <DialogDescription>
-                        Choose a platform to share "{work?.title}"
+                        Spread the word about &quot;{work?.title}&quot;.
                       </DialogDescription>
                     </DialogHeader>
                     <div className="flex flex-col space-y-4">
@@ -358,7 +367,10 @@ export default function SingleWorkPage() {
                         </p>
                         <p className="flex items-center gap-2 text-sm mb-1">
                           <Calendar className="h-4 w-4" />
-                          {formatTime(relatedWork.createdAt)}
+                          {relatedWork?.datePublished}
+                        </p>
+                        <p className="flex items-center gap-2 text-sm mb-1">
+                          <p className="line-clamp-2">Synopsis: {relatedWork?.synopsis}</p>
                         </p>
                       </div>
                     </Card>
