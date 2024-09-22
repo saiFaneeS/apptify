@@ -21,7 +21,15 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Feather, ImageIcon, X, BookOpen, Tags, Calendar } from "lucide-react";
+import {
+  Feather,
+  ImageIcon,
+  X,
+  BookOpen,
+  Tags,
+  Calendar,
+  Eclipse,
+} from "lucide-react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { useWorks } from "@/context/WorkContext";
@@ -51,6 +59,7 @@ export function EditWorkDialog({ work }) {
   const [coverImage, setCoverImage] = useState(work?.coverImage || "");
   const [tags, setTags] = useState(work?.tags || []);
   const [currentTag, setCurrentTag] = useState("");
+  const [isLightMode, setIsLightMode] = useState(true);
 
   const { updateWork } = useWorks();
 
@@ -92,6 +101,10 @@ export function EditWorkDialog({ work }) {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
+  const isSubmitDisabled = () => {
+    return !title || !synopsis || !content || !coverImage;
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -105,7 +118,7 @@ export function EditWorkDialog({ work }) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] h-[86vh] flex flex-col">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Edit Your Work</DialogTitle>
+          <DialogTitle>Edit Your Work</DialogTitle>
           <DialogDescription>
             Refine your literary masterpiece
           </DialogDescription>
@@ -120,7 +133,12 @@ export function EditWorkDialog({ work }) {
             <ScrollArea className="flex-grow">
               <TabsContent value="details" className="mt-4 space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="title">Title</Label>
+                  <Label
+                    htmlFor="title"
+                    className="after:content-['*'] after:ml-0.5 after:text-red-500"
+                  >
+                    Title
+                  </Label>
                   <Input
                     id="title"
                     value={title}
@@ -130,13 +148,19 @@ export function EditWorkDialog({ work }) {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="synopsis">Synopsis</Label>
+                  <Label
+                    htmlFor="synopsis"
+                    className="after:content-['*'] after:ml-0.5 after:text-red-500"
+                  >
+                    Synopsis
+                  </Label>
                   <Textarea
                     id="synopsis"
                     value={synopsis}
                     onChange={(e) => setSynopsis(e.target.value)}
                     placeholder="Briefly describe your work"
                     rows={3}
+                    required
                   />
                 </div>
                 <div className="space-y-2">
@@ -158,20 +182,43 @@ export function EditWorkDialog({ work }) {
               </TabsContent>
               <TabsContent value="content" className="mt-4">
                 <div className="space-y-2">
-                  <Label htmlFor="content">Content</Label>
+                  <div className="flex justify-between items-center">
+                    <Label
+                      htmlFor="content"
+                      className="after:content-['*'] after:ml-0.5 after:text-red-500"
+                    >
+                      Content
+                    </Label>
+                    <Button
+                      type="button"
+                      onClick={() => setIsLightMode(!isLightMode)}
+                      size="icon"
+                      variant="outline"
+                    >
+                      <Eclipse size={20} />
+                    </Button>
+                  </div>
                   <ReactQuill
                     theme="snow"
                     value={content}
                     onChange={setContent}
                     modules={modules}
                     formats={formats}
-                    className="h-[200px] mb-12"
+                    className={`${
+                      isLightMode ? "bg-white text-neutral-900" : ""
+                    } max-h-[calc(90vh-300px)] overflow-y-auto`}
+                    required
                   />
                 </div>
               </TabsContent>
               <TabsContent value="metadata" className="mt-4 space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="coverImage">Cover Image</Label>
+                  <Label
+                    htmlFor="coverImage"
+                    className="after:content-['*'] after:ml-0.5 after:text-red-500"
+                  >
+                    Cover Image
+                  </Label>
                   <div className="relative">
                     <ImageIcon className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                     <Input
@@ -179,6 +226,7 @@ export function EditWorkDialog({ work }) {
                       type="file"
                       onChange={(e) => setCoverImage(e.target.files?.[0] || "")}
                       className="pl-10"
+                      required
                     />
                   </div>
                 </div>
@@ -236,7 +284,7 @@ export function EditWorkDialog({ work }) {
           <DialogFooter className="mt-4">
             <Button
               type="submit"
-              disabled={!title}
+              disabled={isSubmitDisabled()}
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
             >
               <BookOpen className="mr-2 h-4 w-4" />

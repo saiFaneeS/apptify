@@ -31,23 +31,13 @@ import {
   ChevronLeft,
   Loader2,
   Plus,
+  Eclipse,
 } from "lucide-react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { useBlogs } from "@/context/BlogContext";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-
-const modules = {
-  toolbar: [
-    [{ header: [1, 2, 3, false] }],
-    ["bold", "italic", "underline"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    ["clean"],
-  ],
-};
-
-const formats = ["header", "bold", "italic", "underline", "list", "bullet"];
 
 export function AddNewBlogDialog() {
   const [open, setOpen] = useState(false);
@@ -57,9 +47,10 @@ export function AddNewBlogDialog() {
   const [bookName, setBookName] = useState("");
   const [bookAuthor, setBookAuthor] = useState("");
   const [rating, setRating] = useState("");
-  const [category, setCategory] = useState("");
+  // const [category, setCategory] = useState("");
   const [coverImage, setCoverImage] = useState("");
   const [isPublished, setIsPublished] = useState(false);
+  const [isLightMode, setIsLightMode] = useState(true);
 
   const { createBlog, loading } = useBlogs();
 
@@ -72,7 +63,7 @@ export function AddNewBlogDialog() {
       bookName,
       bookAuthor,
       rating,
-      category,
+      // category,
       isPublished,
       coverImage,
       createdAt: Date.now(),
@@ -89,7 +80,7 @@ export function AddNewBlogDialog() {
     setBookName("");
     setBookAuthor("");
     setRating("");
-    setCategory("");
+    // setCategory("");
     setCoverImage("");
     setIsPublished(false);
   };
@@ -100,13 +91,17 @@ export function AddNewBlogDialog() {
   };
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
 
+  const isSubmitDisabled = () => {
+    return !(title && bookName && rating && content && coverImage);
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           className="flex gap-2 items-center bg-emerald-700 hover:bg-emerald-800"
           disabled={loading}
-          variant=""
+          variant="default"
         >
           {!loading ? (
             <>
@@ -120,36 +115,39 @@ export function AddNewBlogDialog() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] border-2">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold">
-            Scribe a New Post
-          </DialogTitle>
-          <DialogDescription className="text700">
-            Pen your thoughts and tales in the fields below. Use the formatting
-            tools to embellish your scroll.
+          <DialogTitle>Scribe a New Review</DialogTitle>
+          <DialogDescription className="text-muted-foreground">
+            Share your thoughts on a tome of choice.
           </DialogDescription>
         </DialogHeader>
-        <form>
-          <div className="py-4">
+        <form onSubmit={handleSubmit}>
+          <div className="pb-4">
             {step === 1 && (
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="title" className="text800">
+                  <Label
+                    htmlFor="title"
+                    className="text-foreground after:content-['*'] after:ml-0.5 after:text-red-500"
+                  >
                     Title of Scroll
                   </Label>
                   <Input
                     id="title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    className="bg50 border300 text900"
+                    className="bg-background border-input text-foreground"
                     required
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="category" className="text800">
+                {/* <div className="space-y-2">
+                  <Label
+                    htmlFor="category"
+                    className="text-foreground after:content-['*'] after:ml-0.5 after:text-red-500"
+                  >
                     Main Category
                   </Label>
-                  <Select value={category} onValueChange={setCategory}>
-                    <SelectTrigger className="bg50 border300 text900">
+                  <Select value={category} onValueChange={setCategory} required>
+                    <SelectTrigger className="bg-background border-input text-foreground">
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
                     <SelectContent>
@@ -178,18 +176,21 @@ export function AddNewBlogDialog() {
                       <SelectItem value="poetry">Poetry</SelectItem>
                     </SelectContent>
                   </Select>
-                </div>
+                </div> */}
                 <div className="space-y-2">
-                  <Label htmlFor="coverImage" className="text800">
+                  <Label
+                    htmlFor="coverImage"
+                    className="text-foreground after:content-['*'] after:ml-0.5 after:text-red-500"
+                  >
                     Cover Image
                   </Label>
                   <div className="relative">
-                    <ImageIcon className="absolute left-3 top-3 h-5 w-5 text600" />
+                    <ImageIcon className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
                     <Input
                       id="coverImage"
                       type="file"
                       onChange={(e) => setCoverImage(e.target.files?.[0] || "")}
-                      className="pl-10 bg50 border300 text900"
+                      className="pl-10 bg-background border-input text-foreground"
                     />
                   </div>
                 </div>
@@ -198,39 +199,47 @@ export function AddNewBlogDialog() {
             {step === 2 && (
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="bookName" className="text800">
+                  <Label
+                    htmlFor="bookName"
+                    className="text-foreground after:content-['*'] after:ml-0.5 after:text-red-500"
+                  >
                     Book Name
                   </Label>
                   <div className="relative">
-                    <Book className="absolute left-3 top-3 h-5 w-5 text600" />
+                    <Book className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
                     <Input
                       id="bookName"
                       value={bookName}
                       onChange={(e) => setBookName(e.target.value)}
-                      className="pl-10 bg50 border300 text900"
+                      className="pl-10 bg-background border-input text-foreground"
+                      required
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="bookAuthor" className="text800">
+                  <Label htmlFor="bookAuthor" className="text-foreground">
                     Book Author
                   </Label>
                   <div className="relative">
-                    <User className="absolute left-3 top-3 h-5 w-5 text600" />
+                    <User className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
                     <Input
                       id="bookAuthor"
                       value={bookAuthor}
                       onChange={(e) => setBookAuthor(e.target.value)}
-                      className="pl-10 bg50 border300 text900"
+                      className="pl-10 bg-background border-input text-foreground"
+                      required
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="rating" className="text800">
+                  <Label
+                    htmlFor="rating"
+                    className="text-foreground after:content-['*'] after:ml-0.5 after:text-red-500"
+                  >
                     Rating (1-5)
                   </Label>
                   <div className="relative">
-                    <Star className="absolute left-3 top-3 h-5 w-5 text600" />
+                    <Star className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
                     <Input
                       id="rating"
                       type="number"
@@ -238,7 +247,8 @@ export function AddNewBlogDialog() {
                       max="5"
                       value={rating}
                       onChange={(e) => setRating(e.target.value)}
-                      className="pl-10 bg50 border300 text900"
+                      className="pl-10 bg-background border-input text-foreground"
+                      required
                     />
                   </div>
                 </div>
@@ -247,17 +257,30 @@ export function AddNewBlogDialog() {
             {step === 3 && (
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="content" className="text800">
-                    Content
-                  </Label>
+                  <div className="flex justify-between items-center">
+                    <Label
+                      htmlFor="content"
+                      className="text-foreground after:content-['*'] after:ml-0.5 after:text-red-500"
+                    >
+                      Content
+                    </Label>
+                    <Button
+                      type="button"
+                      onClick={() => setIsLightMode(!isLightMode)}
+                      size="icon"
+                      variant="outline"
+                    >
+                      <Eclipse size={20} />
+                    </Button>
+                  </div>
                   <div className="max-h-40">
                     <ReactQuill
                       theme="snow"
                       value={content}
                       onChange={setContent}
-                      modules={modules}
-                      formats={formats}
-                      className="bg50 outline outline-1 outline600 text900 max-h-40 overflow-y-auto"
+                      className={`${
+                        isLightMode ? "bg-white text-neutral-900" : ""
+                      } max-h-40 overflow-y-auto`}
                     />
                   </div>
                 </div>
@@ -267,16 +290,22 @@ export function AddNewBlogDialog() {
                     checked={isPublished}
                     onCheckedChange={setIsPublished}
                   />
-                  <Label htmlFor="published" className="text800">
+                  <Label htmlFor="published" className="text-foreground">
                     {isPublished ? "Published" : "Draft"}
                   </Label>
                 </div>
               </div>
             )}
           </div>
-          <DialogFooter className="flex justify-between">
+          <DialogFooter className="flex justify-between gap-2 flex-row">
             {step > 1 && (
-              <Button type="button" onClick={prevStep} variant="secondary">
+              <Button
+                type="button"
+                onClick={prevStep}
+                variant="secondary"
+                className="w-fit"
+                size="sm"
+              >
                 <ChevronLeft className="mr-2 h-4 w-4" />
                 Previous
               </Button>
@@ -285,8 +314,8 @@ export function AddNewBlogDialog() {
               <Button
                 type="button"
                 onClick={(e) => nextStep(e)}
-                className="bg-emerald-600 hover:bg-emerald-700"
-                disabled={!title}
+                className="bg-emerald-600 hover:bg-emerald-700 w-fit"
+                size="sm"
               >
                 Next
                 <ChevronRight className="ml-2 h-4 w-4" />
@@ -294,9 +323,9 @@ export function AddNewBlogDialog() {
             ) : (
               <Button
                 type="submit"
-                className="bg-emerald-600 hover:bg-emerald-700"
-                onClick={(e) => handleSubmit(e)}
-                disabled={!title}
+                className="bg-emerald-600 hover:bg-emerald-700 w-fit"
+                disabled={isSubmitDisabled()}
+                size="sm"
               >
                 <Feather className="mr-2 h-5 w-5" />
                 Submit Post

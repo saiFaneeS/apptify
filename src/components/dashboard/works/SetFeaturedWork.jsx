@@ -40,7 +40,7 @@ const SetFeaturedWorkModal = ({ currentFeaturedWork }) => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[450px]">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold">
+          <DialogTitle>
             Select Featured Work
           </DialogTitle>
           <DialogDescription>

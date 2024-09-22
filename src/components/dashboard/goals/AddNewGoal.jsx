@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { Plus } from "lucide-react";
+import { Plus, Target } from "lucide-react";
 import React from "react";
 import { Label } from "@/components/ui/label";
 
@@ -40,16 +40,15 @@ const AddNewGoal = ({
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="flex gap-2 items-center">
-            <Plus /> Add New Quest
+          <DialogTitle className="flex gap-2 items-center mb-1">
+            <Target className="w-5 h-5" /> Add New Quest
           </DialogTitle>
-          {/* <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </DialogDescription> */}
+          <DialogDescription>
+            Create a new quest to track your goal.
+          </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-4">
-          <div>
+          <div className="flex flex-col gap-2">
             <Label>Goal</Label>
             <Input
               placeholder="New quest title"

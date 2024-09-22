@@ -28,6 +28,7 @@ import {
   Star,
   ChevronRight,
   ChevronLeft,
+  Eclipse,
 } from "lucide-react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
@@ -54,9 +55,10 @@ export function EditBlogDialog({ blog, onClose }) {
   const [bookName, setBookName] = useState(blog?.bookName);
   const [bookAuthor, setBookAuthor] = useState(blog?.bookAuthor);
   const [rating, setRating] = useState(blog?.rating);
-  const [category, setCategory] = useState(blog?.category);
+  // const [category, setCategory] = useState(blog?.category);
   const [coverImage, setCoverImage] = useState(blog?.coverImage);
   const [isPublished, setIsPublished] = useState(blog?.isPublished);
+  const [isLightMode, setIsLightMode] = useState(true);
 
   const { updateBlog } = useBlogs();
 
@@ -68,7 +70,7 @@ export function EditBlogDialog({ blog, onClose }) {
       setBookName(blog?.bookName || null);
       setBookAuthor(blog?.bookAuthor || null);
       setRating(blog?.rating || null);
-      setCategory(blog?.category || null);
+      // setCategory(blog?.category || null);
       setCoverImage(blog?.coverImage || "");
       setIsPublished(blog?.isPublished || "Draft");
     }
@@ -82,7 +84,7 @@ export function EditBlogDialog({ blog, onClose }) {
       bookName,
       bookAuthor,
       rating,
-      category,
+      // category,
       coverImage,
       isPublished,
     });
@@ -96,6 +98,10 @@ export function EditBlogDialog({ blog, onClose }) {
   };
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
 
+  const isSubmitDisabled = () => {
+    return !(title && bookName && rating && content && coverImage);
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -105,7 +111,7 @@ export function EditBlogDialog({ blog, onClose }) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] bg100 border-2 border300">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text900">
+          <DialogTitle>
             Revise Your Chronicle
           </DialogTitle>
           <DialogDescription className="text700">
@@ -118,7 +124,7 @@ export function EditBlogDialog({ blog, onClose }) {
             {step === 1 && (
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="title" className="text800">
+                  <Label htmlFor="title" className="text800 after:content-['*'] after:ml-0.5 after:text-red-500">
                     Title of Scroll
                   </Label>
                   <Input
@@ -129,11 +135,11 @@ export function EditBlogDialog({ blog, onClose }) {
                     required
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="category" className="text800">
+                {/* <div className="space-y-2">
+                  <Label htmlFor="category" className="text800 after:content-['*'] after:ml-0.5 after:text-red-500">
                     Main Category
                   </Label>
-                  <Select value={category} onValueChange={setCategory}>
+                  <Select value={category} onValueChange={setCategory} required>
                     <SelectTrigger className="bg50 border300 text900">
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
@@ -163,9 +169,9 @@ export function EditBlogDialog({ blog, onClose }) {
                       <SelectItem value="poetry">Poetry</SelectItem>
                     </SelectContent>
                   </Select>
-                </div>
+                </div> */}
                 <div className="space-y-2">
-                  <Label htmlFor="coverImage" className="text800">
+                  <Label htmlFor="coverImage" className="text800 after:content-['*'] after:ml-0.5 after:text-red-500">
                     Cover Image
                   </Label>
                   <div className="relative">
@@ -183,7 +189,7 @@ export function EditBlogDialog({ blog, onClose }) {
             {step === 2 && (
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="bookName" className="text800">
+                  <Label htmlFor="bookName" className="text800 after:content-['*'] after:ml-0.5 after:text-red-500">
                     Book Name
                   </Label>
                   <div className="relative">
@@ -213,7 +219,7 @@ export function EditBlogDialog({ blog, onClose }) {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="rating" className="text800">
+                  <Label htmlFor="rating" className="text800 after:content-['*'] after:ml-0.5 after:text-red-500">
                     Rating (1-5)
                   </Label>
                   <div className="relative">
@@ -235,17 +241,31 @@ export function EditBlogDialog({ blog, onClose }) {
             {step === 3 && (
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="content" className="text800">
-                    Content
-                  </Label>
-                  <ReactQuill
-                    theme="snow"
-                    value={content}
-                    onChange={setContent}
-                    modules={modules}
-                    formats={formats}
-                    className="bg50 outline outline-1 outline600 text900 max-h-40 overflow-y-auto"
-                  />
+                  <div className="flex justify-between items-center">
+                    <Label htmlFor="content" className="text800 after:content-['*'] after:ml-0.5 after:text-red-500">
+                      Content
+                    </Label>
+                    <Button
+                      type="button"
+                      onClick={() => setIsLightMode(!isLightMode)}
+                      size="icon"
+                      variant="outline"
+                    >
+                      <Eclipse size={20} />
+                    </Button>
+                  </div>
+                  <div className="max-h-40">
+                    <ReactQuill
+                      theme="snow"
+                      value={content}
+                      onChange={setContent}
+                      modules={modules}
+                      formats={formats}
+                      className={`${
+                        isLightMode ? "bg-white text-neutral-900" : "bg50 text900"
+                      } outline outline-1 outline600 max-h-40 overflow-y-auto`}
+                    />
+                  </div>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Switch
@@ -280,6 +300,7 @@ export function EditBlogDialog({ blog, onClose }) {
               <Button
                 onClick={(e) => handleSubmit(e)}
                 className="bg-emerald-600 hover:bg-emerald-700"
+                disabled={isSubmitDisabled()}
               >
                 <Feather className="mr-2 h-5 w-5" />
                 Update Chronicle

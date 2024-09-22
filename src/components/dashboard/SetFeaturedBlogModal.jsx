@@ -43,9 +43,7 @@ const SetFeaturedBlogModal = ({ currentFeaturedBlog }) => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[450px]">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold">
-            Select Featured Review
-          </DialogTitle>
+          <DialogTitle>Select Featured Review</DialogTitle>
           <DialogDescription>
             This will be prominently displayed as your featured review.
           </DialogDescription>

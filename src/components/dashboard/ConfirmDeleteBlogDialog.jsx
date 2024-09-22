@@ -35,19 +35,16 @@ export function ConfirmDeleteBlogDialog({ blog, onClose }) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg100 border-2 border300">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text900">
-            Confirm Deletion
-          </DialogTitle>
+          <DialogTitle className="">Confirm Deletion</DialogTitle>
           <DialogDescription className="text700">
-            Are you certain you wish to consign this chronicle to the flames of
-            oblivion? This action cannot be undone.
+            Are you certain you wish to remove this scroll to the flames of
+            oblivion?
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
           <p className="text800 font-semibold">Title: {blog?.title}</p>
           <p className="text700 mt-2">
-            This chronicle will be permanently removed from the annals of
-            history.
+            This scroll will be permanently removed from the annals of history.
           </p>
         </div>
         <DialogFooter className="flex justify-end space-x-2">

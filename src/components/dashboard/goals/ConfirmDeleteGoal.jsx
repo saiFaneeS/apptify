@@ -47,7 +47,7 @@ export function ConfirmDeleteGoal({ goal }) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg100 border-2 border300">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text900">
+          <DialogTitle className="">
             Confirm Deletion
           </DialogTitle>
           <DialogDescription className="text700">
