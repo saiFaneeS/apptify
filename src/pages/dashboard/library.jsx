@@ -4,7 +4,9 @@ import DashLayout from "../DashLayout";
 export default function LibraryPage() {
   return (
     <DashLayout>
-      <BookLibrary />
+      <div className="pt-14">
+        <BookLibrary />
+      </div>
     </DashLayout>
   );
 }

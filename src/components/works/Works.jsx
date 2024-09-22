@@ -11,9 +11,10 @@ import {
   FileText,
   Eye,
   Clock,
+  Loader2,
 } from "lucide-react";
 import { useWorks } from "@/context/WorkContext";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { formatTime } from "@/lib/formatTime";
 import Link from "next/link";
 import { Card } from "../ui/card";
@@ -33,6 +34,7 @@ export default function Works() {
   const [filteredWorks, setFilteredWorks] = useState([]);
   const [sortOption, setSortOption] = useState("date");
   const [isListView, setIsListView] = useState(true);
+  const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
     if (!works || works?.length === 0) {
@@ -40,17 +42,31 @@ export default function Works() {
     }
   }, [works, getAllWorks]);
 
-  useEffect(() => {
+  const filterAndSortWorks = useCallback(() => {
     if (works) {
       const filtered = works.filter(
         (work) =>
           work.completionStatus === "completed" &&
-          (work.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            work.synopsis.toLowerCase().includes(searchTerm.toLowerCase()))
+          (work.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            work.synopsis?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            work.tags?.some((tag) =>
+              tag?.toLowerCase().includes(searchTerm.toLowerCase())
+            ))
       );
-      setFilteredWorks(sortWorks(filtered));
+      return sortWorks(filtered);
     }
-  }, [works, searchTerm, sortOption]);
+    return [];
+  }, [works, searchTerm]);
+
+  useEffect(() => {
+    setIsSearching(true);
+    const debounceTimer = setTimeout(() => {
+      setFilteredWorks(filterAndSortWorks());
+      setIsSearching(false);
+    }, 300);
+
+    return () => clearTimeout(debounceTimer);
+  }, [works, searchTerm, sortOption, filterAndSortWorks]);
 
   const sortWorks = (works) => {
     switch (sortOption) {
@@ -71,32 +87,32 @@ export default function Works() {
     }
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    // The search is already handled by the useEffect above
+  const handleSearchInputChange = (e) => {
+    setSearchTerm(e.target.value);
   };
 
   return (
     <section className="px-8 max-sm:px-4 mb-12">
       <div className="mb-4">
-        <form
-          onSubmit={handleSearch}
-          className="flex gap-2 justify-between items-center"
-        >
+        <div className="flex gap-2 justify-between items-center">
           <div className="w-full">
             <Input
               type="search"
               placeholder="Search works..."
               className="bg100 text900 placeholder700"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={handleSearchInputChange}
             />
           </div>
-          <Button type="submit" className="flex items-center md:px-12">
-            <Search className="mr-2 h-4 w-4" />
-            Find
+          <Button className="flex items-center md:px-12" disabled={true}>
+            {isSearching ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <Search className="mr-2 h-4 w-4" />
+            )}
+            {isSearching ? "" : "Find"}
           </Button>
-        </form>
+        </div>
       </div>
       <div className="mb-6 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">

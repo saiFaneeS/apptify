@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLibrary } from "@/context/LibraryContext";
 import AddNewBook from "./AddNewBook";
@@ -13,8 +13,8 @@ import {
   Grid,
   List,
   LibraryBig,
-  BookOpen,
-  Star,
+  Search,
+  SlidersHorizontal,
 } from "lucide-react";
 import {
   Select,
@@ -26,12 +26,24 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { Input } from "@/components/ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const BookLibrary = () => {
   const { books, getAllBooks, fetchingBooks } = useLibrary();
   const [activeTab, setActiveTab] = useState("all");
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [layout, setLayout] = useState("grid");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
     if (!books || books.length === 0) {
@@ -39,15 +51,33 @@ const BookLibrary = () => {
     }
   }, [books, getAllBooks]);
 
-  useEffect(() => {
+  const filterAndSortBooks = useCallback(() => {
     if (books) {
-      setFilteredBooks(
+      return books.filter((book) =>
         activeTab === "all"
-          ? books
-          : books.filter((book) => book.status === activeTab)
+          ? book.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            book.author?.toLowerCase().includes(searchTerm.toLowerCase())
+          : book.status === activeTab &&
+            (book.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              book.author?.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     }
-  }, [books, activeTab]);
+    return [];
+  }, [books, activeTab, searchTerm]);
+
+  useEffect(() => {
+    setIsSearching(true);
+    const debounceTimer = setTimeout(() => {
+      setFilteredBooks(filterAndSortBooks());
+      setIsSearching(false);
+    }, 300);
+
+    return () => clearTimeout(debounceTimer);
+  }, [books, activeTab, searchTerm, filterAndSortBooks]);
+
+  const handleSearchInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   const tabOptions = [
     { value: "all", label: "All Books", icon: Book },
@@ -72,45 +102,61 @@ const BookLibrary = () => {
   const stats = getStatistics();
 
   return (
-    <div className="px-8 max-sm:px-4 pt-24 pb-8 min-h-screen">
-      <div className="flex justify-between items-center flex-wrap gap-4 mb-6">
-        <div className="flex gap-2 items-center text-lg font-medium">
-          <LibraryBig className="h-6 w-6" strokeWidth={1.6}/>
+    <div className="min-h-screen px-8 max-sm:px-4 py-8">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="flex gap-2 items-center text-xl font-medium">
+          <LibraryBig className="h-6 w-6" strokeWidth={1.6} />
           My Library
-        </div>
+        </h1>
+        <AddNewBook />
       </div>
 
       {/* Statistics Bar */}
       <Card className="mb-6">
-        <CardContent className="py-2 text-center">
-          <div className="grid grid-cols-3 md:grid-cols-5 gap-4 gap-y-6">
-            <div className="flex flex-col items-center">
-              <Book className="h-8 w-8 max-sm:h-6 max-sm:w-6 mb-2 text-primary" />
-              <span className="text-xl font-semibold">{stats.total}</span>
-              <span className="text-xs text-muted-foreground">Total Books</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <BookCheck className="h-8 w-8 max-sm:h-6 max-sm:w-6 mb-2 text-green-500" />
-              <span className="text-xl font-semibold">{stats.read}</span>
-              <span className="text-xs text-muted-foreground">Read</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <LucideGlasses className="h-8 w-8 max-sm:h-6 max-sm:w-6 mb-2 text-blue-500" />
-              <span className="text-xl font-semibold">{stats.reading}</span>
-              <span className="text-xs text-muted-foreground">Reading</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Heart className="h-8 w-8 max-sm:h-6 max-sm:w-6 mb-2 text-red-500" />
-              <span className="text-xl font-semibold">{stats.favorites}</span>
-              <span className="text-xs text-muted-foreground">Favorites</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <BookMarked className="h-8 w-8 max-sm:h-6 max-sm:w-6 mb-2 text-yellow-500" />
-              <span className="text-xl font-semibold">{stats.tbr}</span>
-              <span className="text-xs text-muted-foreground">To Be Read</span>
-            </div>
+        <CardContent className="py-4">
+          <div className="grid grid-cols-3 md:grid-cols-5 gap-4">
+            {[
+              {
+                label: "Total Books",
+                value: stats.total,
+                icon: Book,
+                color: "text-primary",
+              },
+              {
+                label: "Read",
+                value: stats.read,
+                icon: BookCheck,
+                color: "text-green-500",
+              },
+              {
+                label: "Reading",
+                value: stats.reading,
+                icon: LucideGlasses,
+                color: "text-blue-500",
+              },
+              {
+                label: "Favorites",
+                value: stats.favorites,
+                icon: Heart,
+                color: "text-red-500",
+              },
+              {
+                label: "To Be Read",
+                value: stats.tbr,
+                icon: BookMarked,
+                color: "text-yellow-500",
+              },
+            ].map((item, index) => (
+              <div key={index} className="flex flex-col items-center">
+                <item.icon className={`h-6 w-6 mb-2 ${item.color}`} />
+                <span className="text-lg font-semibold">{item.value}</span>
+                <span className="text-xs text-muted-foreground">
+                  {item.label}
+                </span>
+              </div>
+            ))}
           </div>
-          <div className="mt-6">
+          <div className="mt-4">
             <div className="flex justify-between mb-2">
               <span className="text-sm font-medium">Reading Progress</span>
               <span className="text-sm font-medium">
@@ -125,77 +171,88 @@ const BookLibrary = () => {
         </CardContent>
       </Card>
 
-      <Tabs
-        value={activeTab}
-        onValueChange={(value) => setActiveTab(value)}
-        className="space-y-4"
-      >
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div className="w-full sm:w-auto">
-            <Select
-              value={activeTab}
-              onValueChange={(value) => setActiveTab(value)}
-            >
-              <SelectTrigger className="w-full sm:w-[200px]">
-                <SelectValue placeholder="Select a category" />
-              </SelectTrigger>
-              <SelectContent>
+      {/* Filter Bar */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <div className="flex items-center gap-2 w-full sm:w-auto order-2 sm:order-1">
+          <div className="relative flex-grow">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+            <Input
+              type="search"
+              placeholder="Search books..."
+              className="pl-9 pr-4 py-2"
+              value={searchTerm}
+              onChange={handleSearchInputChange}
+            />
+          </div>
+          {isSearching && (
+            <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+          )}
+        </div>
+        <div className="flex items-center gap-2 order-1 sm:order-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                className="flex items-center gap-2"
+              >
+                <SlidersHorizontal className="h-4 w-4" />
+                <span className="hidden sm:inline">Filter</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuLabel>Filter by Status</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuRadioGroup
+                value={activeTab}
+                onValueChange={setActiveTab}
+              >
                 {tabOptions.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
+                  <DropdownMenuRadioItem
+                    key={option.value}
+                    value={option.value}
+                  >
                     <div className="flex items-center">
                       <option.icon className="mr-2 h-4 w-4" />
                       {option.label}
                     </div>
-                  </SelectItem>
+                  </DropdownMenuRadioItem>
                 ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="hidden lg:block">
-            <TabsList>
-              {tabOptions.map((option) => (
-                <TabsTrigger
-                  key={option.value}
-                  value={option.value}
-                  className="flex items-center"
-                >
-                  <option.icon className="mr-2 h-4 w-4" />
-                  {option.label}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </div>
-          <div className="flex items-center max-sm:justify-end max-sm:w-full gap-2">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setLayout(layout === "grid" ? "list" : "grid")}
-            >
-              {layout === "grid" ? <List size={20} /> : <Grid size={20} />}
-            </Button>
-            <AddNewBook />
-          </div>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setLayout(layout === "grid" ? "list" : "grid")}
+          >
+            {layout === "grid" ? (
+              <List className="h-4 w-4" />
+            ) : (
+              <Grid className="h-4 w-4" />
+            )}
+          </Button>
         </div>
-        <TabsContent value={activeTab} className="animate-in fade-in-100 slide-in-from-bottom-10 duration-300">
-          {fetchingBooks ? (
-            <div className="flex justify-center items-center h-[60vh]">
-              <Loader2 className="animate-spin h-8 w-8" />
-            </div>
-          ) : (
-            <div
-              className={
-                layout === "grid"
-                  ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-                  : "flex flex-col gap-2"
-              }
-            >
-              {filteredBooks?.map((book) => (
-                <BookCard book={book} key={book.id} layout={layout} />
-              ))}
-            </div>
-          )}
-        </TabsContent>
-      </Tabs>
+      </div>
+
+      {/* Book List */}
+      {fetchingBooks ? (
+        <div className="flex justify-center items-center h-[60vh]">
+          <Loader2 className="animate-spin h-8 w-8" />
+        </div>
+      ) : (
+        <div
+          className={
+            layout === "grid"
+              ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+              : "flex flex-col gap-4"
+          }
+        >
+          {filteredBooks?.map((book) => (
+            <BookCard book={book} key={book.id} layout={layout} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -57,16 +57,13 @@ const BooksDataTable = ({
               <span className="h-2 w-2 rounded-full bg-emerald-500"></span> All
               Book Reviews
             </div>{" "}
-            <div className="flex items-center">
+            <div className="flex items-center max-sm:w-full w-1/3">
               <Input
                 placeholder="Search the archives..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="mr-2"
+                className="w-full"
               />
-              <Button className="flex items-center" size="" variant="outline">
-                <Search className="w-4 h-4" />
-              </Button>
             </div>
           </div>
 

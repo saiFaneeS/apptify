@@ -41,7 +41,6 @@ export default function TopBar() {
   const router = useRouter();
 
   const [avatar, setAvatar] = useState(null);
-  const [showNavbar, setShowNavbar] = useState(true);
   const [mounted, setMounted] = useState(false);
 
   const isDark = theme === "dark";
@@ -64,30 +63,12 @@ export default function TopBar() {
         console.error("Error parsing stored avatar:", error);
       }
     }
-
-    const handleScroll = () => {
-      const scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
-      if (scrollTop > lastScrollTop.current) {
-        // Scrolling down
-        setShowNavbar(false);
-      } else {
-        // Scrolling up
-        setShowNavbar(true);
-      }
-      lastScrollTop.current = scrollTop;
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     // <div className="bg-background border-b-2 border700 fixed w-full z-50">
     <div
-      className={`bg-background text-foreground border-b dark:border-border fixed top-0 left-0 w-full z-50 transition-transform duration-200 ${
-        showNavbar ? "translate-y-0" : "-translate-y-20"
-      }`}
+      className={`bg-background text-foreground border-b dark:border-border fixed top-0 left-0 w-full z-50 transition-transform duration-200`}
     >
       <div className="px-8 max-sm:px-4">
         <div className="flex items-center justify-between h-16">

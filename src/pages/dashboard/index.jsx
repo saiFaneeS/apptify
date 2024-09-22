@@ -61,7 +61,7 @@ export default function CMSDashboard() {
 
   return (
     <DashLayout>
-      <div className="min-h-screen pt-16">
+      <div className="min-h-screen pt-14">
         <div className="px-8 max-sm:px-4 py-8">
           {/* Welcome Banner */}
           <div className="relative overflow-hidden rounded-lg p-6 mb-8">

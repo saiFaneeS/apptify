@@ -10,9 +10,10 @@ import {
   ArrowUpDown,
   Grid,
   List,
+  Loader2,
 } from "lucide-react";
 import { useBlogs } from "@/context/BlogContext";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { formatTime } from "@/lib/formatTime";
 import Link from "next/link";
 import { Card } from "../ui/card";
@@ -32,6 +33,7 @@ export default function Main() {
   const [filteredBlogs, setFilteredBlogs] = useState([]);
   const [sortOption, setSortOption] = useState("date");
   const [isListView, setIsListView] = useState(true);
+  const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
     if (!blogs || blogs?.length === 0) {
@@ -39,18 +41,29 @@ export default function Main() {
     }
   }, [blogs, getAllBlogs]);
 
-  useEffect(() => {
+  const filterAndSortBlogs = useCallback(() => {
     if (blogs) {
       const filtered = blogs.filter(
         (blog) =>
           blog.isPublished &&
-          (blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            blog.bookName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            blog.bookAuthor.toLowerCase().includes(searchTerm.toLowerCase()))
+          (blog.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            blog.bookName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            blog.bookAuthor?.toLowerCase().includes(searchTerm.toLowerCase()))
       );
-      setFilteredBlogs(sortBlogs(filtered));
+      return sortBlogs(filtered);
     }
+    return [];
   }, [blogs, searchTerm, sortOption]);
+
+  useEffect(() => {
+    setIsSearching(true);
+    const debounceTimer = setTimeout(() => {
+      setFilteredBlogs(filterAndSortBlogs());
+      setIsSearching(false);
+    }, 300);
+
+    return () => clearTimeout(debounceTimer);
+  }, [blogs, searchTerm, sortOption, filterAndSortBlogs]);
 
   const sortBlogs = (blogs) => {
     switch (sortOption) {
@@ -67,32 +80,32 @@ export default function Main() {
     }
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    // The search is already handled by the useEffect above
+  const handleSearchInputChange = (e) => {
+    setSearchTerm(e.target.value);
   };
 
   return (
     <section className="px-8 max-sm:px-4 mb-12">
       <div className="mb-4">
-        <form
-          onSubmit={handleSearch}
-          className="flex gap-2 justify-between items-center"
-        >
+        <div className="flex gap-2 justify-between items-center">
           <div className="w-full">
             <Input
               type="search"
               placeholder="Search reviews..."
               className="bg100 text900 placeholder700"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={handleSearchInputChange}
             />
           </div>
-          <Button type="submit" className="flex items-center md:px-12">
-            <Search className="mr-2 h-4 w-4" />
-            Find
+          <Button className="flex items-center md:px-12" disabled={true}>
+            {isSearching ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <Search className="mr-2 h-4 w-4" />
+            )}
+            {isSearching ? "" : "Find"}
           </Button>
-        </form>
+        </div>
       </div>
       <div className="mb-6 flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
@@ -144,7 +157,7 @@ export default function Main() {
               : "grid gap-8 max-md:gap-4 max-sm:gap-3 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5"
           } animate-in fade-in-100 slide-in-from-bottom-10 duration-300`}
         >
-          {filteredBlogs.slice(0, 6).map((post) => (
+          {filteredBlogs.map((post) => (
             <Card
               key={post.id}
               className={`relative ${
