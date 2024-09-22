@@ -343,8 +343,22 @@ export default function SingleWorkPage() {
                           {relatedWork.title}
                         </h3>
                         <p className="flex items-center gap-2 text-sm mb-1 font-medium">
-                          <FileText className="h-4 w-4" />
-                          {relatedWork.wordCount} words
+                          <FileText className="w-4 h-4" />
+                          <span className="font-medium">
+                            {relatedWork.content
+                              ? relatedWork.content
+                                  .replace(/<p>/g, " ")
+                                  .replace(/<\/p>/g, " ")
+                                  .replace(/<[^>]+>/g, "")
+                                  .trim()
+                                  .split(/\s+/)
+                                  .filter((word) => word.length > 0).length
+                              : 0}
+                          </span>
+                        </p>
+                        <p className="flex items-center gap-2 text-sm mb-1">
+                          <Calendar className="h-4 w-4" />
+                          {formatTime(relatedWork.createdAt)}
                         </p>
                       </div>
                     </Card>
