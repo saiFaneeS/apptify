@@ -335,7 +335,7 @@ export default function SingleWorkPage() {
           {/* Related Works */}
           {relatedWorks && relatedWorks.length > 0 && (
             <div>
-              <h2 className="text-2xl font-semibold mb-6">Related Works</h2>
+              <h2 className="text-xl font-semibold mb-6">Related Works</h2>
               <div className="grid grid-cols-1 gap-4">
                 {relatedWorks?.map((relatedWork) => (
                   <Link href={`/works/${relatedWork.id}`} key={relatedWork.id}>
