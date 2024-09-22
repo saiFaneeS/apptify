@@ -105,7 +105,7 @@ export function AddNewBlogDialog() {
         >
           {!loading ? (
             <>
-              <Star size={16} />
+              <Star className="h-4 w-4" />
               Review a Book
             </>
           ) : (
