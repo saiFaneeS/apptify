@@ -121,7 +121,7 @@ export function AddNewBlogDialog() {
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
-          <div className="pb-4">
+          <div className="py-4">
             {step === 1 && (
               <div className="space-y-4">
                 <div className="space-y-2">
