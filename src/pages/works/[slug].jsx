@@ -365,10 +365,10 @@ export default function SingleWorkPage() {
                               : 0}
                           </span>
                         </p>
-                        <p className="flex items-center gap-2 text-sm mb-1">
+                        {/* <p className="flex items-center gap-2 text-sm mb-1">
                           <Calendar className="h-4 w-4" />
                           {relatedWork?.datePublished}
-                        </p>
+                        </p> */}
                         <p className="flex items-center gap-2 text-sm mb-1">
                           <p className="line-clamp-2">Synopsis: {relatedWork?.synopsis}</p>
                         </p>
