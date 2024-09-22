@@ -61,7 +61,7 @@ const SetFeaturedWorkModal = ({ currentFeaturedWork }) => {
                   }`}
                   onClick={() => setSelectedWork(work)}
                 >
-                  <div className="relative w-12 h-16 rounded-md overflow-hidden">
+                  <div className="relative w-12 h-16 rounded-md overflow-hidden shrink-0">
                     <Image
                       src={work?.coverImage || "/"}
                       alt={work?.title}

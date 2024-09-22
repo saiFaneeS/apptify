@@ -86,8 +86,8 @@ const WorksDataTable = ({
                       </div>
                     </TableCell>
                     <TableCell className="font-medium text-nowrap">
-                      {work?.title && work?.title?.length > 15
-                        ? `${work.title.slice(0, 13)}...`
+                      {work?.title && work?.title?.length > 18
+                        ? `${work.title.slice(0, 18)}...`
                         : work.title}
                     </TableCell>
                     <TableCell>
@@ -99,9 +99,13 @@ const WorksDataTable = ({
                             ? "outline"
                             : "secondary"
                         }
-                        className="capitalize"
+                        className="text-nowrap"
                       >
-                        {work?.completionStatus}
+                        {work?.completionStatus === "completed"
+                          ? "Completed"
+                          : work?.completionStatus === "in-progress"
+                          ? "In Progress"
+                          : "Draft"}
                       </Badge>
                     </TableCell>
                     <TableCell>

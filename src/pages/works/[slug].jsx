@@ -115,43 +115,67 @@ export default function SingleWorkPage() {
             alt={work?.title}
             layout="fill"
             objectFit="cover"
-            className="absolute top-0 left-0 w-full h-full opacity-20 dark:opacity-10 blur-sm scale-105 dark:saturate-50"
+            className="absolute top-0 left-0 w-full h-full opacity-40 dark:opacity-30 blur-sm scale-105 dark:saturate-50"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background/50"></div>
           <div className="container mx-auto px-4 py-12 pt-28 relative z-10">
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12">
               <div className="relative h-96 lg:h-120 aspect-[0.7] shrink-0">
-                <Image
-                  src={work?.coverImage}
-                  alt={work?.title}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-lg shadow-2xl"
-                />
+                {work?.coverImage ? (
+                  <Image
+                    src={work?.coverImage}
+                    alt={work?.title}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-lg shadow-2xl"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-400 dark:bg-neutral-800 rounded-lg shadow-2xl animate-pulse"></div>
+                )}
               </div>
               <div className="flex flex-col items-center lg:items-start text-center lg:text-left max-w-2xl">
-                <h1 className="text-3xl lg:text-4xl font-semibold mb-4 leading-tight">
-                  {work?.title}
-                </h1>
+                {work?.title ? (
+                  <h1 className="text-3xl lg:text-4xl font-semibold mb-4 leading-tight">
+                    {work.title}
+                  </h1>
+                ) : (
+                  <div className="h-9 w-3/4 bg-gray-400 dark:bg-neutral-800 rounded mb-4 animate-pulse"></div>
+                )}
                 <p className="text-lg font-medium text-primary mb-6">
                   by Violet Clough
                 </p>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-8">
-                  {work?.synopsis}
-                </p>
+                {work?.synopsis ? (
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                    {work.synopsis}
+                  </p>
+                ) : (
+                  <div className="h-20 w-full bg-gray-400 dark:bg-neutral-800 rounded mb-8 animate-pulse"></div>
+                )}
                 <div className="flex flex-wrap justify-center lg:justify-start items-center gap-8 mb-8 w-full">
-                  <div className="flex flex-col items-center sm:items-start">
-                    <div className="flex items-center">
-                      <Calendar className="w-4 h-4 mr-2 text-primary" />
-                      <span className="font-medium">
-                        {formatTime(work?.createdAt)}
-                      </span>
+                  {work?.datePublished && (
+                    <div className="flex flex-col items-center sm:items-start">
+                      <div className="flex items-center">
+                        <Calendar className="w-4 h-4 mr-2 text-primary" />
+                        <span className="font-medium">
+                          {work?.datePublished}
+                        </span>
+                      </div>
                     </div>
-                  </div>
+                  )}
                   <div className="flex flex-col items-center sm:items-start">
                     <div className="flex items-center">
                       <FileText className="w-4 h-4 mr-2 text-primary" />
-                      <span className="font-medium">{work?.wordCount}</span>
+                      <span className="font-medium">
+                        {work?.content
+                          ? work.content
+                              .replace(/<p>/g, " ")
+                              .replace(/<\/p>/g, " ")
+                              .replace(/<[^>]+>/g, "")
+                              .trim()
+                              .split(/\s+/)
+                              .filter((word) => word.length > 0).length
+                          : 0}
+                      </span>
                     </div>
                   </div>
                   <div className="flex flex-col items-center sm:items-start">
@@ -183,7 +207,7 @@ export default function SingleWorkPage() {
         {/* Content */}
         <div className="px-8 max-sm:px-4 mt-12">
           <div className="mb-8">
-            <div className="prose prose-amber max-w-none mb-8">
+            <div className="content-styles">
               <div dangerouslySetInnerHTML={{ __html: work?.content }} />
             </div>
             <Separator />
@@ -251,25 +275,13 @@ export default function SingleWorkPage() {
                         className="rounded mr-4"
                       />
                       <div className="flex flex-col gap-1">
-                        {/* <Badge variant="secondary" className="mb-2 w-fit">
-                        {relatedWork.genre}
-                      </Badge>{" "}
-                       */}
                         <h3 className="text-lg font-bold mb-1">
                           {relatedWork.title}
                         </h3>
-                        {/* <p className="flex items-center gap-1 text-sm mb-1 font-medium">
-                        <BookOpen className="h-4 w-4" />
-                        {relatedWork.completionStatus}
-                      </p> */}
                         <p className="flex items-center gap-2 text-sm mb-1 font-medium">
                           <FileText className="h-4 w-4" />
                           {relatedWork.wordCount} words
                         </p>
-                        {/* <p className="flex items-center gap-2 text-sm mb-1 font-medium">
-                        <Eye className="h-4 w-4" />
-                        {relatedWork.viewCount || 0} views
-                      </p> */}
                       </div>
                     </Card>
                   </Link>

@@ -9,12 +9,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
+import { Loader2, Trash2 } from "lucide-react";
 import { useBlogs } from "@/context/BlogContext";
 
 export function ConfirmDeleteBlogDialog({ blog, onClose }) {
   const [open, setOpen] = useState(false);
-  const { deleteBlog } = useBlogs();
+  const { deleteBlog, loading } = useBlogs();
 
   const handleDelete = () => {
     deleteBlog(blog?.id);
@@ -61,8 +61,9 @@ export function ConfirmDeleteBlogDialog({ blog, onClose }) {
             variant="destructive"
             onClick={handleDelete}
             className="bg-red-600 hover:bg-red-700 text-white"
+            disabled={loading}
           >
-            Delete
+            {loading ? <Loader2 className="animate-spin" /> : "Delete"}
           </Button>
         </DialogFooter>
       </DialogContent>

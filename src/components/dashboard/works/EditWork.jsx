@@ -102,7 +102,7 @@ export function EditWorkDialog({ work }) {
   };
 
   const isSubmitDisabled = () => {
-    return !title || !synopsis || !content || !coverImage;
+    return !title || !synopsis || !content;
   };
 
   return (
@@ -226,7 +226,6 @@ export function EditWorkDialog({ work }) {
                       type="file"
                       onChange={(e) => setCoverImage(e.target.files?.[0] || "")}
                       className="pl-10"
-                      required
                     />
                   </div>
                 </div>

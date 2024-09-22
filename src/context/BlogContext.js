@@ -13,7 +13,12 @@ import {
 } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
-import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  deleteObject,
+} from "firebase/storage";
 import {
   getVisitorId,
   shouldIncrementView,
@@ -33,6 +38,7 @@ export const BlogsProvider = ({ children }) => {
   const [commenting, setCommenting] = useState(false);
   const [deletingComment, setDeletingComment] = useState(false);
   const [error, setError] = useState(null);
+  
   const getAllBlogs = async () => {
     setFetchingBlogs(true);
     try {
@@ -132,7 +138,7 @@ export const BlogsProvider = ({ children }) => {
       let updatedData = { ...blogData };
       if (blogData?.coverImage && typeof blogData?.coverImage !== "string") {
         // Delete old cover image if it exists
-        const oldBlog = blogs.find(b => b.id === blogId);
+        const oldBlog = blogs.find((b) => b.id === blogId);
         if (oldBlog && oldBlog.coverImage) {
           const oldCoverRef = ref(storage, oldBlog.coverImage);
           await deleteObject(oldCoverRef).catch((error) => {
@@ -202,9 +208,10 @@ export const BlogsProvider = ({ children }) => {
   };
 
   const deleteBlog = async (blogId) => {
+    setLoading(true);
     try {
       // Get the blog data
-      const blogToDelete = blogs.find(blog => blog.id === blogId);
+      const blogToDelete = blogs.find((blog) => blog.id === blogId);
 
       if (blogToDelete && blogToDelete.coverImage) {
         // Delete the cover image from storage
@@ -224,6 +231,8 @@ export const BlogsProvider = ({ children }) => {
       const errCode = err.code;
       const errMessage = err.message;
       setError(errMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -300,7 +309,7 @@ export const BlogsProvider = ({ children }) => {
 
       const blogData = blogDoc.data();
       const updatedComments = blogData.comments.filter(
-        comment => comment.commentId !== commentToDelete.commentId
+        (comment) => comment.commentId !== commentToDelete.commentId
       );
 
       // Update the blog document with the new comments array

@@ -100,8 +100,8 @@ const BooksDataTable = ({
                       </div>
                     </TableCell>
                     <TableCell className="font-medium text-nowrap">
-                      {review?.title && review?.title?.length > 15
-                        ? `${review.title.slice(0, 13)}...`
+                      {review?.title && review?.title?.length > 18
+                        ? `${review.title.slice(0, 18)}...`
                         : review.title}
                     </TableCell>
                     <TableCell>{review?.rating}</TableCell>

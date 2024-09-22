@@ -86,11 +86,11 @@ export const WorksProvider = ({ children }) => {
 
       await setDoc(doc(db, "works", data?.id), {
         ...data,
-        coverImage: uploadResult.ref.fullPath,
+        coverImage: uploadResult?.ref?.fullPath,
       });
 
       setWorks((prevWorks) => [
-        { ...data, coverImage: URL.createObjectURL(data.coverImage) },
+        { ...data, coverImage: URL?.createObjectURL(data.coverImage) },
         ...prevWorks,
       ]);
     } catch (err) {
@@ -192,6 +192,7 @@ export const WorksProvider = ({ children }) => {
   };
 
   const deleteWork = async (workId) => {
+    setLoading(true);
     try {
       // Get the work data
       const workToDelete = works.find((work) => work.id === workId);
@@ -212,6 +213,8 @@ export const WorksProvider = ({ children }) => {
     } catch (err) {
       console.log(err);
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 

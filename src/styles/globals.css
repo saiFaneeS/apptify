@@ -69,3 +69,91 @@ body {
     --chart-5: 340 75% 55%;
   }
 }
+.content-styles {
+  max-width: 100%;
+}
+
+.content-styles h1 {
+  font-size: clamp(1.875rem, 0.9vw + 1.2rem, 2.1rem); /* 3xl */
+  font-weight: 600;
+}
+
+.content-styles h2 {
+  font-size: clamp(1.5rem, 0.75vw + 1.2em, 1.62rem); /* 2xl */
+  font-weight: 500;
+}
+
+.content-styles h3 {
+  font-size: clamp(1.25rem, 0.5vw + 1.18rem, 1.3rem); /* xl */
+  font-weight: 500;
+}
+
+.content-styles p {
+  font-size: clamp(1rem, 0.5vw + 0.94rem, 1.05rem); /* base */
+  opacity: 0.9;
+  font-weight: 300;
+  line-height: 1.9; /* Increased line height for better readability */
+}
+
+.content-styles ul, .content-styles ol {
+  margin-left: 1.5rem;
+}
+
+.content-styles li {
+  font-size: clamp(1rem, 0.5vw + 0.94rem, 1.05rem); /* base */
+  line-height: 1.6; /* Slightly increased line height for list items */
+}
+
+.content-styles a {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+}
+
+.content-styles a:hover {
+  text-decoration: none;
+}
+
+/* Additional styles for other elements */
+.content-styles strong, .content-styles b {
+  font-weight: bold;
+}
+
+.content-styles em, .content-styles i {
+  font-style: italic;
+}
+
+.content-styles blockquote {
+  border-left: 4px solid hsl(var(--primary));
+  padding-left: 1rem;
+  margin-left: 0;
+  font-style: italic;
+  color: hsl(var(--muted-foreground));
+  line-height: 1.6; /* Increased line height for blockquotes */
+}
+
+.content-styles code {
+  font-family: monospace;
+  background-color: hsl(var(--muted));
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.content-styles pre {
+  background-color: hsl(var(--muted));
+  padding: 1rem;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+.content-styles pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+.content-styles img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Add more styles as needed */

@@ -178,10 +178,10 @@ export default function CMSDashboard() {
                   <div className="flex items-start gap-4 h-full">
                     <div className="relative h-full aspect-[0.7] rounded overflow-hidden shrink-0 bg-foreground/5">
                       <Image
-                        src={featuredWork.coverImage}
+                        src={featuredWork?.coverImage}
                         layout="fill"
                         objectFit="cover"
-                        alt={featuredWork.title}
+                        alt={featuredWork?.title}
                       />
                     </div>
                     <div className="flex flex-col gap-2">

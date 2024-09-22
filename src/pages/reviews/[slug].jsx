@@ -141,31 +141,37 @@ export default function SinglePostPage() {
             className="absolute left-1/2 -translate-x-1/2 w-4/5 top object-cover -z-10 opacity-30 blur-md rounded-lg"
           />
 
-          <div className="absolute inset-0 flex gap-12 max-md:gap-12 items-center justify-center pt-20 max-md:flex-col">
-            <Image
-              src={blog?.coverImage}
-              alt={blog?.title}
-              width={300}
-              height={200}
-              className="h-40 w-28 top object-cover shadow-xl"
-            />
-            <div className="flex flex-col justify-center items-start max-md:items-center">
-              <h1 className="text-4xl md:text-6xl font-semibold mb-4">
-                {blog?.title}
-              </h1>
-              <div className="flex items-center space-x-4">
+          <div className="absolute inset-0 flex gap-12 max-md:gap-6 items-center justify-center pt-20 max-md:flex-col">
+            {blog?.coverImage ? (
+              <Image
+                src={blog?.coverImage}
+                alt={blog?.title}
+                width={300}
+                height={200}
+                className="h-40 w-28 top object-cover shadow-xl"
+              />
+            ) : (
+              <div className="h-40 w-28 bg-gray-400 dark:bg-neutral-800 rounded-lg shadow-xl animate-pulse"></div>
+            )}
+            <div className="flex flex-col justify-center items-start max-md:items-center max-md:px-4">
+              {blog?.title ? (
+                <h1 className="text-3xl md:text-4xl font-semibold mb-4 max-md:text-center">
+                  {blog?.title}
+                </h1>
+              ) : (
+                <div className="h-10 w-64 bg-gray-400 dark:bg-neutral-800 rounded mb-4 animate-pulse"></div>
+              )}
+              <div className="flex items-center space-x-4 flex-wrap max-md:justify-center gap-2">
                 <div className="flex items-center">
                   <Calendar className="w-5 h-5 mr-2" />
-                  <span>{formatTime(blog?.createdAt)}</span>
+                  {blog?.createdAt && (
+                    <span>{formatTime(blog?.createdAt)}</span>
+                  )}
                 </div>
                 <div className="flex items-center">
                   <Book className="w-5 h-5 mr-2" />
                   <span>{blog?.bookName}</span>
                 </div>
-                {/* <div className="flex items-center">
-                <User className="w-5 h-5 mr-2" />
-                <span>{blog?.bookAuthor}</span>
-              </div> */}
               </div>
             </div>
           </div>
@@ -174,7 +180,7 @@ export default function SinglePostPage() {
         {/* Content */}
         <div className="px-8 max-sm:px-4 mt-12">
           <div className="mb-8">
-            <div className="prose prose-amber max-w-none mb-8">
+            <div className="content-styles">
               <div dangerouslySetInnerHTML={{ __html: blog?.content }} />
             </div>
             <Separator />
