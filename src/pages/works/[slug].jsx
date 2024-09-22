@@ -11,6 +11,8 @@ import {
   BookOpen,
   Heart,
   Share2,
+  Mail,
+  X,
 } from "lucide-react";
 import Layout from "../Layout";
 import { useWorks } from "@/context/WorkContext";
@@ -23,9 +25,17 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import Comments from "@/components/works/Comments";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 export default function SingleWorkPage() {
   const [relatedWorks, setRelatedWorks] = useState([]);
+  const [showShareModal, setShowShareModal] = useState(false);
   const { incrementViewCount, getWorkById, getAllWorks, work, works } =
     useWorks();
   const { userProfile } = useUser();
@@ -98,6 +108,14 @@ export default function SingleWorkPage() {
           `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
             url
           )}&title=${encodeURIComponent(work?.title)}`,
+          "_blank"
+        );
+        break;
+      case "email":
+        window.open(
+          `mailto:?subject=${encodeURIComponent(
+            work?.title
+          )}&body=${encodeURIComponent(text + "\n\n" + url)}`,
           "_blank"
         );
         break;
@@ -195,11 +213,57 @@ export default function SingleWorkPage() {
                   ))}
                 </div>
                 <div className="flex flex-wrap gap-4">
-                  <Button size="lg" variant="outline" className="gap-2">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="gap-2"
+                    onClick={() => setShowShareModal(true)}
+                  >
                     <Share2 className="w-5 h-5" />
                     Share
                   </Button>
                 </div>
+
+                <Dialog open={showShareModal} onOpenChange={setShowShareModal}>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Share this work</DialogTitle>
+                      <DialogDescription>
+                        Choose a platform to share "{work?.title}"
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="flex flex-col space-y-4">
+                      <Button
+                        variant="outline"
+                        onClick={() => shareOnSocialMedia("facebook")}
+                        className="w-full justify-start"
+                      >
+                        <Facebook className="mr-2 h-4 w-4" /> Share on Facebook
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={() => shareOnSocialMedia("twitter")}
+                        className="w-full justify-start"
+                      >
+                        <Twitter className="mr-2 h-4 w-4" /> Share on Twitter
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={() => shareOnSocialMedia("linkedin")}
+                        className="w-full justify-start"
+                      >
+                        <Linkedin className="mr-2 h-4 w-4" /> Share on LinkedIn
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={() => shareOnSocialMedia("email")}
+                        className="w-full justify-start"
+                      >
+                        <Mail className="mr-2 h-4 w-4" /> Share via Email
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
           </div>
