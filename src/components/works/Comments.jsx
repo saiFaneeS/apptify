@@ -9,6 +9,7 @@ import { useWorks } from "@/context/WorkContext";
 import { useParams } from "next/navigation";
 import { Trash2, ArrowUpDown, Loader2 } from "lucide-react";
 import { Separator } from "../ui/separator";
+import Image from "next/image";
 
 export default function Comments({ workId }) {
   const [newComment, setNewComment] = useState({ username: "", content: "" });
@@ -60,10 +61,10 @@ export default function Comments({ workId }) {
       const comment = {
         commentId: `comment-${Date.now()}-${Math.random()}`,
         id: currentCommenter?.id,
-        username: currentCommenter.username,
+        username: currentCommenter?.username,
         content: newComment?.content,
         createdAt: new Date().toISOString(),
-        avatarSeed: currentCommenter.username,
+        avatarSeed: currentCommenter?.username,
       };
 
       addComment(currentWorkId, comment);
@@ -90,17 +91,27 @@ export default function Comments({ workId }) {
     setSortOrder((prevOrder) => (prevOrder === "newest" ? "oldest" : "newest"));
   };
 
+  const CommentAvatar = ({ username, size = 8 }) => {
+    return (
+      <Avatar className={`h-${size} w-${size}`}>
+        <Image
+          src={`https://api.dicebear.com/6.x/micah/svg?seed=${username}`}
+          alt={username}
+          width={size * 4}
+          height={size * 4}
+          className="rounded-full"
+        />
+        <AvatarFallback>{username[0].toUpperCase()}</AvatarFallback>
+      </Avatar>
+    );
+  };
+
   const CommentItem = ({ comment }) => (
     <div className="">
       <div className="flex items-center mb-2 justify-between">
         <div className="flex items-center">
-          <Avatar className="h-8 w-8 mr-2">
-            <AvatarImage
-              src={`https://api.dicebear.com/6.x/micah/svg?seed=${comment.username}`}
-            />
-            <AvatarFallback>{comment.username[0]}</AvatarFallback>
-          </Avatar>
-          <span className="font-semibold mr-2">{comment.username}</span>
+          <CommentAvatar username={comment.username} size={8} />
+          <span className="font-semibold ml-2 mr-2">{comment.username}</span>
           <span className="text-xs text-gray-500">
             {formatTime(comment.createdAt)}
           </span>
@@ -139,7 +150,7 @@ export default function Comments({ workId }) {
         <div className="flex space-x-2">
           <Avatar className="border border-border bg-background">
             <AvatarImage
-              src={`https://api.dicebear.com/6.x/micah/svg?seed=${newComment.username}`}
+              src={`https://api.dicebear.com/6.x/micah/svg?seed=${newComment?.username}`}
             />
             <AvatarFallback>
               <Loader2 className="animate-spin" />

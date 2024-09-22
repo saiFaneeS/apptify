@@ -255,7 +255,7 @@ export default function SinglePostPage() {
           </div>
           {/* More */}
           <div>
-            <h2 className="text-2xl font-semibold mb-8">Related Scrolls</h2>
+            <h2 className="text-2xl font-semibold mb-6">Related Scrolls</h2>
             <div className="grid grid-cols-1 gap-4">
               {relatedBlogs?.map((review) => (
                 <Link href={`/reviews/${review.id}`} key={review.id}>
