@@ -271,10 +271,7 @@ export default function SinglePostPage() {
                       className="rounded mr-4"
                     />
                     <div className="flex flex-col gap-1">
-                      <Badge className="mb-2 w-fit capitalize">
-                        {review.category}
-                      </Badge>
-                      <h3 className="text-lg font-bold mb-1">{review.title}</h3>
+                      <h3 className="text-lg font-bold mb-1 line-clamp-1">{review.title}</h3>
                       <p className="flex items-center gap-1 text-sm mb-1 font-medium">
                         <Book className="h-4 w-4" />
                         {review.bookName}
