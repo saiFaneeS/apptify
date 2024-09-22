@@ -271,7 +271,7 @@ export default function SingleWorkPage() {
         {/* Content */}
         <div className="px-8 max-sm:px-4 mt-12">
           <div className="mb-8">
-            <div className="content-styles">
+            <div className="content-styles mb-8">
               <div dangerouslySetInnerHTML={{ __html: work?.content }} />
             </div>
             <Separator />
