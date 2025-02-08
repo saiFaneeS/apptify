@@ -2,7 +2,6 @@ import Layout from "./Layout";
 import Hero from "@/components/about/Hero";
 import FeaturedBlogs from "@/components/blogs/FeaturedBlogs";
 import PopularBlogs from "@/components/blogs/PopularBlogs";
-import { Head } from "next/document";
 
 export default function AboutPage() {
   return (
