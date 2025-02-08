@@ -21,7 +21,7 @@ export default function Hero() {
       <div className="relative z-10 container text-start">
         <div className="">
           <div className="animate-in fade-in-50 slide-in-from-bottom-10 duration-300">
-            <h1 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+            <h1 className="text-4xl max-sm:text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
               Apptify Solutions - Blog
             </h1>
             <p className="text-base text-gray-300 mb-8 leading-relaxed">
@@ -74,7 +74,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-0 right-0 text-center">
+      <div className="absolute bottom-8 left-0 right-0 text-center z-20">
         <div className="animate-bounce inline-block">
           <ArrowRight className="h-6 w-6 rotate-90 text-gray-400" />
         </div>
