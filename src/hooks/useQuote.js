@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 
 const quotes = [
-  "May your quill be sharp and your ink never run dry.",
-  "In the realm of words, every page is a new adventure.",
-  "Books are the mirrors of the soul.",
-  "A reader lives a thousand lives before he dies.",
-  // Add more quotes as desired
+  "Talk is cheap. Show me the code.",
+  "Technology is best when it brings people together.",
+  "The best way to predict the future is to invent it.",
+  "Software is eating the world.",
 ];
 
 export function useQuote() {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,48 +11,96 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  ScrollText,
   Feather,
   Image as ImageIcon,
   Book,
   User,
   Star,
-  ChevronRight,
-  ChevronLeft,
   Loader2,
-  Plus,
   Eclipse,
+  Save,
 } from "lucide-react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { useBlogs } from "@/context/BlogContext";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
+const AUTO_SAVE_INTERVAL = 5000;
+
 export function AddNewBlogDialog() {
   const [open, setOpen] = useState(false);
-  const [step, setStep] = useState(1);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [bookName, setBookName] = useState("");
   const [bookAuthor, setBookAuthor] = useState("");
   const [rating, setRating] = useState("");
-  // const [category, setCategory] = useState("");
   const [coverImage, setCoverImage] = useState("");
   const [isPublished, setIsPublished] = useState(false);
   const [isLightMode, setIsLightMode] = useState(true);
+  const [activeTab, setActiveTab] = useState("details");
+  const [lastSaved, setLastSaved] = useState(null);
+  const [isAutoSaving, setIsAutoSaving] = useState(false);
 
   const { createBlog, loading } = useBlogs();
+  const { toast } = useToast();
+
+  const saveToLocalStorage = useCallback(() => {
+    const blogData = {
+      title,
+      content,
+      bookName,
+      bookAuthor,
+      rating,
+      isPublished,
+    };
+    localStorage.setItem("blogDraft", JSON.stringify(blogData));
+    setLastSaved(new Date());
+    setTimeout(() => {
+      setIsAutoSaving(false);
+    }, 2000);
+  }, [title, content, bookName, bookAuthor, rating, isPublished]);
+
+  const loadFromLocalStorage = useCallback(() => {
+    const savedData = localStorage.getItem("blogDraft");
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+      setTitle(parsedData.title || "");
+      setContent(parsedData.content || "");
+      setBookName(parsedData.bookName || "");
+      setBookAuthor(parsedData.bookAuthor || "");
+      setRating(parsedData.rating || "");
+      setIsPublished(parsedData.isPublished || false);
+      setLastSaved(new Date());
+    }
+  }, []);
+
+  const clearLocalStorage = useCallback(() => {
+    localStorage.removeItem("blogDraft");
+    setLastSaved(null);
+  }, []);
+
+  useEffect(() => {
+    if (open) {
+      loadFromLocalStorage();
+    }
+  }, [open, loadFromLocalStorage]);
+
+  useEffect(() => {
+    let saveInterval;
+    if (open) {
+      saveInterval = setInterval(() => {
+        setIsAutoSaving(true);
+        saveToLocalStorage();
+      }, AUTO_SAVE_INTERVAL);
+    }
+    return () => clearInterval(saveInterval);
+  }, [open, saveToLocalStorage]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -63,227 +111,132 @@ export function AddNewBlogDialog() {
       bookName,
       bookAuthor,
       rating,
-      // category,
       isPublished,
       coverImage,
       createdAt: Date.now(),
     });
 
+    clearLocalStorage();
     setOpen(false);
     resetForm();
+    toast({
+      title: "Blog post created",
+      description: "Your blog post has been successfully created and saved.",
+    });
   };
 
   const resetForm = () => {
-    setStep(1);
     setTitle("");
     setContent("");
     setBookName("");
     setBookAuthor("");
     setRating("");
-    // setCategory("");
     setCoverImage("");
     setIsPublished(false);
+    setActiveTab("details");
+    setLastSaved(null);
   };
-
-  const nextStep = (e) => {
-    e.preventDefault();
-    setStep((prev) => Math.min(prev + 1, 3));
-  };
-  const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
 
   const isSubmitDisabled = () => {
-    return !(title && bookName && rating && content && coverImage);
+    return !(title && content && coverImage);
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          className="flex gap-2 items-center bg-emerald-700 hover:bg-emerald-800"
+          className="flex gap-2 items-center"
           disabled={loading}
-          variant="default"
+          variant="outline"
         >
           {!loading ? (
             <>
-              <Star className="h-4 w-4" />
-              Review a Book
+              <Feather className="h-4 w-4" />
+              Write a Blog
             </>
           ) : (
             <Loader2 className="animate-spin" />
           )}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] border-2">
+      <DialogContent className="sm:max-w-[600px] border-2 overflow-y-auto max-h-screen">
         <DialogHeader>
-          <DialogTitle>Scribe a New Review</DialogTitle>
+          <DialogTitle>Compose a Blog</DialogTitle>
           <DialogDescription className="text-muted-foreground">
-            Share your thoughts on a tome of choice.
+            Pen your thoughts.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
-          <div className="py-4">
-            {step === 1 && (
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="title"
-                    className="text-foreground after:content-['*'] after:ml-0.5 after:text-red-500"
-                  >
-                    Title of Scroll
-                  </Label>
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="details">Details</TabsTrigger>
+              <TabsTrigger value="content">Content</TabsTrigger>
+            </TabsList>
+            <TabsContent value="details" className="space-y-4 mt-4">
+              <div className="space-y-2">
+                <Label
+                  htmlFor="title"
+                  className="text-foreground after:content-['*'] after:ml-0.5 after:text-red-500"
+                >
+                  Title of Blog
+                </Label>
+                <Input
+                  id="title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="bg-background border-input text-foreground"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label
+                  htmlFor="coverImage"
+                  className="text-foreground after:content-['*'] after:ml-0.5 after:text-red-500"
+                >
+                  Cover Image
+                </Label>
+                <div className="relative">
+                  <ImageIcon className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
                   <Input
-                    id="title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    className="bg-background border-input text-foreground"
+                    id="coverImage"
+                    type="file"
+                    onChange={(e) => setCoverImage(e.target.files?.[0] || "")}
+                    className="pl-10 bg-background border-input text-foreground"
                     required
                   />
                 </div>
-                {/* <div className="space-y-2">
+              </div>
+            </TabsContent>
+            <TabsContent value="content" className="space-y-4 mt-4">
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
                   <Label
-                    htmlFor="category"
+                    htmlFor="content"
                     className="text-foreground after:content-['*'] after:ml-0.5 after:text-red-500"
                   >
-                    Main Category
+                    Content
                   </Label>
-                  <Select value={category} onValueChange={setCategory} required>
-                    <SelectTrigger className="bg-background border-input text-foreground">
-                      <SelectValue placeholder="Select a category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="fantasy">Fantasy</SelectItem>
-                      <SelectItem value="science-fiction">
-                        Science Fiction
-                      </SelectItem>
-                      <SelectItem value="mystery">Mystery</SelectItem>
-                      <SelectItem value="romance">Romance</SelectItem>
-                      <SelectItem value="thriller">Thriller</SelectItem>
-                      <SelectItem value="horror">Horror</SelectItem>
-                      <SelectItem value="historical-fiction">
-                        Historical Fiction
-                      </SelectItem>
-                      <SelectItem value="contemporary">
-                        Contemporary Fiction
-                      </SelectItem>
-                      <SelectItem value="literary-fiction">
-                        Literary Fiction
-                      </SelectItem>
-                      <SelectItem value="young-adult">Young Adult</SelectItem>
-                      <SelectItem value="non-fiction">Non-Fiction</SelectItem>
-                      <SelectItem value="biography">Biography</SelectItem>
-                      <SelectItem value="memoir">Memoir</SelectItem>
-                      <SelectItem value="self-help">Self-Help</SelectItem>
-                      <SelectItem value="poetry">Poetry</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div> */}
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="coverImage"
-                    className="text-foreground after:content-['*'] after:ml-0.5 after:text-red-500"
+                  <Button
+                    type="button"
+                    onClick={() => setIsLightMode(!isLightMode)}
+                    size="icon"
+                    variant="outline"
                   >
-                    Cover Image
-                  </Label>
-                  <div className="relative">
-                    <ImageIcon className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-                    <Input
-                      id="coverImage"
-                      type="file"
-                      onChange={(e) => setCoverImage(e.target.files?.[0] || "")}
-                      className="pl-10 bg-background border-input text-foreground"
-                    />
-                  </div>
+                    <Eclipse size={20} />
+                  </Button>
+                </div>
+                <div className="h-[calc(80vh-300px)] overflow-y-auto">
+                  <ReactQuill
+                    theme="snow"
+                    value={content}
+                    onChange={setContent}
+                    className={`${
+                      isLightMode ? "bg-white text-neutral-900" : ""
+                    } `}
+                  />
                 </div>
               </div>
-            )}
-            {step === 2 && (
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="bookName"
-                    className="text-foreground after:content-['*'] after:ml-0.5 after:text-red-500"
-                  >
-                    Book Name
-                  </Label>
-                  <div className="relative">
-                    <Book className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-                    <Input
-                      id="bookName"
-                      value={bookName}
-                      onChange={(e) => setBookName(e.target.value)}
-                      className="pl-10 bg-background border-input text-foreground"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="bookAuthor" className="text-foreground">
-                    Book Author
-                  </Label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-                    <Input
-                      id="bookAuthor"
-                      value={bookAuthor}
-                      onChange={(e) => setBookAuthor(e.target.value)}
-                      className="pl-10 bg-background border-input text-foreground"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="rating"
-                    className="text-foreground after:content-['*'] after:ml-0.5 after:text-red-500"
-                  >
-                    Rating (1-5)
-                  </Label>
-                  <div className="relative">
-                    <Star className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-                    <Input
-                      id="rating"
-                      type="number"
-                      min="1"
-                      max="5"
-                      value={rating}
-                      onChange={(e) => setRating(e.target.value)}
-                      className="pl-10 bg-background border-input text-foreground"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-            {step === 3 && (
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <Label
-                      htmlFor="content"
-                      className="text-foreground after:content-['*'] after:ml-0.5 after:text-red-500"
-                    >
-                      Content
-                    </Label>
-                    <Button
-                      type="button"
-                      onClick={() => setIsLightMode(!isLightMode)}
-                      size="icon"
-                      variant="outline"
-                    >
-                      <Eclipse size={20} />
-                    </Button>
-                  </div>
-                  <div className="max-h-40">
-                    <ReactQuill
-                      theme="snow"
-                      value={content}
-                      onChange={setContent}
-                      className={`${
-                        isLightMode ? "bg-white text-neutral-900" : ""
-                      } max-h-40 overflow-y-auto`}
-                    />
-                  </div>
-                </div>
+              <div className="flex justify-between items-center gap-2">
                 <div className="flex items-center space-x-2">
                   <Switch
                     id="published"
@@ -294,43 +247,33 @@ export function AddNewBlogDialog() {
                     {isPublished ? "Published" : "Draft"}
                   </Label>
                 </div>
+                <div>
+                  {!isAutoSaving && lastSaved && (
+                    <p className="text-sm text-muted-foreground">
+                      Last saved: {lastSaved.toLocaleTimeString()}
+                    </p>
+                  )}
+                  {isAutoSaving && (
+                    <p className="text-sm text-muted-foreground flex items-center">
+                      <Save className="w-4 h-4 mr-1 animate-pulse" />
+                      Auto-saving...
+                    </p>
+                  )}
+                </div>
               </div>
-            )}
-          </div>
-          <DialogFooter className="flex justify-between gap-2 flex-row">
-            {step > 1 && (
-              <Button
-                type="button"
-                onClick={prevStep}
-                variant="secondary"
-                className="w-fit"
-                size="sm"
-              >
-                <ChevronLeft className="mr-2 h-4 w-4" />
-                Previous
-              </Button>
-            )}
-            {step < 3 ? (
-              <Button
-                type="button"
-                onClick={(e) => nextStep(e)}
-                className="bg-emerald-600 hover:bg-emerald-700 w-fit"
-                size="sm"
-              >
-                Next
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </Button>
-            ) : (
+            </TabsContent>
+          </Tabs>
+          <DialogFooter className="mt-6">
+            <div className="w-full flex flex-col items-center gap-2">
               <Button
                 type="submit"
-                className="bg-emerald-600 hover:bg-emerald-700 w-fit"
+                className="w-full"
                 disabled={isSubmitDisabled()}
-                size="sm"
               >
                 <Feather className="mr-2 h-5 w-5" />
                 Submit Post
               </Button>
-            )}
+            </div>
           </DialogFooter>
         </form>
       </DialogContent>

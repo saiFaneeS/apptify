@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(authInstance, (user) => {
       setUser(user);
       if (!user && router.pathname.includes("dashboard")) {
-        router.push("/sign-in");
+        router.push("/dashboard/sign-in");
       }
     });
 

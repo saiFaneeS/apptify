@@ -28,10 +28,7 @@ const SetFeaturedBlogModal = ({ currentFeaturedBlog }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button
-          className="p-2 h-8 bg-emerald-600 hover:bg-emerald-700"
-          size="sm"
-        >
+        <Button className="p-2 h-8" size="sm">
           {updatingFeatured ? (
             <Loader2 className="animate-spin" />
           ) : (
@@ -43,9 +40,9 @@ const SetFeaturedBlogModal = ({ currentFeaturedBlog }) => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[450px]">
         <DialogHeader>
-          <DialogTitle>Select Featured Review</DialogTitle>
+          <DialogTitle>Select Featured Blog</DialogTitle>
           <DialogDescription>
-            This will be prominently displayed as your featured review.
+            This will be prominently displayed as your featured blog.
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className="mt-4 max-h-[60vh] pr-4 py-2">
@@ -62,7 +59,7 @@ const SetFeaturedBlogModal = ({ currentFeaturedBlog }) => {
                   }`}
                   onClick={() => setSelectedBlog(blog)}
                 >
-                  <div className="relative w-12 h-16 rounded-md overflow-hidden">
+                  <div className="relative w-14 aspect-video rounded-md overflow-hidden shrink-0">
                     <Image
                       src={blog.coverImage || "/"}
                       alt={blog.title}
@@ -71,10 +68,9 @@ const SetFeaturedBlogModal = ({ currentFeaturedBlog }) => {
                     />
                   </div>
                   <div className="flex-grow">
-                    <h3 className="text-lg leading-snug font-semibold">
+                    <h3 className="text-base line-clamp-1 leading-snug font-medium">
                       {blog.title}
                     </h3>
-                    <p> {blog.bookName}</p>
                   </div>
                   {selectedBlog?.id === blog?.id && (
                     <Check className="w-6 h-6" />
@@ -87,7 +83,7 @@ const SetFeaturedBlogModal = ({ currentFeaturedBlog }) => {
           <Button
             onClick={handleUpdateFeaturedBlog}
             disabled={selectedBlog?.id === currentFeaturedBlog?.id}
-            className="bg-emerald-600 hover:bg-emerald-700"
+            className=""
           >
             {updatingFeatured ? (
               <Loader2 className="animate-spin" />

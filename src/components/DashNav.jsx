@@ -33,6 +33,7 @@ import { useUser } from "@/context/UserContext";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { AvatarFallback } from "@radix-ui/react-avatar";
+import Image from "next/image";
 
 export default function TopBar() {
   const { user, auth } = useAuth();
@@ -70,7 +71,7 @@ export default function TopBar() {
     <div
       className={`bg-background text-foreground border-b dark:border-border fixed top-0 left-0 w-full z-50 transition-transform duration-200`}
     >
-      <div className="px-8 max-sm:px-4">
+      <div className="p-page-sides">
         <div className="flex items-center justify-between h-16">
           {/* Logo and site title */}
           <Link
@@ -100,32 +101,39 @@ export default function TopBar() {
                   className="relative h-10 w-auto rounded-full px-1 hover:bg-accent hover:text-accent-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
                   <div className="flex items-center gap-2">
-                    <Avatar className="h-8 w-8 flex justify-center items-center">
-                      <AvatarImage
-                        src={avatar}
-                        alt="User"
-                        className="object-cover"
-                      />
-                      <AvatarFallback className="flex justify-center items-center">
-                        <User2 size={16} />
-                      </AvatarFallback>
-                    </Avatar>
+                    <Image
+                      alt=""
+                      src={"/logo.png"}
+                      className="h-8 w-8 rounded-full object-cover border border-border"
+                      width={"100"}
+                      height={"100"}
+                    />
                     <span className="hidden sm:inline-block text-sm font-medium">
-                      {userProfile?.name || "Menu"}
+                      Apptify
                     </span>
                     <ChevronDown size={16} className="text-muted-foreground" />
                   </div>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56" align="end" forceMount>
-                <DropdownMenuLabel className="font-normal">
+                <DropdownMenuLabel className="font-normal flex justify-between items-center">
                   <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">
-                      {userProfile?.name}
-                    </p>
+                    <p className="text-sm font-medium leading-none">Apptify</p>
                     <p className="text-xs leading-none text-muted-foreground">
                       {user?.email}
                     </p>
+                  </div>
+                  <div>
+                    {mounted && (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 border border-border outline outline-2 outline-border/10 hover:outline-primary/50 hover:bg-primary/10 transition-all shrink-0 rounded-full"
+                        onClick={() => setTheme(isDark ? "light" : "dark")}
+                      >
+                        {isDark ? <Sun size={16} /> : <Moon size={16} />}
+                      </Button>
+                    )}
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
@@ -135,30 +143,27 @@ export default function TopBar() {
                     <span>Dashboard</span>
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
+                {/* <DropdownMenuItem asChild>
                   <Link href="/dashboard/works" className="flex items-center">
                     <Feather className="mr-2 h-4 w-4" />
                     <span>Compositions</span>
                   </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
+                </DropdownMenuItem> */}
+                {/* <DropdownMenuItem asChild>
                   <Link href="/dashboard/reviews" className="flex items-center">
                     <ScrollText className="mr-2 h-4 w-4" />
                     <span>Book Reviews</span>
                   </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/dashboard/library" className="flex items-center">
+                </DropdownMenuItem> */}
+                {/* <DropdownMenuItem asChild>
+                  <Link href="/dashboard/books" className="flex items-center">
                     <LibraryBig className="mr-2 h-4 w-4" />
-                    <span>Library</span>
+                    <span>My Shelf</span>
                   </Link>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link
-                    href="/dashboard/settings"
-                    className="flex items-center"
-                  >
+                  <Link href="/dashboard/profile" className="flex items-center">
                     <CircleUser className="mr-2 h-4 w-4" />
                     <span>Profile</span>
                   </Link>

@@ -38,7 +38,7 @@ export const BlogsProvider = ({ children }) => {
   const [commenting, setCommenting] = useState(false);
   const [deletingComment, setDeletingComment] = useState(false);
   const [error, setError] = useState(null);
-  
+
   const getAllBlogs = async () => {
     setFetchingBlogs(true);
     try {
@@ -48,11 +48,22 @@ export const BlogsProvider = ({ children }) => {
         ...doc.data(),
       }));
 
+      console.log(blogsArray);
+
       const fullBlogsArray = await Promise.all(
         blogsArray?.map(async (blog) => {
-          const coverImageUrl = await getDownloadURL(
-            ref(storage, `${blog?.coverImage}`)
-          );
+          let coverImageUrl = "";
+          try {
+            coverImageUrl = await getDownloadURL(
+              ref(storage, `${blog?.coverImage}`)
+            );
+          } catch (error) {
+            if (error.code === "storage/object-not-found") {
+              coverImageUrl = "";
+            } else {
+              throw error;
+            }
+          }
           return {
             ...blog,
             coverImage: coverImageUrl,
@@ -119,10 +130,10 @@ export const BlogsProvider = ({ children }) => {
           ref(storage, blogData.coverImage)
         );
         setBlog({ ...blogData, coverImage: coverImageUrl });
-        // console.log("Blog data", { ...blogData, coverImage: coverImageUrl });
+        console.log("Blog data", { ...blogData, coverImage: coverImageUrl });
       }
 
-      setComments(docSnap.data().comments);
+      setComments(docSnap?.data()?.comments);
     } catch (err) {
       console.log(err);
 

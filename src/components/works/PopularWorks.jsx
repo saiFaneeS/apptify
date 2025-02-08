@@ -27,7 +27,7 @@ const PopularWorks = () => {
 
   return (
     <section className="px-8 max-sm:px-4 py-12">
-      <h2 className="text-2xl font-semibold mb-5">Popular Works</h2>
+      <h2 className="text-2xl font-semibold mb-5">Popular Blogs</h2>
       {popularWorks.length > 0 ? (
         <div className="grid gap-6 md:grid-cols-2">
           {popularWorks.map((work) => (

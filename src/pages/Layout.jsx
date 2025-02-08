@@ -5,7 +5,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Navbar />
-      {children}
+      <div className="bg-accent dark:bg-accent/0">{children}</div>
       <Footer />
     </>
   );

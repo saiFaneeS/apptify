@@ -26,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { Separator } from "../ui/separator";
 
 export default function Main() {
   const { blogs, getAllBlogs } = useBlogs();
@@ -71,8 +72,6 @@ export default function Main() {
         return [...blogs].sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-      case "rating":
-        return [...blogs].sort((a, b) => b.rating - a.rating);
       case "title":
         return [...blogs].sort((a, b) => a.title.localeCompare(b.title));
       default:
@@ -85,19 +84,19 @@ export default function Main() {
   };
 
   return (
-    <section className="px-8 max-sm:px-4 mb-12">
+    <section className="p-page-sides">
       <div className="mb-4">
         <div className="flex gap-2 justify-between items-center">
           <div className="w-full">
             <Input
               type="search"
-              placeholder="Search reviews..."
+              placeholder="Search blogs..."
               className="bg100 text900 placeholder700"
               value={searchTerm}
               onChange={handleSearchInputChange}
             />
           </div>
-          <Button className="flex items-center md:px-12" disabled={true}>
+          <Button className="flex items-center md:px-12">
             {isSearching ? (
               <Loader2 className="h-5 w-5 animate-spin" />
             ) : (
@@ -112,7 +111,7 @@ export default function Main() {
           <ArrowUpDown className="w-4 h-4" />
           <span className="text-sm font-medium text-nowrap">Sort by:</span>
           <div className="hidden md:flex gap-2">
-            {["date", "rating", "title"].map((option) => (
+            {["date", "title"].map((option) => (
               <Button
                 key={option}
                 size="sm"
@@ -130,7 +129,7 @@ export default function Main() {
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
-                {["date", "rating", "title"].map((option) => (
+                {["date", "title"].map((option) => (
                   <SelectItem key={option} value={option}>
                     {option.charAt(0).toUpperCase() + option.slice(1)}
                   </SelectItem>
@@ -154,66 +153,63 @@ export default function Main() {
           className={`${
             isListView
               ? "space-y-4"
-              : "grid gap-8 max-md:gap-4 max-sm:gap-3 grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5"
-          } animate-in fade-in-100 slide-in-from-bottom-10 duration-300`}
+              : "grid gap-8 max-md:gap-4 max-sm:gap-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          }`}
         >
           {filteredBlogs.map((post) => (
-            <Card
-              key={post.id}
-              className={`relative ${
-                isListView ? "flex p-3" : "flex flex-col max-md:p-3"
-              } items-start justify-start gap-4`}
-            >
-              <Image
-                src={post.coverImage}
-                alt={post.title}
-                width={300}
-                height={200}
-                className={`${
-                  isListView ? "w-32 h-48" : "w-full aspect-[0.7]"
-                } object-cover rounded-sm relative z-20`}
-              />
-              <div className="w-full flex flex-col gap-2 justify-between h-full text-foreground">
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-base font-semibold line-clamp-1">
-                    {post.title}
-                  </h3>
-                  <div className="flex items-center mt-1">
-                    <Book className="w-4 h-4 mr-2" />
-                    <span className="text-xs">{post.bookName}</span>
-                  </div>
-                  {post?.bookAuthor && (
+            <>
+              <div
+                key={post.id}
+                className={`relative ${
+                  isListView ? "flex p-3 flex-col sm:flex-row" : "flex flex-col max-md:p-3"
+                } items-start justify-start gap-4 animate-in fade-in-50 slide-in-from-bottom-10 duration-300`}
+              >
+                <Image
+                  src={post.coverImage}
+                  alt={post.title}
+                  width={300}
+                  height={200}
+                  className={`${
+                    isListView ? "aspect-video" : "aspect-video"
+                  } object-cover rounded relative z-20`}
+                />
+                <div className="w-full flex flex-col gap-2 justify-between h-full text-foreground">
+                  <div className="flex flex-col gap-2">
+                    <h3 className="text-base font-semibold line-clamp-2">
+                      {post.title}
+                    </h3>
+                    {post?.content && (
+                      <div
+                        className="text-xs line-clamp-1 text-foreground/60"
+                        dangerouslySetInnerHTML={{ __html: post.content }}
+                      />
+                    )}
+
+                    {/* {post?.bookAuthor && (
                     <div className="flex items-center">
                       <Feather className="w-4 h-4 mr-2" />
                       <span className="text-xs">{post.bookAuthor}</span>
                     </div>
-                  )}
-                  <div className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    <span className="text-xs">
-                      {formatTime(post.createdAt)}
-                    </span>
+                  )} */}
+                    <div className="flex items-center">
+                      <span className="ml-1 w-2 h-2 mr-2 bg-primary rounded-full" />
+                      <span className="text-xs">
+                        {formatTime(post.createdAt)}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex items-center">
-                    <span className="text-xs">
-                      {[...Array(5)].map((_, index) => (
-                        <Star
-                          key={index}
-                          className={`w-4 h-4 inline ${
-                            index < post.rating
-                              ? "text-yellow-400 fill-current"
-                              : "text-gray-300"
-                          }`}
-                        />
-                      ))}
-                    </span>
-                  </div>
+                  <Link href={`/blogs/${post.id}`} className="mt-1 w-fit">
+                    <Button
+                      variant="outline"
+                      className="text-sm w-fit hover:underline"
+                    >
+                      View Post
+                    </Button>
+                  </Link>
                 </div>
-                <Link href={`/reviews/${post.id}`} className="mt-1">
-                  <Button variant="outline">Read Review</Button>
-                </Link>
               </div>
-            </Card>
+              <Separator className={`${!isListView ? "hidden" : ""}`} />
+            </>
           ))}
         </div>
       ) : (

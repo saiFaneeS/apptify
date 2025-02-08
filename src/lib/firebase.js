@@ -3,13 +3,13 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCqzPxoiAjjIfIJS5dCutwydkfkoD3N1fg",
-  authDomain: "olde-blog.firebaseapp.com",
-  projectId: "olde-blog",
-  storageBucket: "olde-blog.appspot.com",
-  messagingSenderId: "653935074158",
-  appId: "1:653935074158:web:6be16cfc03b46e8ea4bf7f",
-  measurementId: "G-64034QRKVJ",
+  apiKey: "AIzaSyCSNxj6n-OJFpm9svvsVjDIPFpTOG2ngqc",
+  authDomain: "booknook-sarah-blog.firebaseapp.com",
+  projectId: "booknook-sarah-blog",
+  storageBucket: "booknook-sarah-blog.appspot.com",
+  messagingSenderId: "509585728856",
+  appId: "1:509585728856:web:95f19b5007791b9962b12d",
+  measurementId: "G-K6N2JGXE2L",
 };
 
 export const app = initializeApp(firebaseConfig);
