@@ -42,29 +42,31 @@ export default function Comments() {
         }
       });
       setSortedComments(sorted);
+      console.log(comments);
     }
   }, [comments, sortOrder]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const blogId = params.slug;
-
     if (newComment.username.trim() && newComment.content.trim()) {
       let currentCommenter = {
-        id: commenter?.id || `Guest-${Date.now()}-${Math.random()}`,
+        id: commenter?.id || `guest${Date.now()}${Math.random() * 1000}`,
         username: newComment.username,
       };
       setCommenter(currentCommenter);
       localStorage.setItem("commenter", JSON.stringify(currentCommenter));
 
       const comment = {
-        commentId: `comment-${Date.now()}-${Math.random()}`,
+        commentId: `comment${Date.now()}${Math.random() * 1000}`,
         id: currentCommenter?.id,
         username: currentCommenter.username,
         content: newComment?.content,
         createdAt: new Date().toISOString(),
         avatarSeed: currentCommenter.username,
       };
+
+      console.log(blogId, comment);
 
       addComment(blogId, comment);
 

@@ -43,8 +43,8 @@ import { toast } from "@/hooks/use-toast";
 
 export default function SinglePostPage() {
   const [relatedBlogs, setRelatedBlogs] = useState([]);
-  const { incrementViewCount, getBlogById, getAllBlogs, blog, blogs } =
-    useBlogs();
+  const [blog, setBlog] = useState([]);
+  const { incrementViewCount, getAllBlogs, blogs } = useBlogs();
   const { userProfile } = useUser();
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
@@ -52,13 +52,24 @@ export default function SinglePostPage() {
   const { slug } = router.query;
 
   useEffect(() => {
-    getBlogById(slug);
+    const fetchBlog = () => {
+      if (blogs && blogs.length > 0) {
+        const foundBlog = blogs.find((blog) => blog.id === slug);
+        console.log(foundBlog);
+        if (foundBlog) {
+          setBlog(foundBlog);
+        } else {
+        }
+      }
+    };
+
+    fetchBlog();
 
     const timer = setTimeout(() => {
       incrementViewCount(slug);
     }, 1000);
     return () => clearTimeout(timer);
-  }, [slug]);
+  }, [slug, blogs]);
 
   useEffect(() => {
     const fetchRelatedBlogs = async () => {
@@ -169,7 +180,7 @@ export default function SinglePostPage() {
     <Layout>
       <div className="min-h-screen pb-12">
         {/* Hero */}
-        <div className="relative min-h-[60vh] overflow-hidden border-b border-border">
+        <div className="relative min-h-[80vh] overflow-hidden border-b border-border">
           <Image
             src={blog?.coverImage}
             alt={blog?.title}
@@ -199,7 +210,7 @@ export default function SinglePostPage() {
             )}
             <div className="flex flex-col justify-center items-start max-md:items-center max-md:px-4">
               {blog?.title ? (
-                <h1 className="text-3xl md:text-4xl font-semibold mb-4 max-md:text-center">
+                <h1 className="text-2xl md:text-3xl font-semibold mb-4 max-md:text-center">
                   {blog?.title}
                 </h1>
               ) : (
@@ -212,12 +223,6 @@ export default function SinglePostPage() {
                     <span>{formatTime(blog?.createdAt)}</span>
                   )}
                 </div>
-                {blog?.bookName && (
-                  <div className="flex items-center">
-                    <Book className="w-4 h-4 mr-2 text-primary" />
-                    <span>{blog?.bookName}</span>
-                  </div>
-                )}
               </div>
             </div>
           </div>
@@ -348,11 +353,11 @@ export default function SinglePostPage() {
         <section className="grid  px-8 gap-8 max-sm:px-4 max-w-screen-lg mx-auto">
           {/* Comments */}
           <div
-          // className={`${
-          //   relatedBlogs?.length > 0
-          //     ? "md:col-span-2 max-md:order-2"
-          //     : "md:col-span-3"
-          // }`}
+            className={`${
+              relatedBlogs?.length > 0
+                ? "md:col-span-2 max-md:order-2"
+                : "md:col-span-3"
+            }`}
           >
             <Comments />
           </div>

@@ -90,7 +90,7 @@ const PopularBlogs = () => {
                 </div>
 
                 {/* <p className="">{post.excerpt}</p> */}
-                <Link href={`/blogs/${post.id}`} className="mt-3 w-fit">
+                <Link href={`/blogs/${post?.id}`} className="mt-3 w-fit">
                   <Button variant="outline">View Post</Button>
                 </Link>
               </div>
@@ -107,8 +107,8 @@ const PopularBlogs = () => {
           </Button>
         </Link> */}
         <Link href={`/blogs`} className="inline-block mt-6">
-          <button className="group flex items-center justify-center px-4 py-1.5 bg-primary/80 text-primary-foreground rounded-full transition-all hover:bg-primary/90">
-            <span className="text-sm font-">{"View All"}</span>
+          <button className="group flex items-center justify-center px-4 py-1.5 pl-5 bg-primary/80 text-primary-foreground rounded-full transition-all hover:bg-primary/90">
+            <span className="text-sm">{"View All"}</span>
             <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </button>
         </Link>

@@ -48,7 +48,7 @@ export const BlogsProvider = ({ children }) => {
         ...doc.data(),
       }));
 
-      console.log(blogsArray);
+      // console.log(blogsArray);
 
       const fullBlogsArray = await Promise.all(
         blogsArray?.map(async (blog) => {
@@ -271,7 +271,7 @@ export const BlogsProvider = ({ children }) => {
         );
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
 
       const errCode = err.code;
       const errMessage = err.message;
@@ -282,9 +282,10 @@ export const BlogsProvider = ({ children }) => {
   // comments
   const addComment = async (blogId, comment) => {
     setCommenting(true);
-
     try {
+      console.log(blogId);
       const blogRef = doc(db, "blogs", blogId);
+
       await updateDoc(blogRef, {
         comments: arrayUnion(comment),
       });

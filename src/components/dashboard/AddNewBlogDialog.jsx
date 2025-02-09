@@ -105,7 +105,7 @@ export function AddNewBlogDialog() {
   const handleSubmit = (event) => {
     event.preventDefault();
     createBlog({
-      id: `${title}-${Date.now()}`,
+      id: `${Date.now()}${Math.floor(Math.random() * 1000)}`,
       title,
       content,
       bookName,
