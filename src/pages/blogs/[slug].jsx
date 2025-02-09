@@ -43,8 +43,8 @@ import { toast } from "@/hooks/use-toast";
 
 export default function SinglePostPage() {
   const [relatedBlogs, setRelatedBlogs] = useState([]);
-  const [blog, setBlog] = useState([]);
-  const { incrementViewCount, getAllBlogs, blogs } = useBlogs();
+  const { incrementViewCount, getBlogById, getAllBlogs, blog, blogs } =
+    useBlogs();
   const { userProfile } = useUser();
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
@@ -52,24 +52,14 @@ export default function SinglePostPage() {
   const { slug } = router.query;
 
   useEffect(() => {
-    const fetchBlog = () => {
-      if (blogs && blogs.length > 0) {
-        const foundBlog = blogs.find((blog) => blog.id === slug);
-        console.log(foundBlog);
-        if (foundBlog) {
-          setBlog(foundBlog);
-        } else {
-        }
-      }
-    };
-
-    fetchBlog();
-
+    getBlogById(slug);
+    console.log("slug", slug);
+    console.log("blog", slug);
     const timer = setTimeout(() => {
       incrementViewCount(slug);
     }, 1000);
     return () => clearTimeout(timer);
-  }, [slug, blogs]);
+  }, [slug]);
 
   useEffect(() => {
     const fetchRelatedBlogs = async () => {
@@ -353,11 +343,11 @@ export default function SinglePostPage() {
         <section className="grid  px-8 gap-8 max-sm:px-4 max-w-screen-lg mx-auto">
           {/* Comments */}
           <div
-            className={`${
-              relatedBlogs?.length > 0
-                ? "md:col-span-2 max-md:order-2"
-                : "md:col-span-3"
-            }`}
+          // className={`${
+          //   relatedBlogs?.length > 0
+          //     ? "md:col-span-2 max-md:order-2"
+          //     : "md:col-span-3"
+          // }`}
           >
             <Comments />
           </div>

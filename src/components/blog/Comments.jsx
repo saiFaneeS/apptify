@@ -171,7 +171,7 @@ export default function Comments() {
 
       {/* Comments */}
       <div className="flex flex-col gap-8 pt-4">
-        {sortedComments?.map((comment) => (
+        {comments?.map((comment) => (
           <React.Fragment key={comment.commentId}>
             <CommentItem comment={comment} />
             <Separator />

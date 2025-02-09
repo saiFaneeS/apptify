@@ -132,7 +132,7 @@ export const BlogsProvider = ({ children }) => {
         setBlog({ ...blogData, coverImage: coverImageUrl });
         console.log("Blog data", { ...blogData, coverImage: coverImageUrl });
       }
-
+      console.log(docSnap?.data()?.comments);
       setComments(docSnap?.data()?.comments);
     } catch (err) {
       console.log(err);
